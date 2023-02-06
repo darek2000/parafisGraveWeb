@@ -19,9 +19,18 @@ namespace CemeteryWeb
                 x.LocationAttributeThree == a.LocationAttributeThree &&
                 x.LocationAttributeFour == a.LocationAttributeFour).ToList();
 
+            var graveid = g.FirstOrDefault().FkGrave;
+
+            var f = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == graveid).ToList().FirstOrDefault();
+
             var result = new GraveModel(g.FirstOrDefault());
 
-            foreach(var p in g)
+            if (f != null)
+            {
+                result.Filename = f.PhotoFile;
+            }
+
+            foreach (var p in g)
             {
                 result.PersonList.Add(new PersonModel(p)
                 { 
