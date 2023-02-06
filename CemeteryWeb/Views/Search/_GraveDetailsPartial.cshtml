@@ -1,0 +1,22 @@
+﻿@model CemeteryWeb.Models.GraveModel
+
+@if (Model != null)
+{
+	<h3>Informacje o grobie: <span style="color: red">@Model.AttributeTwo / @Model.AttributeThree / @Model.AttributeFour</span></h3>
+	<div class="col-md-11" style="border:1px solid gray">
+
+		@if (Model.PersonList != null)
+		{
+			<h5>Osoby pochowane w grobie</h5>
+
+			foreach (var p in Model.PersonList)
+			{
+				<h4><span style="color:red">Św.P. @p.Name @p.Surname</span></h4>
+				<h5><span style="color:gray"><b>Data urodzenia </b>@p.DateBirth</span></h5>
+				<h5><span style="color:gray"><b>Data śmierci </b>@p.DateDeath</span></h5>
+				<br />
+			}
+		}
+	</div>
+}
+

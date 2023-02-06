@@ -1,0 +1,1651 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ParafisDBTestoweModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BookBaptism">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TimeStamp" Type="datetime" />
+          <Property Name="ActNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="ActPage" Type="nvarchar" MaxLength="50" />
+          <Property Name="ActYear" Type="nvarchar" MaxLength="50" />
+          <Property Name="BaptismPlace" Type="nvarchar" MaxLength="50" />
+          <Property Name="BaptismDate" Type="datetime" />
+          <Property Name="BaptismName" Type="nvarchar" MaxLength="50" />
+          <Property Name="BaptismSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="BaptismPersonId" Type="int" />
+          <Property Name="BaptismPersonBirthDate" Type="datetime" />
+          <Property Name="YearBirth" Type="int" />
+          <Property Name="BaptismMotherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="BaptismMotherSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="BaptismMotherFaith" Type="smallint" />
+          <Property Name="BaptismFatherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="BaptismFatherSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="BaptismFatherFaith" Type="smallint" />
+          <Property Name="MarriageType" Type="smallint" />
+          <Property Name="MarriagePlace" Type="nvarchar" MaxLength="50" />
+          <Property Name="MarriageDate" Type="datetime" />
+          <Property Name="BaptismGodmotherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="BaptismGodmotherSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="BaptismGodmotherFaith" Type="smallint" />
+          <Property Name="BaptismGodfatherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="BaptismGodfatherSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="BaptismGodfatherFaith" Type="smallint" />
+          <Property Name="SacramentDetails" Type="nvarchar" MaxLength="500" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
+          <Property Name="PastorNameSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="FkUser" Type="int" />
+          <Property Name="FkPerson" Type="int" />
+          <Property Name="FkMother" Type="int" />
+          <Property Name="FkFather" Type="int" />
+          <Property Name="FkGodmother" Type="int" />
+          <Property Name="FkGodfather" Type="int" />
+          <Property Name="YearMarriage" Type="int" />
+          <Property Name="YearBaptism" Type="int" />
+          <Property Name="IsForVerification" Type="bit" />
+        </EntityType>
+        <EntityType Name="BookCommunion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TimeStamp" Type="datetime" />
+          <Property Name="ActNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="ActPage" Type="nvarchar" MaxLength="50" />
+          <Property Name="ActYear" Type="nvarchar" MaxLength="50" />
+          <Property Name="CommunionPlace" Type="nvarchar" MaxLength="50" />
+          <Property Name="CommunionDate" Type="datetime" />
+          <Property Name="YearCommunion" Type="int" />
+          <Property Name="CommunionPersonName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CommunionPersonSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="PersonSex" Type="smallint" />
+          <Property Name="SchoolNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="SacramentDetails" Type="nvarchar" MaxLength="500" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
+          <Property Name="PastorNameSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="FkUser" Type="int" />
+          <Property Name="FkPerson" Type="int" />
+          <Property Name="ParishName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsForVerification" Type="bit" />
+        </EntityType>
+        <EntityType Name="BookConfirmation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TimeStamp" Type="datetime" />
+          <Property Name="ActNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="ActPage" Type="nvarchar" MaxLength="50" />
+          <Property Name="ActYear" Type="nvarchar" MaxLength="50" />
+          <Property Name="ConfirmationPlace" Type="nvarchar" MaxLength="50" />
+          <Property Name="ConfirmationDate" Type="datetime" />
+          <Property Name="ConfirmationPersonName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ConfirmationPersonSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="ConfirmationName" Type="nvarchar" MaxLength="50" />
+          <Property Name="BaptismDate" Type="datetime" />
+          <Property Name="YearBaptism" Type="int" />
+          <Property Name="YearConfirmation" Type="int" />
+          <Property Name="SacramentDetails" Type="nvarchar" MaxLength="500" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
+          <Property Name="PastorNameSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="FkUser" Type="int" />
+          <Property Name="FkPerson" Type="int" />
+          <Property Name="ParishName" Type="nvarchar" MaxLength="50" />
+          <Property Name="FkWitness" Type="int" />
+          <Property Name="WitnessName" Type="nvarchar" MaxLength="50" />
+          <Property Name="WitnessSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="BaptismPlace" Type="nvarchar" MaxLength="50" />
+          <Property Name="PersonSex" Type="smallint" />
+          <Property Name="IsForVerification" Type="bit" />
+        </EntityType>
+        <EntityType Name="BookDeath">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TimeStamp" Type="datetime" />
+          <Property Name="ActNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="ActPage" Type="nvarchar" MaxLength="50" />
+          <Property Name="ActYear" Type="nvarchar" MaxLength="50" />
+          <Property Name="DeathPlace" Type="nvarchar" MaxLength="50" />
+          <Property Name="DeathDate" Type="datetime" />
+          <Property Name="DeathName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DeathSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="DeathPersonId" Type="int" />
+          <Property Name="DeathPersonBirthDate" Type="datetime" />
+          <Property Name="DeathPersonAge" Type="nvarchar" MaxLength="50" />
+          <Property Name="DeathPersonFaith" Type="smallint" />
+          <Property Name="DeathMotherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DeathMotherSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="DeathMotherId" Type="int" />
+          <Property Name="DeathFatherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DeathFatherSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="DeathFatherId" Type="int" />
+          <Property Name="DeathSpouseName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DeathSpouseSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="DeathSpouseId" Type="int" />
+          <Property Name="SacramentDetails" Type="nvarchar" MaxLength="255" />
+          <Property Name="FuneralDate" Type="datetime" />
+          <Property Name="FuneralPlace" Type="nvarchar" MaxLength="50" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="255" />
+          <Property Name="PastorNameSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="FkUser" Type="int" />
+          <Property Name="FkPerson" Type="int" />
+          <Property Name="FkMother" Type="int" />
+          <Property Name="FkFather" Type="int" />
+          <Property Name="FkSpouse" Type="int" />
+          <Property Name="YearBirth" Type="int" />
+          <Property Name="IsForVerification" Type="bit" />
+        </EntityType>
+        <EntityType Name="BookMarriage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TimeStamp" Type="datetime" />
+          <Property Name="ActNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="ActPage" Type="nvarchar" MaxLength="50" />
+          <Property Name="ActYear" Type="nvarchar" MaxLength="50" />
+          <Property Name="WeddingPlace" Type="nvarchar" MaxLength="50" />
+          <Property Name="WeddingDate" Type="datetime" />
+          <Property Name="WifeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="WifeSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="WifeBirthDate" Type="datetime" />
+          <Property Name="WifeBirthYear" Type="int" />
+          <Property Name="WifeBirthPlace" Type="nvarchar" MaxLength="50" />
+          <Property Name="WifeFaith" Type="smallint" />
+          <Property Name="WifeBaptismDate" Type="datetime" />
+          <Property Name="WifeYearBaptism" Type="int" />
+          <Property Name="WifeBaptismPlace" Type="nvarchar" MaxLength="50" />
+          <Property Name="WifeMaritalStatus" Type="smallint" />
+          <Property Name="WifeMotherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="WifeMotherSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="WifeFatherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="WifeFatherSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="HusbandName" Type="nvarchar" MaxLength="50" />
+          <Property Name="HusbandSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="HusbandBirthDate" Type="datetime" />
+          <Property Name="HusbandBirthYear" Type="int" />
+          <Property Name="HusbandBirthPlace" Type="nvarchar" MaxLength="50" />
+          <Property Name="HusbandFaith" Type="smallint" />
+          <Property Name="HusbandBaptismDate" Type="datetime" />
+          <Property Name="HusbandYearBaptism" Type="int" />
+          <Property Name="HusbandBaptismPlace" Type="nvarchar" MaxLength="50" />
+          <Property Name="HusbandMaritalStatus" Type="smallint" />
+          <Property Name="HusbandMotherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="HusbandMotherSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="HusbandFatherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="HusbandFatherSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="WeddingCivilDate" Type="datetime" />
+          <Property Name="WeddingCivilAuthority" Type="nvarchar" MaxLength="50" />
+          <Property Name="PastorNameSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="WitnessWomanName" Type="nvarchar" MaxLength="50" />
+          <Property Name="WitnessWomanSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="WitnessManName" Type="nvarchar" MaxLength="50" />
+          <Property Name="WitnessManSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="WitnessWomanAge" Type="nvarchar" MaxLength="50" />
+          <Property Name="WitnessWomanAddress" Type="nvarchar" MaxLength="100" />
+          <Property Name="WitnessManAge" Type="nvarchar" MaxLength="50" />
+          <Property Name="WitnessManAddress" Type="nvarchar" MaxLength="100" />
+          <Property Name="WeddingProtocolNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="SacramentDetails" Type="nvarchar" MaxLength="255" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="255" />
+          <Property Name="FkUser" Type="int" />
+          <Property Name="FkWife" Type="int" />
+          <Property Name="FkHusband" Type="int" />
+          <Property Name="FkWifeMother" Type="int" />
+          <Property Name="FkWifeFather" Type="int" />
+          <Property Name="FkHusbandMother" Type="int" />
+          <Property Name="FkHusbandFather" Type="int" />
+          <Property Name="FkWitnessWoman" Type="int" />
+          <Property Name="FkWitnessMan" Type="int" />
+          <Property Name="IsForVerification" Type="bit" />
+        </EntityType>
+        <EntityType Name="Carol">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TimeStamp" Type="datetime" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="Street" Type="nvarchar" MaxLength="100" />
+          <Property Name="AddressBand" Type="nvarchar" MaxLength="255" />
+          <Property Name="Type" Type="smallint" />
+          <Property Name="FkUser" Type="int" />
+          <Property Name="FkPriest" Type="int" />
+          <Property Name="DateCarol" Type="datetime" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="Status" Type="smallint" />
+          <Property Name="IsForVerification" Type="bit" />
+        </EntityType>
+        <EntityType Name="CarolFamily">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TimeStamp" Type="datetime" />
+          <Property Name="FkFamily" Type="int" />
+          <Property Name="FkCarol" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="MoneyAmount" Type="money" />
+          <Property Name="Status" Type="smallint" />
+          <Property Name="FkUser" Type="int" />
+        </EntityType>
+        <EntityType Name="Cemetery">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TimeStamp" Type="datetime" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="Code" Type="nchar" MaxLength="50" />
+          <Property Name="Address" Type="nchar" MaxLength="255" />
+          <Property Name="DateBuilded" Type="datetime" Nullable="false" />
+          <Property Name="FkUser" Type="int" />
+          <Property Name="CemeteryName" Type="nvarchar" MaxLength="255" />
+          <Property Name="LocationAttributeOne" Type="nvarchar" MaxLength="50" />
+          <Property Name="LocationAttributeTwo" Type="nvarchar" MaxLength="50" />
+          <Property Name="LocationAttributeThree" Type="nvarchar" MaxLength="50" />
+          <Property Name="LocationAttributeFour" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="CemeteryGrave">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TimeStamp" Type="datetime" />
+          <Property Name="RegNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="Owner" Type="nvarchar" MaxLength="100" />
+          <Property Name="FkCemetery" Type="int" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="DateExpired" Type="datetime" />
+          <Property Name="Type" Type="smallint" />
+          <Property Name="Attribute" Type="smallint" />
+          <Property Name="BoolHistoric" Type="bit" />
+          <Property Name="HistoricRecordDescription" Type="nvarchar" MaxLength="255" />
+          <Property Name="BoolNoFee" Type="bit" />
+          <Property Name="PictureFile" Type="nvarchar" MaxLength="255" />
+          <Property Name="FkUser" Type="int" />
+          <Property Name="LocationAttributeOne" Type="nvarchar" MaxLength="50" />
+          <Property Name="LocationAttributeTwo" Type="nvarchar" MaxLength="50" />
+          <Property Name="LocationAttributeThree" Type="nvarchar" MaxLength="50" />
+          <Property Name="LocationAttributeFour" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsForVerification" Type="bit" />
+        </EntityType>
+        <EntityType Name="CemeteryGravePayment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TimeStamp" Type="datetime" />
+          <Property Name="FkGrave" Type="int" />
+          <Property Name="DatePayment" Type="datetime" />
+          <Property Name="MoneyAmount" Type="money" />
+          <Property Name="PaymentPurpose" Type="nvarchar" MaxLength="100" />
+          <Property Name="FkPayer" Type="int" />
+          <Property Name="PayerName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PayerSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="FkUser" Type="int" />
+        </EntityType>
+        <EntityType Name="CemeteryGravePerson">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TimeStamp" Type="datetime" />
+          <Property Name="FkGrave" Type="int" />
+          <Property Name="FkPerson" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="DateBirth" Type="datetime" />
+          <Property Name="DateDeath" Type="datetime" />
+          <Property Name="FkBookOfDeath" Type="int" />
+          <Property Name="FkUser" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="CemeteryGravePhoto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TimeStamp" Type="datetime" />
+          <Property Name="FkCemeteryGrave" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="FkUser" Type="int" />
+          <Property Name="PhotoFile" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Diary">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TimeStamp" Type="datetime" />
+          <Property Name="EventTitle" Type="nvarchar" MaxLength="255" />
+          <Property Name="EventDate" Type="datetime" />
+          <Property Name="EventType" Type="smallint" />
+          <Property Name="EventCategory" Type="smallint" />
+          <Property Name="EventRemarks" Type="nvarchar" MaxLength="500" />
+          <Property Name="FkUser" Type="int" />
+          <Property Name="IdMembers" Type="nvarchar" MaxLength="255" />
+          <Property Name="IsForVerification" Type="bit" />
+        </EntityType>
+        <EntityType Name="Donation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TimeStamp" Type="datetime" />
+          <Property Name="DateDonation" Type="datetime" />
+          <Property Name="DateNextDonation" Type="datetime" />
+          <Property Name="DonationYear" Type="int" />
+          <Property Name="AmountMoney" Type="money" />
+          <Property Name="DonationPurposeDesc" Type="nvarchar" MaxLength="500" />
+          <Property Name="DonationPurposeType" Type="smallint" />
+          <Property Name="FkDonatorPerson" Type="int" />
+          <Property Name="FkDonatorFamily" Type="int" />
+          <Property Name="FkDiary" Type="int" />
+          <Property Name="FkVisitSickPerson" Type="int" />
+          <Property Name="FkCarol" Type="int" />
+          <Property Name="FkCommunion" Type="int" />
+          <Property Name="BoolFinanceLedger" Type="bit" />
+          <Property Name="FkUser" Type="int" />
+          <Property Name="IsForVerification" Type="bit" />
+        </EntityType>
+        <EntityType Name="Family">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TimeStamp" Type="datetime" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="255" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="Status" Type="smallint" />
+          <Property Name="FkUser" Type="int" />
+          <Property Name="IsForVerification" Type="bit" />
+        </EntityType>
+        <EntityType Name="FamilyMember">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TimeStamp" Type="datetime" />
+          <Property Name="fkFamily" Type="int" />
+          <Property Name="fkPerson" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="MemberType" Type="smallint" />
+          <Property Name="FkUser" Type="int" />
+        </EntityType>
+        <EntityType Name="Finance">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TimeStamp" Type="datetime" />
+          <Property Name="Amount" Type="float" />
+          <Property Name="FkUser" Type="int" />
+          <Property Name="TransactionDate" Type="datetime" />
+          <Property Name="DocumentNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="DocumentType" Type="smallint" />
+          <Property Name="DocumentCategory" Type="smallint" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsForVerification" Type="bit" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TimeStamp" Type="datetime" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="255" />
+          <Property Name="DateBirth" Type="datetime" />
+          <Property Name="DateBaptism" Type="datetime" />
+          <Property Name="DateConfirmation" Type="datetime" />
+          <Property Name="DateWedding" Type="datetime" />
+          <Property Name="DateDeath" Type="datetime" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="FKMother" Type="int" />
+          <Property Name="FKFather" Type="int" />
+          <Property Name="PlaceBirth" Type="nvarchar" MaxLength="255" />
+          <Property Name="ParishConfirmation" Type="nvarchar" MaxLength="255" />
+          <Property Name="FKUser" Type="int" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" />
+          <Property Name="PersonSex" Type="smallint" />
+          <Property Name="FKSpouse" Type="int" />
+          <Property Name="MotherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="MotherSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="FatherName" Type="nvarchar" MaxLength="50" />
+          <Property Name="FatherSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="SpouseName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SpouseSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="YearBirth" Type="int" />
+          <Property Name="PersonFaith" Type="smallint" />
+          <Property Name="Profession" Type="nvarchar" MaxLength="255" />
+          <Property Name="YearBaptism" Type="int" />
+          <Property Name="YearCommunion" Type="int" />
+          <Property Name="DateCommunion" Type="datetime" />
+          <Property Name="IsForVerification" Type="bit" />
+          <Property Name="YearDeath" Type="int" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TimeStamp" Type="datetime" />
+          <Property Name="SupplierName" Type="nvarchar" MaxLength="100" />
+          <Property Name="SupplierCity" Type="nvarchar" MaxLength="50" />
+          <Property Name="SupplierCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="SupplierAddress" Type="nvarchar" MaxLength="255" />
+          <Property Name="SupplierEmail" Type="nvarchar" MaxLength="100" />
+          <Property Name="FkUser" Type="int" />
+          <Property Name="SupplierType" Type="smallint" />
+          <Property Name="SupplierCategory" Type="smallint" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsForVerification" Type="bit" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="IDUser" />
+          </Key>
+          <Property Name="IDUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TimeStamp" Type="datetime" />
+          <Property Name="NameSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Permission" Type="smallint" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" />
+          <Property Name="Pass" Type="nvarchar" MaxLength="100" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="255" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="VisitSickPerson">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+          <Property Name="FkPerson" Type="int" />
+          <Property Name="FkUser" Type="int" />
+          <Property Name="DateVisit" Type="datetime" />
+          <Property Name="DateNextVisit" Type="datetime" />
+          <Property Name="FkPrist" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="BoolCommunion" Type="bit" />
+          <Property Name="BoolVisitTookPlace" Type="bit" />
+          <Property Name="BoolConfession" Type="bit" />
+          <Property Name="BoolAnointing" Type="bit" />
+          <Property Name="IsForVerification" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ParafisDBTestowe.dbo.VGravePersonDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VGravePersonDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="FkGrave" Type="int" />
+          <Property Name="FkPerson" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="DateBirth" Type="datetime" />
+          <Property Name="DateDeath" Type="datetime" />
+          <Property Name="YearBirth" Type="int" />
+          <Property Name="YearDeath" Type="int" />
+          <Property Name="LocationAttributeOne" Type="nvarchar" MaxLength="50" />
+          <Property Name="LocationAttributeTwo" Type="nvarchar" MaxLength="50" />
+          <Property Name="LocationAttributeThree" Type="nvarchar" MaxLength="50" />
+          <Property Name="LocationAttributeFour" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="ParafisDBTestoweModelStoreContainer">
+          <EntitySet Name="BookBaptism" EntityType="Self.BookBaptism" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookCommunion" EntityType="Self.BookCommunion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookConfirmation" EntityType="Self.BookConfirmation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookDeath" EntityType="Self.BookDeath" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookMarriage" EntityType="Self.BookMarriage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Carol" EntityType="Self.Carol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CarolFamily" EntityType="Self.CarolFamily" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cemetery" EntityType="Self.Cemetery" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CemeteryGrave" EntityType="Self.CemeteryGrave" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CemeteryGravePayment" EntityType="Self.CemeteryGravePayment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CemeteryGravePerson" EntityType="Self.CemeteryGravePerson" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CemeteryGravePhoto" EntityType="Self.CemeteryGravePhoto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Diary" EntityType="Self.Diary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Donation" EntityType="Self.Donation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Family" EntityType="Self.Family" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FamilyMember" EntityType="Self.FamilyMember" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Finance" EntityType="Self.Finance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VisitSickPerson" EntityType="Self.VisitSickPerson" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VGravePersonDetail" EntityType="Self.VGravePersonDetail" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VGravePersonDetail].[Id] AS [Id], 
+    [VGravePersonDetail].[FkGrave] AS [FkGrave], 
+    [VGravePersonDetail].[FkPerson] AS [FkPerson], 
+    [VGravePersonDetail].[Name] AS [Name], 
+    [VGravePersonDetail].[Surname] AS [Surname], 
+    [VGravePersonDetail].[DateBirth] AS [DateBirth], 
+    [VGravePersonDetail].[DateDeath] AS [DateDeath], 
+    [VGravePersonDetail].[YearBirth] AS [YearBirth], 
+    [VGravePersonDetail].[YearDeath] AS [YearDeath], 
+    [VGravePersonDetail].[LocationAttributeOne] AS [LocationAttributeOne], 
+    [VGravePersonDetail].[LocationAttributeTwo] AS [LocationAttributeTwo], 
+    [VGravePersonDetail].[LocationAttributeThree] AS [LocationAttributeThree], 
+    [VGravePersonDetail].[LocationAttributeFour] AS [LocationAttributeFour]
+    FROM [dbo].[VGravePersonDetail] AS [VGravePersonDetail]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ParafisDBTestoweModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BookBaptism">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="ActNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ActPage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ActYear" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BaptismPlace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BaptismDate" Type="DateTime" Precision="3" />
+          <Property Name="BaptismName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BaptismSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BaptismPersonId" Type="Int32" />
+          <Property Name="BaptismPersonBirthDate" Type="DateTime" Precision="3" />
+          <Property Name="YearBirth" Type="Int32" />
+          <Property Name="BaptismMotherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BaptismMotherSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BaptismMotherFaith" Type="Int16" />
+          <Property Name="BaptismFatherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BaptismFatherSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BaptismFatherFaith" Type="Int16" />
+          <Property Name="MarriageType" Type="Int16" />
+          <Property Name="MarriagePlace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MarriageDate" Type="DateTime" Precision="3" />
+          <Property Name="BaptismGodmotherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BaptismGodmotherSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BaptismGodmotherFaith" Type="Int16" />
+          <Property Name="BaptismGodfatherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BaptismGodfatherSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BaptismGodfatherFaith" Type="Int16" />
+          <Property Name="SacramentDetails" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PastorNameSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FkUser" Type="Int32" />
+          <Property Name="FkPerson" Type="Int32" />
+          <Property Name="FkMother" Type="Int32" />
+          <Property Name="FkFather" Type="Int32" />
+          <Property Name="FkGodmother" Type="Int32" />
+          <Property Name="FkGodfather" Type="Int32" />
+          <Property Name="YearMarriage" Type="Int32" />
+          <Property Name="YearBaptism" Type="Int32" />
+          <Property Name="IsForVerification" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="BookCommunion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="ActNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ActPage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ActYear" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CommunionPlace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CommunionDate" Type="DateTime" Precision="3" />
+          <Property Name="YearCommunion" Type="Int32" />
+          <Property Name="CommunionPersonName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CommunionPersonSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PersonSex" Type="Int16" />
+          <Property Name="SchoolNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SacramentDetails" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PastorNameSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FkUser" Type="Int32" />
+          <Property Name="FkPerson" Type="Int32" />
+          <Property Name="ParishName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsForVerification" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="BookConfirmation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="ActNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ActPage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ActYear" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ConfirmationPlace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ConfirmationDate" Type="DateTime" Precision="3" />
+          <Property Name="ConfirmationPersonName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ConfirmationPersonSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ConfirmationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BaptismDate" Type="DateTime" Precision="3" />
+          <Property Name="YearBaptism" Type="Int32" />
+          <Property Name="YearConfirmation" Type="Int32" />
+          <Property Name="SacramentDetails" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PastorNameSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FkUser" Type="Int32" />
+          <Property Name="FkPerson" Type="Int32" />
+          <Property Name="ParishName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FkWitness" Type="Int32" />
+          <Property Name="WitnessName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WitnessSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BaptismPlace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PersonSex" Type="Int16" />
+          <Property Name="IsForVerification" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="BookDeath">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="ActNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ActPage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ActYear" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeathPlace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeathDate" Type="DateTime" Precision="3" />
+          <Property Name="DeathName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeathSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeathPersonId" Type="Int32" />
+          <Property Name="DeathPersonBirthDate" Type="DateTime" Precision="3" />
+          <Property Name="DeathPersonAge" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeathPersonFaith" Type="Int16" />
+          <Property Name="DeathMotherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeathMotherSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeathMotherId" Type="Int32" />
+          <Property Name="DeathFatherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeathFatherSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeathFatherId" Type="Int32" />
+          <Property Name="DeathSpouseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeathSpouseSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeathSpouseId" Type="Int32" />
+          <Property Name="SacramentDetails" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FuneralDate" Type="DateTime" Precision="3" />
+          <Property Name="FuneralPlace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PastorNameSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FkUser" Type="Int32" />
+          <Property Name="FkPerson" Type="Int32" />
+          <Property Name="FkMother" Type="Int32" />
+          <Property Name="FkFather" Type="Int32" />
+          <Property Name="FkSpouse" Type="Int32" />
+          <Property Name="YearBirth" Type="Int32" />
+          <Property Name="IsForVerification" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="BookMarriage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="ActNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ActPage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ActYear" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WeddingPlace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WeddingDate" Type="DateTime" Precision="3" />
+          <Property Name="WifeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WifeSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WifeBirthDate" Type="DateTime" Precision="3" />
+          <Property Name="WifeBirthYear" Type="Int32" />
+          <Property Name="WifeBirthPlace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WifeFaith" Type="Int16" />
+          <Property Name="WifeBaptismDate" Type="DateTime" Precision="3" />
+          <Property Name="WifeYearBaptism" Type="Int32" />
+          <Property Name="WifeBaptismPlace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WifeMaritalStatus" Type="Int16" />
+          <Property Name="WifeMotherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WifeMotherSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WifeFatherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WifeFatherSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HusbandName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HusbandSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HusbandBirthDate" Type="DateTime" Precision="3" />
+          <Property Name="HusbandBirthYear" Type="Int32" />
+          <Property Name="HusbandBirthPlace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HusbandFaith" Type="Int16" />
+          <Property Name="HusbandBaptismDate" Type="DateTime" Precision="3" />
+          <Property Name="HusbandYearBaptism" Type="Int32" />
+          <Property Name="HusbandBaptismPlace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HusbandMaritalStatus" Type="Int16" />
+          <Property Name="HusbandMotherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HusbandMotherSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HusbandFatherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HusbandFatherSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WeddingCivilDate" Type="DateTime" Precision="3" />
+          <Property Name="WeddingCivilAuthority" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PastorNameSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WitnessWomanName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WitnessWomanSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WitnessManName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WitnessManSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WitnessWomanAge" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WitnessWomanAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="WitnessManAge" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WitnessManAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="WeddingProtocolNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SacramentDetails" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FkUser" Type="Int32" />
+          <Property Name="FkWife" Type="Int32" />
+          <Property Name="FkHusband" Type="Int32" />
+          <Property Name="FkWifeMother" Type="Int32" />
+          <Property Name="FkWifeFather" Type="Int32" />
+          <Property Name="FkHusbandMother" Type="Int32" />
+          <Property Name="FkHusbandFather" Type="Int32" />
+          <Property Name="FkWitnessWoman" Type="Int32" />
+          <Property Name="FkWitnessMan" Type="Int32" />
+          <Property Name="IsForVerification" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Carol">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Street" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AddressBand" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int16" />
+          <Property Name="FkUser" Type="Int32" />
+          <Property Name="FkPriest" Type="Int32" />
+          <Property Name="DateCarol" Type="DateTime" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int16" />
+          <Property Name="IsForVerification" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="CarolFamily">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="FkFamily" Type="Int32" />
+          <Property Name="FkCarol" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MoneyAmount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Status" Type="Int16" />
+          <Property Name="FkUser" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Cemetery">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+          <Property Name="DateBuilded" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FkUser" Type="Int32" />
+          <Property Name="CemeteryName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="LocationAttributeOne" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LocationAttributeTwo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LocationAttributeThree" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LocationAttributeFour" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CemeteryGrave">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="RegNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Owner" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FkCemetery" Type="Int32" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DateExpired" Type="DateTime" Precision="3" />
+          <Property Name="Type" Type="Int16" />
+          <Property Name="Attribute" Type="Int16" />
+          <Property Name="BoolHistoric" Type="Boolean" />
+          <Property Name="HistoricRecordDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="BoolNoFee" Type="Boolean" />
+          <Property Name="PictureFile" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FkUser" Type="Int32" />
+          <Property Name="LocationAttributeOne" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LocationAttributeTwo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LocationAttributeThree" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LocationAttributeFour" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsForVerification" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="CemeteryGravePayment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="FkGrave" Type="Int32" />
+          <Property Name="DatePayment" Type="DateTime" Precision="3" />
+          <Property Name="MoneyAmount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PaymentPurpose" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FkPayer" Type="Int32" />
+          <Property Name="PayerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PayerSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FkUser" Type="Int32" />
+        </EntityType>
+        <EntityType Name="CemeteryGravePerson">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="FkGrave" Type="Int32" />
+          <Property Name="FkPerson" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateBirth" Type="DateTime" Precision="3" />
+          <Property Name="DateDeath" Type="DateTime" Precision="3" />
+          <Property Name="FkBookOfDeath" Type="Int32" />
+          <Property Name="FkUser" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CemeteryGravePhoto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="FkCemeteryGrave" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FkUser" Type="Int32" />
+          <Property Name="PhotoFile" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Diary">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="EventTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="EventDate" Type="DateTime" Precision="3" />
+          <Property Name="EventType" Type="Int16" />
+          <Property Name="EventCategory" Type="Int16" />
+          <Property Name="EventRemarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FkUser" Type="Int32" />
+          <Property Name="IdMembers" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IsForVerification" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Donation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="DateDonation" Type="DateTime" Precision="3" />
+          <Property Name="DateNextDonation" Type="DateTime" Precision="3" />
+          <Property Name="DonationYear" Type="Int32" />
+          <Property Name="AmountMoney" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DonationPurposeDesc" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DonationPurposeType" Type="Int16" />
+          <Property Name="FkDonatorPerson" Type="Int32" />
+          <Property Name="FkDonatorFamily" Type="Int32" />
+          <Property Name="FkDiary" Type="Int32" />
+          <Property Name="FkVisitSickPerson" Type="Int32" />
+          <Property Name="FkCarol" Type="Int32" />
+          <Property Name="FkCommunion" Type="Int32" />
+          <Property Name="BoolFinanceLedger" Type="Boolean" />
+          <Property Name="FkUser" Type="Int32" />
+          <Property Name="IsForVerification" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Family">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int16" />
+          <Property Name="FkUser" Type="Int32" />
+          <Property Name="IsForVerification" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="FamilyMember">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="fkFamily" Type="Int32" />
+          <Property Name="fkPerson" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MemberType" Type="Int16" />
+          <Property Name="FkUser" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Finance">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="Amount" Type="Double" />
+          <Property Name="FkUser" Type="Int32" />
+          <Property Name="TransactionDate" Type="DateTime" Precision="3" />
+          <Property Name="DocumentNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentType" Type="Int16" />
+          <Property Name="DocumentCategory" Type="Int16" />
+          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsForVerification" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DateBirth" Type="DateTime" Precision="3" />
+          <Property Name="DateBaptism" Type="DateTime" Precision="3" />
+          <Property Name="DateConfirmation" Type="DateTime" Precision="3" />
+          <Property Name="DateWedding" Type="DateTime" Precision="3" />
+          <Property Name="DateDeath" Type="DateTime" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FKMother" Type="Int32" />
+          <Property Name="FKFather" Type="Int32" />
+          <Property Name="PlaceBirth" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ParishConfirmation" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FKUser" Type="Int32" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PersonSex" Type="Int16" />
+          <Property Name="FKSpouse" Type="Int32" />
+          <Property Name="MotherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MotherSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FatherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FatherSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SpouseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SpouseSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="YearBirth" Type="Int32" />
+          <Property Name="PersonFaith" Type="Int16" />
+          <Property Name="Profession" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="YearBaptism" Type="Int32" />
+          <Property Name="YearCommunion" Type="Int32" />
+          <Property Name="DateCommunion" Type="DateTime" Precision="3" />
+          <Property Name="IsForVerification" Type="Boolean" />
+          <Property Name="YearDeath" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="SupplierName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SupplierCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SupplierCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SupplierAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SupplierEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FkUser" Type="Int32" />
+          <Property Name="SupplierType" Type="Int16" />
+          <Property Name="SupplierCategory" Type="Int16" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsForVerification" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="IDUser" />
+          </Key>
+          <Property Name="IDUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="NameSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Permission" Type="Int16" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pass" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="VisitSickPerson">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimeStamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FkPerson" Type="Int32" />
+          <Property Name="FkUser" Type="Int32" />
+          <Property Name="DateVisit" Type="DateTime" Precision="3" />
+          <Property Name="DateNextVisit" Type="DateTime" Precision="3" />
+          <Property Name="FkPrist" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="BoolCommunion" Type="Boolean" />
+          <Property Name="BoolVisitTookPlace" Type="Boolean" />
+          <Property Name="BoolConfession" Type="Boolean" />
+          <Property Name="BoolAnointing" Type="Boolean" />
+          <Property Name="IsForVerification" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="VGravePersonDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="FkGrave" Type="Int32" />
+          <Property Name="FkPerson" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateBirth" Type="DateTime" Precision="3" />
+          <Property Name="DateDeath" Type="DateTime" Precision="3" />
+          <Property Name="YearBirth" Type="Int32" />
+          <Property Name="YearDeath" Type="Int32" />
+          <Property Name="LocationAttributeOne" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LocationAttributeTwo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LocationAttributeThree" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LocationAttributeFour" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="ParafisDBTestoweEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BookBaptism" EntityType="Self.BookBaptism" />
+          <EntitySet Name="BookCommunion" EntityType="Self.BookCommunion" />
+          <EntitySet Name="BookConfirmation" EntityType="Self.BookConfirmation" />
+          <EntitySet Name="BookDeath" EntityType="Self.BookDeath" />
+          <EntitySet Name="BookMarriage" EntityType="Self.BookMarriage" />
+          <EntitySet Name="Carol" EntityType="Self.Carol" />
+          <EntitySet Name="CarolFamily" EntityType="Self.CarolFamily" />
+          <EntitySet Name="Cemetery" EntityType="Self.Cemetery" />
+          <EntitySet Name="CemeteryGrave" EntityType="Self.CemeteryGrave" />
+          <EntitySet Name="CemeteryGravePayment" EntityType="Self.CemeteryGravePayment" />
+          <EntitySet Name="CemeteryGravePerson" EntityType="Self.CemeteryGravePerson" />
+          <EntitySet Name="CemeteryGravePhoto" EntityType="Self.CemeteryGravePhoto" />
+          <EntitySet Name="Diary" EntityType="Self.Diary" />
+          <EntitySet Name="Donation" EntityType="Self.Donation" />
+          <EntitySet Name="Family" EntityType="Self.Family" />
+          <EntitySet Name="FamilyMember" EntityType="Self.FamilyMember" />
+          <EntitySet Name="Finance" EntityType="Self.Finance" />
+          <EntitySet Name="Person" EntityType="Self.Person" />
+          <EntitySet Name="Supplier" EntityType="Self.Supplier" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <EntitySet Name="VisitSickPerson" EntityType="Self.VisitSickPerson" />
+          <EntitySet Name="VGravePersonDetail" EntityType="Self.VGravePersonDetail" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ParafisDBTestoweModelStoreContainer" CdmEntityContainer="ParafisDBTestoweEntities">
+          <EntitySetMapping Name="BookBaptism">
+            <EntityTypeMapping TypeName="ParafisDBTestoweModel.BookBaptism">
+              <MappingFragment StoreEntitySet="BookBaptism">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="ActNo" ColumnName="ActNo" />
+                <ScalarProperty Name="ActPage" ColumnName="ActPage" />
+                <ScalarProperty Name="ActYear" ColumnName="ActYear" />
+                <ScalarProperty Name="BaptismPlace" ColumnName="BaptismPlace" />
+                <ScalarProperty Name="BaptismDate" ColumnName="BaptismDate" />
+                <ScalarProperty Name="BaptismName" ColumnName="BaptismName" />
+                <ScalarProperty Name="BaptismSurname" ColumnName="BaptismSurname" />
+                <ScalarProperty Name="BaptismPersonId" ColumnName="BaptismPersonId" />
+                <ScalarProperty Name="BaptismPersonBirthDate" ColumnName="BaptismPersonBirthDate" />
+                <ScalarProperty Name="YearBirth" ColumnName="YearBirth" />
+                <ScalarProperty Name="BaptismMotherName" ColumnName="BaptismMotherName" />
+                <ScalarProperty Name="BaptismMotherSurname" ColumnName="BaptismMotherSurname" />
+                <ScalarProperty Name="BaptismMotherFaith" ColumnName="BaptismMotherFaith" />
+                <ScalarProperty Name="BaptismFatherName" ColumnName="BaptismFatherName" />
+                <ScalarProperty Name="BaptismFatherSurname" ColumnName="BaptismFatherSurname" />
+                <ScalarProperty Name="BaptismFatherFaith" ColumnName="BaptismFatherFaith" />
+                <ScalarProperty Name="MarriageType" ColumnName="MarriageType" />
+                <ScalarProperty Name="MarriagePlace" ColumnName="MarriagePlace" />
+                <ScalarProperty Name="MarriageDate" ColumnName="MarriageDate" />
+                <ScalarProperty Name="BaptismGodmotherName" ColumnName="BaptismGodmotherName" />
+                <ScalarProperty Name="BaptismGodmotherSurname" ColumnName="BaptismGodmotherSurname" />
+                <ScalarProperty Name="BaptismGodmotherFaith" ColumnName="BaptismGodmotherFaith" />
+                <ScalarProperty Name="BaptismGodfatherName" ColumnName="BaptismGodfatherName" />
+                <ScalarProperty Name="BaptismGodfatherSurname" ColumnName="BaptismGodfatherSurname" />
+                <ScalarProperty Name="BaptismGodfatherFaith" ColumnName="BaptismGodfatherFaith" />
+                <ScalarProperty Name="SacramentDetails" ColumnName="SacramentDetails" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="PastorNameSurname" ColumnName="PastorNameSurname" />
+                <ScalarProperty Name="FkUser" ColumnName="FkUser" />
+                <ScalarProperty Name="FkPerson" ColumnName="FkPerson" />
+                <ScalarProperty Name="FkMother" ColumnName="FkMother" />
+                <ScalarProperty Name="FkFather" ColumnName="FkFather" />
+                <ScalarProperty Name="FkGodmother" ColumnName="FkGodmother" />
+                <ScalarProperty Name="FkGodfather" ColumnName="FkGodfather" />
+                <ScalarProperty Name="YearMarriage" ColumnName="YearMarriage" />
+                <ScalarProperty Name="YearBaptism" ColumnName="YearBaptism" />
+                <ScalarProperty Name="IsForVerification" ColumnName="IsForVerification" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookCommunion">
+            <EntityTypeMapping TypeName="ParafisDBTestoweModel.BookCommunion">
+              <MappingFragment StoreEntitySet="BookCommunion">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="ActNo" ColumnName="ActNo" />
+                <ScalarProperty Name="ActPage" ColumnName="ActPage" />
+                <ScalarProperty Name="ActYear" ColumnName="ActYear" />
+                <ScalarProperty Name="CommunionPlace" ColumnName="CommunionPlace" />
+                <ScalarProperty Name="CommunionDate" ColumnName="CommunionDate" />
+                <ScalarProperty Name="YearCommunion" ColumnName="YearCommunion" />
+                <ScalarProperty Name="CommunionPersonName" ColumnName="CommunionPersonName" />
+                <ScalarProperty Name="CommunionPersonSurname" ColumnName="CommunionPersonSurname" />
+                <ScalarProperty Name="PersonSex" ColumnName="PersonSex" />
+                <ScalarProperty Name="SchoolNumber" ColumnName="SchoolNumber" />
+                <ScalarProperty Name="SacramentDetails" ColumnName="SacramentDetails" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="PastorNameSurname" ColumnName="PastorNameSurname" />
+                <ScalarProperty Name="FkUser" ColumnName="FkUser" />
+                <ScalarProperty Name="FkPerson" ColumnName="FkPerson" />
+                <ScalarProperty Name="ParishName" ColumnName="ParishName" />
+                <ScalarProperty Name="IsForVerification" ColumnName="IsForVerification" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookConfirmation">
+            <EntityTypeMapping TypeName="ParafisDBTestoweModel.BookConfirmation">
+              <MappingFragment StoreEntitySet="BookConfirmation">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="ActNo" ColumnName="ActNo" />
+                <ScalarProperty Name="ActPage" ColumnName="ActPage" />
+                <ScalarProperty Name="ActYear" ColumnName="ActYear" />
+                <ScalarProperty Name="ConfirmationPlace" ColumnName="ConfirmationPlace" />
+                <ScalarProperty Name="ConfirmationDate" ColumnName="ConfirmationDate" />
+                <ScalarProperty Name="ConfirmationPersonName" ColumnName="ConfirmationPersonName" />
+                <ScalarProperty Name="ConfirmationPersonSurname" ColumnName="ConfirmationPersonSurname" />
+                <ScalarProperty Name="ConfirmationName" ColumnName="ConfirmationName" />
+                <ScalarProperty Name="BaptismDate" ColumnName="BaptismDate" />
+                <ScalarProperty Name="YearBaptism" ColumnName="YearBaptism" />
+                <ScalarProperty Name="YearConfirmation" ColumnName="YearConfirmation" />
+                <ScalarProperty Name="SacramentDetails" ColumnName="SacramentDetails" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="PastorNameSurname" ColumnName="PastorNameSurname" />
+                <ScalarProperty Name="FkUser" ColumnName="FkUser" />
+                <ScalarProperty Name="FkPerson" ColumnName="FkPerson" />
+                <ScalarProperty Name="ParishName" ColumnName="ParishName" />
+                <ScalarProperty Name="FkWitness" ColumnName="FkWitness" />
+                <ScalarProperty Name="WitnessName" ColumnName="WitnessName" />
+                <ScalarProperty Name="WitnessSurname" ColumnName="WitnessSurname" />
+                <ScalarProperty Name="BaptismPlace" ColumnName="BaptismPlace" />
+                <ScalarProperty Name="PersonSex" ColumnName="PersonSex" />
+                <ScalarProperty Name="IsForVerification" ColumnName="IsForVerification" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookDeath">
+            <EntityTypeMapping TypeName="ParafisDBTestoweModel.BookDeath">
+              <MappingFragment StoreEntitySet="BookDeath">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="ActNo" ColumnName="ActNo" />
+                <ScalarProperty Name="ActPage" ColumnName="ActPage" />
+                <ScalarProperty Name="ActYear" ColumnName="ActYear" />
+                <ScalarProperty Name="DeathPlace" ColumnName="DeathPlace" />
+                <ScalarProperty Name="DeathDate" ColumnName="DeathDate" />
+                <ScalarProperty Name="DeathName" ColumnName="DeathName" />
+                <ScalarProperty Name="DeathSurname" ColumnName="DeathSurname" />
+                <ScalarProperty Name="DeathPersonId" ColumnName="DeathPersonId" />
+                <ScalarProperty Name="DeathPersonBirthDate" ColumnName="DeathPersonBirthDate" />
+                <ScalarProperty Name="DeathPersonAge" ColumnName="DeathPersonAge" />
+                <ScalarProperty Name="DeathPersonFaith" ColumnName="DeathPersonFaith" />
+                <ScalarProperty Name="DeathMotherName" ColumnName="DeathMotherName" />
+                <ScalarProperty Name="DeathMotherSurname" ColumnName="DeathMotherSurname" />
+                <ScalarProperty Name="DeathMotherId" ColumnName="DeathMotherId" />
+                <ScalarProperty Name="DeathFatherName" ColumnName="DeathFatherName" />
+                <ScalarProperty Name="DeathFatherSurname" ColumnName="DeathFatherSurname" />
+                <ScalarProperty Name="DeathFatherId" ColumnName="DeathFatherId" />
+                <ScalarProperty Name="DeathSpouseName" ColumnName="DeathSpouseName" />
+                <ScalarProperty Name="DeathSpouseSurname" ColumnName="DeathSpouseSurname" />
+                <ScalarProperty Name="DeathSpouseId" ColumnName="DeathSpouseId" />
+                <ScalarProperty Name="SacramentDetails" ColumnName="SacramentDetails" />
+                <ScalarProperty Name="FuneralDate" ColumnName="FuneralDate" />
+                <ScalarProperty Name="FuneralPlace" ColumnName="FuneralPlace" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="PastorNameSurname" ColumnName="PastorNameSurname" />
+                <ScalarProperty Name="FkUser" ColumnName="FkUser" />
+                <ScalarProperty Name="FkPerson" ColumnName="FkPerson" />
+                <ScalarProperty Name="FkMother" ColumnName="FkMother" />
+                <ScalarProperty Name="FkFather" ColumnName="FkFather" />
+                <ScalarProperty Name="FkSpouse" ColumnName="FkSpouse" />
+                <ScalarProperty Name="YearBirth" ColumnName="YearBirth" />
+                <ScalarProperty Name="IsForVerification" ColumnName="IsForVerification" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookMarriage">
+            <EntityTypeMapping TypeName="ParafisDBTestoweModel.BookMarriage">
+              <MappingFragment StoreEntitySet="BookMarriage">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="ActNo" ColumnName="ActNo" />
+                <ScalarProperty Name="ActPage" ColumnName="ActPage" />
+                <ScalarProperty Name="ActYear" ColumnName="ActYear" />
+                <ScalarProperty Name="WeddingPlace" ColumnName="WeddingPlace" />
+                <ScalarProperty Name="WeddingDate" ColumnName="WeddingDate" />
+                <ScalarProperty Name="WifeName" ColumnName="WifeName" />
+                <ScalarProperty Name="WifeSurname" ColumnName="WifeSurname" />
+                <ScalarProperty Name="WifeBirthDate" ColumnName="WifeBirthDate" />
+                <ScalarProperty Name="WifeBirthYear" ColumnName="WifeBirthYear" />
+                <ScalarProperty Name="WifeBirthPlace" ColumnName="WifeBirthPlace" />
+                <ScalarProperty Name="WifeFaith" ColumnName="WifeFaith" />
+                <ScalarProperty Name="WifeBaptismDate" ColumnName="WifeBaptismDate" />
+                <ScalarProperty Name="WifeYearBaptism" ColumnName="WifeYearBaptism" />
+                <ScalarProperty Name="WifeBaptismPlace" ColumnName="WifeBaptismPlace" />
+                <ScalarProperty Name="WifeMaritalStatus" ColumnName="WifeMaritalStatus" />
+                <ScalarProperty Name="WifeMotherName" ColumnName="WifeMotherName" />
+                <ScalarProperty Name="WifeMotherSurname" ColumnName="WifeMotherSurname" />
+                <ScalarProperty Name="WifeFatherName" ColumnName="WifeFatherName" />
+                <ScalarProperty Name="WifeFatherSurname" ColumnName="WifeFatherSurname" />
+                <ScalarProperty Name="HusbandName" ColumnName="HusbandName" />
+                <ScalarProperty Name="HusbandSurname" ColumnName="HusbandSurname" />
+                <ScalarProperty Name="HusbandBirthDate" ColumnName="HusbandBirthDate" />
+                <ScalarProperty Name="HusbandBirthYear" ColumnName="HusbandBirthYear" />
+                <ScalarProperty Name="HusbandBirthPlace" ColumnName="HusbandBirthPlace" />
+                <ScalarProperty Name="HusbandFaith" ColumnName="HusbandFaith" />
+                <ScalarProperty Name="HusbandBaptismDate" ColumnName="HusbandBaptismDate" />
+                <ScalarProperty Name="HusbandYearBaptism" ColumnName="HusbandYearBaptism" />
+                <ScalarProperty Name="HusbandBaptismPlace" ColumnName="HusbandBaptismPlace" />
+                <ScalarProperty Name="HusbandMaritalStatus" ColumnName="HusbandMaritalStatus" />
+                <ScalarProperty Name="HusbandMotherName" ColumnName="HusbandMotherName" />
+                <ScalarProperty Name="HusbandMotherSurname" ColumnName="HusbandMotherSurname" />
+                <ScalarProperty Name="HusbandFatherName" ColumnName="HusbandFatherName" />
+                <ScalarProperty Name="HusbandFatherSurname" ColumnName="HusbandFatherSurname" />
+                <ScalarProperty Name="WeddingCivilDate" ColumnName="WeddingCivilDate" />
+                <ScalarProperty Name="WeddingCivilAuthority" ColumnName="WeddingCivilAuthority" />
+                <ScalarProperty Name="PastorNameSurname" ColumnName="PastorNameSurname" />
+                <ScalarProperty Name="WitnessWomanName" ColumnName="WitnessWomanName" />
+                <ScalarProperty Name="WitnessWomanSurname" ColumnName="WitnessWomanSurname" />
+                <ScalarProperty Name="WitnessManName" ColumnName="WitnessManName" />
+                <ScalarProperty Name="WitnessManSurname" ColumnName="WitnessManSurname" />
+                <ScalarProperty Name="WitnessWomanAge" ColumnName="WitnessWomanAge" />
+                <ScalarProperty Name="WitnessWomanAddress" ColumnName="WitnessWomanAddress" />
+                <ScalarProperty Name="WitnessManAge" ColumnName="WitnessManAge" />
+                <ScalarProperty Name="WitnessManAddress" ColumnName="WitnessManAddress" />
+                <ScalarProperty Name="WeddingProtocolNumber" ColumnName="WeddingProtocolNumber" />
+                <ScalarProperty Name="SacramentDetails" ColumnName="SacramentDetails" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="FkUser" ColumnName="FkUser" />
+                <ScalarProperty Name="FkWife" ColumnName="FkWife" />
+                <ScalarProperty Name="FkHusband" ColumnName="FkHusband" />
+                <ScalarProperty Name="FkWifeMother" ColumnName="FkWifeMother" />
+                <ScalarProperty Name="FkWifeFather" ColumnName="FkWifeFather" />
+                <ScalarProperty Name="FkHusbandMother" ColumnName="FkHusbandMother" />
+                <ScalarProperty Name="FkHusbandFather" ColumnName="FkHusbandFather" />
+                <ScalarProperty Name="FkWitnessWoman" ColumnName="FkWitnessWoman" />
+                <ScalarProperty Name="FkWitnessMan" ColumnName="FkWitnessMan" />
+                <ScalarProperty Name="IsForVerification" ColumnName="IsForVerification" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Carol">
+            <EntityTypeMapping TypeName="ParafisDBTestoweModel.Carol">
+              <MappingFragment StoreEntitySet="Carol">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="AddressBand" ColumnName="AddressBand" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="FkUser" ColumnName="FkUser" />
+                <ScalarProperty Name="FkPriest" ColumnName="FkPriest" />
+                <ScalarProperty Name="DateCarol" ColumnName="DateCarol" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="IsForVerification" ColumnName="IsForVerification" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CarolFamily">
+            <EntityTypeMapping TypeName="ParafisDBTestoweModel.CarolFamily">
+              <MappingFragment StoreEntitySet="CarolFamily">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="FkFamily" ColumnName="FkFamily" />
+                <ScalarProperty Name="FkCarol" ColumnName="FkCarol" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="MoneyAmount" ColumnName="MoneyAmount" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="FkUser" ColumnName="FkUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cemetery">
+            <EntityTypeMapping TypeName="ParafisDBTestoweModel.Cemetery">
+              <MappingFragment StoreEntitySet="Cemetery">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="DateBuilded" ColumnName="DateBuilded" />
+                <ScalarProperty Name="FkUser" ColumnName="FkUser" />
+                <ScalarProperty Name="CemeteryName" ColumnName="CemeteryName" />
+                <ScalarProperty Name="LocationAttributeOne" ColumnName="LocationAttributeOne" />
+                <ScalarProperty Name="LocationAttributeTwo" ColumnName="LocationAttributeTwo" />
+                <ScalarProperty Name="LocationAttributeThree" ColumnName="LocationAttributeThree" />
+                <ScalarProperty Name="LocationAttributeFour" ColumnName="LocationAttributeFour" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CemeteryGrave">
+            <EntityTypeMapping TypeName="ParafisDBTestoweModel.CemeteryGrave">
+              <MappingFragment StoreEntitySet="CemeteryGrave">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="RegNumber" ColumnName="RegNumber" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="FkCemetery" ColumnName="FkCemetery" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateExpired" ColumnName="DateExpired" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Attribute" ColumnName="Attribute" />
+                <ScalarProperty Name="BoolHistoric" ColumnName="BoolHistoric" />
+                <ScalarProperty Name="HistoricRecordDescription" ColumnName="HistoricRecordDescription" />
+                <ScalarProperty Name="BoolNoFee" ColumnName="BoolNoFee" />
+                <ScalarProperty Name="PictureFile" ColumnName="PictureFile" />
+                <ScalarProperty Name="FkUser" ColumnName="FkUser" />
+                <ScalarProperty Name="LocationAttributeOne" ColumnName="LocationAttributeOne" />
+                <ScalarProperty Name="LocationAttributeTwo" ColumnName="LocationAttributeTwo" />
+                <ScalarProperty Name="LocationAttributeThree" ColumnName="LocationAttributeThree" />
+                <ScalarProperty Name="LocationAttributeFour" ColumnName="LocationAttributeFour" />
+                <ScalarProperty Name="IsForVerification" ColumnName="IsForVerification" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CemeteryGravePayment">
+            <EntityTypeMapping TypeName="ParafisDBTestoweModel.CemeteryGravePayment">
+              <MappingFragment StoreEntitySet="CemeteryGravePayment">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="FkGrave" ColumnName="FkGrave" />
+                <ScalarProperty Name="DatePayment" ColumnName="DatePayment" />
+                <ScalarProperty Name="MoneyAmount" ColumnName="MoneyAmount" />
+                <ScalarProperty Name="PaymentPurpose" ColumnName="PaymentPurpose" />
+                <ScalarProperty Name="FkPayer" ColumnName="FkPayer" />
+                <ScalarProperty Name="PayerName" ColumnName="PayerName" />
+                <ScalarProperty Name="PayerSurname" ColumnName="PayerSurname" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="FkUser" ColumnName="FkUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CemeteryGravePerson">
+            <EntityTypeMapping TypeName="ParafisDBTestoweModel.CemeteryGravePerson">
+              <MappingFragment StoreEntitySet="CemeteryGravePerson">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="FkGrave" ColumnName="FkGrave" />
+                <ScalarProperty Name="FkPerson" ColumnName="FkPerson" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="DateBirth" ColumnName="DateBirth" />
+                <ScalarProperty Name="DateDeath" ColumnName="DateDeath" />
+                <ScalarProperty Name="FkBookOfDeath" ColumnName="FkBookOfDeath" />
+                <ScalarProperty Name="FkUser" ColumnName="FkUser" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CemeteryGravePhoto">
+            <EntityTypeMapping TypeName="ParafisDBTestoweModel.CemeteryGravePhoto">
+              <MappingFragment StoreEntitySet="CemeteryGravePhoto">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="FkCemeteryGrave" ColumnName="FkCemeteryGrave" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="FkUser" ColumnName="FkUser" />
+                <ScalarProperty Name="PhotoFile" ColumnName="PhotoFile" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Diary">
+            <EntityTypeMapping TypeName="ParafisDBTestoweModel.Diary">
+              <MappingFragment StoreEntitySet="Diary">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="EventTitle" ColumnName="EventTitle" />
+                <ScalarProperty Name="EventDate" ColumnName="EventDate" />
+                <ScalarProperty Name="EventType" ColumnName="EventType" />
+                <ScalarProperty Name="EventCategory" ColumnName="EventCategory" />
+                <ScalarProperty Name="EventRemarks" ColumnName="EventRemarks" />
+                <ScalarProperty Name="FkUser" ColumnName="FkUser" />
+                <ScalarProperty Name="IdMembers" ColumnName="IdMembers" />
+                <ScalarProperty Name="IsForVerification" ColumnName="IsForVerification" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Donation">
+            <EntityTypeMapping TypeName="ParafisDBTestoweModel.Donation">
+              <MappingFragment StoreEntitySet="Donation">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="DateDonation" ColumnName="DateDonation" />
+                <ScalarProperty Name="DateNextDonation" ColumnName="DateNextDonation" />
+                <ScalarProperty Name="DonationYear" ColumnName="DonationYear" />
+                <ScalarProperty Name="AmountMoney" ColumnName="AmountMoney" />
+                <ScalarProperty Name="DonationPurposeDesc" ColumnName="DonationPurposeDesc" />
+                <ScalarProperty Name="DonationPurposeType" ColumnName="DonationPurposeType" />
+                <ScalarProperty Name="FkDonatorPerson" ColumnName="FkDonatorPerson" />
+                <ScalarProperty Name="FkDonatorFamily" ColumnName="FkDonatorFamily" />
+                <ScalarProperty Name="FkDiary" ColumnName="FkDiary" />
+                <ScalarProperty Name="FkVisitSickPerson" ColumnName="FkVisitSickPerson" />
+                <ScalarProperty Name="FkCarol" ColumnName="FkCarol" />
+                <ScalarProperty Name="FkCommunion" ColumnName="FkCommunion" />
+                <ScalarProperty Name="BoolFinanceLedger" ColumnName="BoolFinanceLedger" />
+                <ScalarProperty Name="FkUser" ColumnName="FkUser" />
+                <ScalarProperty Name="IsForVerification" ColumnName="IsForVerification" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Family">
+            <EntityTypeMapping TypeName="ParafisDBTestoweModel.Family">
+              <MappingFragment StoreEntitySet="Family">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="FkUser" ColumnName="FkUser" />
+                <ScalarProperty Name="IsForVerification" ColumnName="IsForVerification" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FamilyMember">
+            <EntityTypeMapping TypeName="ParafisDBTestoweModel.FamilyMember">
+              <MappingFragment StoreEntitySet="FamilyMember">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="fkFamily" ColumnName="fkFamily" />
+                <ScalarProperty Name="fkPerson" ColumnName="fkPerson" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="MemberType" ColumnName="MemberType" />
+                <ScalarProperty Name="FkUser" ColumnName="FkUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Finance">
+            <EntityTypeMapping TypeName="ParafisDBTestoweModel.Finance">
+              <MappingFragment StoreEntitySet="Finance">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="FkUser" ColumnName="FkUser" />
+                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+                <ScalarProperty Name="DocumentNumber" ColumnName="DocumentNumber" />
+                <ScalarProperty Name="DocumentType" ColumnName="DocumentType" />
+                <ScalarProperty Name="DocumentCategory" ColumnName="DocumentCategory" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="IsForVerification" ColumnName="IsForVerification" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Person">
+            <EntityTypeMapping TypeName="ParafisDBTestoweModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="DateBirth" ColumnName="DateBirth" />
+                <ScalarProperty Name="DateBaptism" ColumnName="DateBaptism" />
+                <ScalarProperty Name="DateConfirmation" ColumnName="DateConfirmation" />
+                <ScalarProperty Name="DateWedding" ColumnName="DateWedding" />
+                <ScalarProperty Name="DateDeath" ColumnName="DateDeath" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="FKMother" ColumnName="FKMother" />
+                <ScalarProperty Name="FKFather" ColumnName="FKFather" />
+                <ScalarProperty Name="PlaceBirth" ColumnName="PlaceBirth" />
+                <ScalarProperty Name="ParishConfirmation" ColumnName="ParishConfirmation" />
+                <ScalarProperty Name="FKUser" ColumnName="FKUser" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PersonSex" ColumnName="PersonSex" />
+                <ScalarProperty Name="FKSpouse" ColumnName="FKSpouse" />
+                <ScalarProperty Name="MotherName" ColumnName="MotherName" />
+                <ScalarProperty Name="MotherSurname" ColumnName="MotherSurname" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="FatherSurname" ColumnName="FatherSurname" />
+                <ScalarProperty Name="SpouseName" ColumnName="SpouseName" />
+                <ScalarProperty Name="SpouseSurname" ColumnName="SpouseSurname" />
+                <ScalarProperty Name="YearBirth" ColumnName="YearBirth" />
+                <ScalarProperty Name="PersonFaith" ColumnName="PersonFaith" />
+                <ScalarProperty Name="Profession" ColumnName="Profession" />
+                <ScalarProperty Name="YearBaptism" ColumnName="YearBaptism" />
+                <ScalarProperty Name="YearCommunion" ColumnName="YearCommunion" />
+                <ScalarProperty Name="DateCommunion" ColumnName="DateCommunion" />
+                <ScalarProperty Name="IsForVerification" ColumnName="IsForVerification" />
+                <ScalarProperty Name="YearDeath" ColumnName="YearDeath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supplier">
+            <EntityTypeMapping TypeName="ParafisDBTestoweModel.Supplier">
+              <MappingFragment StoreEntitySet="Supplier">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
+                <ScalarProperty Name="SupplierCity" ColumnName="SupplierCity" />
+                <ScalarProperty Name="SupplierCode" ColumnName="SupplierCode" />
+                <ScalarProperty Name="SupplierAddress" ColumnName="SupplierAddress" />
+                <ScalarProperty Name="SupplierEmail" ColumnName="SupplierEmail" />
+                <ScalarProperty Name="FkUser" ColumnName="FkUser" />
+                <ScalarProperty Name="SupplierType" ColumnName="SupplierType" />
+                <ScalarProperty Name="SupplierCategory" ColumnName="SupplierCategory" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsForVerification" ColumnName="IsForVerification" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="ParafisDBTestoweModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="NameSurname" ColumnName="NameSurname" />
+                <ScalarProperty Name="Permission" ColumnName="Permission" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Pass" ColumnName="Pass" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VisitSickPerson">
+            <EntityTypeMapping TypeName="ParafisDBTestoweModel.VisitSickPerson">
+              <MappingFragment StoreEntitySet="VisitSickPerson">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="FkPerson" ColumnName="FkPerson" />
+                <ScalarProperty Name="FkUser" ColumnName="FkUser" />
+                <ScalarProperty Name="DateVisit" ColumnName="DateVisit" />
+                <ScalarProperty Name="DateNextVisit" ColumnName="DateNextVisit" />
+                <ScalarProperty Name="FkPrist" ColumnName="FkPrist" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="BoolCommunion" ColumnName="BoolCommunion" />
+                <ScalarProperty Name="BoolVisitTookPlace" ColumnName="BoolVisitTookPlace" />
+                <ScalarProperty Name="BoolConfession" ColumnName="BoolConfession" />
+                <ScalarProperty Name="BoolAnointing" ColumnName="BoolAnointing" />
+                <ScalarProperty Name="IsForVerification" ColumnName="IsForVerification" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VGravePersonDetail">
+            <EntityTypeMapping TypeName="ParafisDBTestoweModel.VGravePersonDetail">
+              <MappingFragment StoreEntitySet="VGravePersonDetail">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FkGrave" ColumnName="FkGrave" />
+                <ScalarProperty Name="FkPerson" ColumnName="FkPerson" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="DateBirth" ColumnName="DateBirth" />
+                <ScalarProperty Name="DateDeath" ColumnName="DateDeath" />
+                <ScalarProperty Name="YearBirth" ColumnName="YearBirth" />
+                <ScalarProperty Name="YearDeath" ColumnName="YearDeath" />
+                <ScalarProperty Name="LocationAttributeOne" ColumnName="LocationAttributeOne" />
+                <ScalarProperty Name="LocationAttributeTwo" ColumnName="LocationAttributeTwo" />
+                <ScalarProperty Name="LocationAttributeThree" ColumnName="LocationAttributeThree" />
+                <ScalarProperty Name="LocationAttributeFour" ColumnName="LocationAttributeFour" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
