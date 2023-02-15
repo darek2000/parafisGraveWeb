@@ -33,9 +33,10 @@ namespace CemeteryWeb.Controllers
         [HttpPost]
         public ActionResult SearchGrave(string namePerson, string surnamePerson)
         {
-            var model = Helper.GetGraveDetails(_dbContext, namePerson, surnamePerson);
+            //var model = Helper.GetGraveDetails(_dbContext, namePerson, surnamePerson);
+            var model = Helper.GetGraveDetailsList(_dbContext, namePerson, surnamePerson);
 
-            return PartialView("_GraveDetailsPartial", model);
+            return PartialView("_GraveDetailsListPartial", model);
         }
     }
 }

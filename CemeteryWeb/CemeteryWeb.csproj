@@ -43,7 +43,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-	<includesetaclproviderondestination>False</includesetaclproviderondestination>
+    <includesetaclproviderondestination>False</includesetaclproviderondestination>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -219,7 +219,7 @@
     <Compile Include="Models\GraveModel.cs" />
     <Compile Include="Models\PersonModel.cs" />
     <Compile Include="Models\SearchModel.cs" />
-    <Compile Include="Models\VGravePersonDetailModel.cs" />
+    <Compile Include="Models\GravePersonDetailModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -281,6 +281,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Search\_GraveDetailsPartial.cshtml" />
+    <Content Include="Views\Search\_GraveDetailsListPartial.cshtml" />
+    <Content Include="Views\Search\Index - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

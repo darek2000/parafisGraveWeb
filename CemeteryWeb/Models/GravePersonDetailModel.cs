@@ -6,14 +6,19 @@ using System.Web;
 
 namespace CemeteryWeb.Models
 {
-    public class VGravePersonDetailModel
+    public class GravePersonDetailModel
     {
-        public VGravePersonDetailModel()
+        public GravePersonDetailModel()
         {
 
         }
 
-        public VGravePersonDetailModel(VGravePersonDetail v)
+        public GravePersonDetailModel(VGravePersonDetail v, string filename) : this(v)
+        {
+            FileName= filename;
+        }
+
+        public GravePersonDetailModel(VGravePersonDetail v)
         {
             Id = v.Id;
             FkGrave = v.FkGrave;
@@ -43,5 +48,7 @@ namespace CemeteryWeb.Models
         public string LocationAttributeTwo { get; set; }
         public string LocationAttributeThree { get; set; }
         public string LocationAttributeFour { get; set; }
+        public string FileName { get; set; }
+
     }
 }

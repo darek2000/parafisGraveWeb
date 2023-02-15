@@ -13,6 +13,24 @@ namespace CemeteryWeb.Models
 
         }
 
+        public PersonModel(Person v)
+        {
+            Name = v.Name;
+            Surname = v.Surname;
+
+            if (v.DateBirth != null)
+                DateBirth = ((DateTime)v.DateBirth).ToShortDateString();
+
+            if (v.DateDeath != null)
+                DateDeath = ((DateTime)v.DateDeath).ToShortDateString();
+
+            if (YearBirth != null)
+                YearBirth = (int)YearBirth;
+
+            if (YearDeath != null)
+                YearDeath = (int)YearDeath;
+        }
+
         public PersonModel(VGravePersonDetail v)
         {
             Name = v.Name;

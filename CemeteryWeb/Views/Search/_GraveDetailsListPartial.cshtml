@@ -1,0 +1,24 @@
+﻿@model List<CemeteryWeb.Models.GravePersonDetailModel>
+
+@if (Model != null)
+{
+	<div class="row">
+		<div class="col-md-10">
+			<h3>Znaleziono osób: <span style="color: red">@Model.Count()</span></h3>
+		</div>
+	</div>
+	foreach(var item in Model)
+	{
+		<div class="row" style="border:1px solid lightgray;border-radius:10px;margin-bottom:20px">
+			<div class="col-md-4" style="margin: 1em">
+				<img src="GravePhotos\@item.FileName" width="180" />
+			</div>
+			<div class="col-md-6" style="margin: 1em">
+				<h4><span style="color:red">Św.P. @item.Name @item.Surname</span></h4>
+				<h5><span style="color:gray"><b>Data urodzenia </b>@item.DateBirth</span></h5>
+				<h5><span style="color:gray"><b>Data śmierci </b>@item.DateDeath</span></h5>
+			</div>
+		</div>
+	}
+}
+
