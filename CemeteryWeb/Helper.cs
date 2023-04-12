@@ -52,14 +52,18 @@ namespace CemeteryWeb
 			}
 		}
 
-		public static List<GravePersonDetailModel> GetGraveDetailsList(ParafisDBTestoweEntities db, string personName, string personSurname)
+		public static List<GravePersonDetailModel> GetGraveDetailsList(ParafisDBTestoweEntities db, string personName, string personSurname, string sector, string row, string number)
 		{
 			var result = new List<GravePersonDetailModel>();
 
 			try
 			{
 				var a = db.VGravePersonDetail.Where(x => (personName != string.Empty) ? x.Name == personName : true 
-								&& (personSurname != string.Empty) ? x.Surname == personSurname : true).ToList();
+								&& (personSurname != string.Empty) ? x.Surname == personSurname : true
+								&& (sector != string.Empty) ? x.LocationAttributeTwo == sector : true
+								&& (row != string.Empty) ? x.LocationAttributeThree == row : true
+								&& (number != string.Empty) ? x.LocationAttributeFour == number : true
+								).ToList();
 
 				foreach(var item in a)
 				{
@@ -67,7 +71,7 @@ namespace CemeteryWeb
 
 					var f = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == graveid).ToList().FirstOrDefault()?.PhotoFile;
 
-					result.Add(new GravePersonDetailModel(item, f));
+					result.Add(new GravePersonDetailModel(item, f == null ? "nopicture.png" : f));
 				}
 
 				return result;

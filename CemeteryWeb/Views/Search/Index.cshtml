@@ -4,24 +4,33 @@
 	function searchGrave(e) {
 		var valName = $("#Name").val();
 		var valSurname = $("#Surname").val();
+		var valSector = $("#Sector").val();
+		var valRow = $("#Row").val();
+		var valNumber = $("#Number").val();
 
-		$.ajax({
-			type: "POST",
-			url: '/Search/SearchGrave',
-			data: { namePerson: valName, surnamePerson: valSurname },
-			success: function (data, textStatus, jqXHR) {
-				$('#graveInfo').html(data);
-			},
-			error: function (a, b, c) {
-				alert("Wystąpił bład podczas pobierania danych. Proszę skonatkować się ze wsparciem aplikacji")
-			}
-		});
+		if (valName != "" || valSurname != "" || valSector != "" || valRow != "" || valNumber != "")
+			$.ajax({
+				type: "POST",
+				url: '/Search/SearchGrave',
+				data: { namePerson: valName, surnamePerson: valSurname, sector: valSector, row: valRow, number: valNumber },
+				success: function (data, textStatus, jqXHR) {
+					$('#graveInfo').html(data);
+				},
+				error: function (a, b, c) {
+					alert("Wystąpił bład podczas pobierania danych. Proszę skonatkować się ze wsparciem aplikacji")
+				}
+			});
 	}
 </script>
 
 <div class="row">
 	<div class="col-md-7">
-		<h3>Mapa/Zdjecie</h3>
+		<h3>Mapa</h3>
+		<iframe width="850" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" 
+				src="https://www.openstreetmap.org/export/embed.html?bbox=15.058715343475344%2C51.64015080505992%2C15.064508914947512%2C51.64272416458829&amp;layer=hot" 
+				style="border: 1px solid black">
+		</iframe><br />
+		<small><a href="https://www.openstreetmap.org/#map=18/51.64144/15.06161&amp;layers=H">View Larger Map</a></small>
 	</div>
 	<div class="col-md-5">
 		<div class="row">
@@ -40,6 +49,26 @@
 				<div class="form-group">
 					@Html.LabelFor(m => m.Surname, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
 					@Html.TextBoxFor(m => m.Surname, htmlAttributes: new { placeholder = "Wprowadź nazwisko", @style = "padding: 7px; width: 250px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+				<div class="form-group">
+					@Html.LabelFor(m => m.Sector, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
+					@Html.TextBoxFor(m => m.Sector, htmlAttributes: new { placeholder = "Wprowadź", @style = "padding: 7px; width: 100px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+					@Html.LabelFor(m => m.Row, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
+					@Html.TextBoxFor(m => m.Row, htmlAttributes: new { placeholder = "Wprowadź", @style = "padding: 7px; width: 100px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+					@Html.LabelFor(m => m.Number, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
+					@Html.TextBoxFor(m => m.Number, htmlAttributes: new { placeholder = "Wprowadź", @style = "padding: 7px; width: 100px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
 				</div>
 			</div>
 		</div>

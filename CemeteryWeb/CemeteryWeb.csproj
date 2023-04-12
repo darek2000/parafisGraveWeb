@@ -283,6 +283,7 @@
     <Content Include="Views\Search\_GraveDetailsPartial.cshtml" />
     <Content Include="Views\Search\_GraveDetailsListPartial.cshtml" />
     <Content Include="Views\Search\Index - Copy.cshtml" />
+    <Content Include="Views\Home\Gallery.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

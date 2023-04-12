@@ -1,4 +1,5 @@
 ﻿using CemeteryWeb.DBContext;
+using CemeteryWeb.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,10 +32,12 @@ namespace CemeteryWeb.Controllers
 		//}
 
         [HttpPost]
-        public ActionResult SearchGrave(string namePerson, string surnamePerson)
+        public ActionResult SearchGrave(string namePerson, string surnamePerson, string sector, string row, string number)
         {
-            //var model = Helper.GetGraveDetails(_dbContext, namePerson, surnamePerson);
-            var model = Helper.GetGraveDetailsList(_dbContext, namePerson, surnamePerson);
+			var model = new List<GravePersonDetailModel>();
+
+			if (namePerson != string.Empty || surnamePerson != string.Empty || sector != string.Empty || row != string.Empty || number != string.Empty)
+                model = Helper.GetGraveDetailsList(_dbContext, namePerson, surnamePerson, sector, row, number);
 
             return PartialView("_GraveDetailsListPartial", model);
         }

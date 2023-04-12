@@ -19,5 +19,14 @@ namespace CemeteryWeb.Models
 
         [Display(Name = "Nazwisko")]
         public string Surname { get; set; }
+
+        [Display(Name = "Sektor")]
+        public string Sector { get; set; }
+
+        [Display(Name = "Rząd")]
+        public string Row { get; set; }
+
+        [Display(Name = "Miejsce")]
+        public string Number { get; set; }
     }
 }

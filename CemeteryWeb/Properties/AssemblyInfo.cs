@@ -31,8 +31,10 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("0.0.0.2")]
-[assembly: AssemblyFileVersion("0.0.0.2")]
+[assembly: AssemblyVersion("0.0.0.4")]
+[assembly: AssemblyFileVersion("0.0.0.4")]
 
+//0.0.0.4 Updated search result, added location details
+//0.0.0.3 Search changed, not allowed name and surname empty
 //0.0.0.2 Updated search
 //0.0.0.1 Added initial layout and logic
