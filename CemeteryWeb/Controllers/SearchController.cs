@@ -23,13 +23,18 @@ namespace CemeteryWeb.Controllers
 			return View(new CemeteryWeb.Models.SearchModel());
 		}
 
-		//[HttpPost]
-		//public ActionResult SearchGrave(string namePerson, string surnamePerson)
-		//{
-  //          var result = Helper.GetGraveDetails(_dbContext, namePerson, surnamePerson);
+        public ActionResult IndexMap()
+        {
+            return View(new CemeteryWeb.Models.SearchModel());
+        }
 
-  //          return Json(new { status = true, dataGrave = result }, JsonRequestBehavior.AllowGet);
-		//}
+        //[HttpPost]
+        //public ActionResult SearchGrave(string namePerson, string surnamePerson)
+        //{
+        //          var result = Helper.GetGraveDetails(_dbContext, namePerson, surnamePerson);
+
+        //          return Json(new { status = true, dataGrave = result }, JsonRequestBehavior.AllowGet);
+        //}
 
         [HttpPost]
         public ActionResult SearchGrave(string namePerson, string surnamePerson, string sector, string row, string number)
