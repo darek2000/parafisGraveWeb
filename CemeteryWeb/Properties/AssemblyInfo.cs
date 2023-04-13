@@ -31,9 +31,10 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("0.0.0.4")]
-[assembly: AssemblyFileVersion("0.0.0.4")]
+[assembly: AssemblyVersion("0.0.0.5")]
+[assembly: AssemblyFileVersion("0.0.0.5")]
 
+//0.0.0.5 Updated DateBirth and YearBirth error, tool for removing paths from photo filenames
 //0.0.0.4 Updated search result, added location details
 //0.0.0.3 Search changed, not allowed name and surname empty
 //0.0.0.2 Updated search

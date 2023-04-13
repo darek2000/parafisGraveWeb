@@ -131,6 +131,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\ToolsController.cs" />
     <Compile Include="DBContext\BookBaptism.cs">
       <DependentUpon>ParafiaDBModel.tt</DependentUpon>
     </Compile>
@@ -284,6 +285,8 @@
     <Content Include="Views\Search\_GraveDetailsListPartial.cshtml" />
     <Content Include="Views\Search\Index - Copy.cshtml" />
     <Content Include="Views\Home\Gallery.cshtml" />
+    <Content Include="Views\Tools\CleanPhotoPath.cshtml" />
+    <Content Include="Views\Tools\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -7,16 +7,30 @@
 			<h3>Znaleziono osób: <span style="color: red">@Model.Count()</span></h3>
 		</div>
 	</div>
-	foreach(var item in Model)
+	foreach (var item in Model)
 	{
 		<div class="row" style="border:1px solid lightgray;border-radius:10px;margin-bottom:20px">
 			<div class="col-md-4" style="margin: 1em">
 				<a target="_blank" href='GravePhotos\@item.FileName'><img src="GravePhotos\@item.FileName" width="180" /></a>
-</div>
+			</div>
 			<div class="col-md-6" style="margin: 1em">
 				<h4><span style="color:red">Św.P. @item.Name @item.Surname</span></h4>
-				<h5><span style="color:gray"><b>Data urodzenia </b>@(((DateTime)item.DateBirth).ToShortDateString())</span></h5>
-				<h5><span style="color:gray"><b>Data śmierci </b>@(((DateTime)item.DateDeath).ToShortDateString())</span></h5>
+				@if (item.YearBirth == null)
+				{
+					<h5><span style="color:gray"><b>Data urodzenia </b>@(((DateTime)item.DateBirth).ToShortDateString())</span></h5>
+				}
+				else
+				{
+					<h5><span style="color:gray"><b>Rok urodzenia </b>@item.YearBirth</span></h5>
+				}
+				@if (item.YearDeath == null)
+				{
+					<h5><span style="color:gray"><b>Data śmierci </b>@(((DateTime)item.DateDeath).ToShortDateString())</span></h5>
+				}
+				else
+				{
+					<h5><span style="color:gray"><b>Rok śmierci </b>@item.YearDeath</span></h5>
+				}
 				<h5><span style="color:black"><b>Sektor:  </b>@item.LocationAttributeTwo, <b>Rząd: </b>@item.LocationAttributeThree, <b>Miejsce: </b>@item.LocationAttributeFour</span></h5>
 			</div>
 		</div>

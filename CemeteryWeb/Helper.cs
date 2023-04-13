@@ -82,5 +82,37 @@ namespace CemeteryWeb
 				throw new Exception(ex.Message);
 			}
 		}
-	}
+
+        public static string CleanPhotoPaths(ParafisDBTestoweEntities db)
+		{
+			var photos = db.CemeteryGravePhoto.Where(x => x.PhotoFile != null).ToList();
+			bool changeFlag = false;
+
+			try
+			{
+				foreach (var p in photos)
+				{
+					if (p.PhotoFile.Contains("\\") == true)
+					{
+						RemovePathPart(p);
+						changeFlag = true;
+					}
+				}
+
+				if (changeFlag)
+					db.SaveChanges();
+
+				return "Nazwy plików zostały wyczyszczone ze scieżek";
+            }
+			catch (Exception ex)
+			{
+                return $"Message: {ex.Message}, InnerException: {ex.InnerException}";
+            }
+        }
+
+		public static void RemovePathPart(CemeteryGravePhoto p)
+		{
+            p.PhotoFile = System.IO.Path.GetFileName(p.PhotoFile);
+		}
+    }
 }

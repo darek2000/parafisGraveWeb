@@ -1,0 +1,12 @@
+﻿<br />
+<h1 class="captionmsg">Wiadomość systemowa</h1>
+<br />
+@if (TempData["InfoMessage"] != null)
+{
+	<h2 class="infomsg">@TempData["InfoMessage"].ToString()</h2>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+	<h2 class="errormsg">@TempData["ErrorMessage"].ToString()</h2>
+}
