@@ -83,6 +83,41 @@ namespace CemeteryWeb
 			}
 		}
 
+        public static List<GravePersonDetailModel> GetGraveDetailsList(ParafisDBTestoweEntities db, string graveDetails)
+        {
+            var result = new List<GravePersonDetailModel>();
+
+			var locParams = graveDetails.Split(' ');
+			var sector = locParams[0];
+			var row = locParams[1];
+			var number = locParams[3];
+
+            try
+            {
+                var a = db.VGravePersonDetail.Where(x => 
+									((sector != string.Empty) ? x.LocationAttributeTwo == sector : true)
+                                && ((row != string.Empty) ? x.LocationAttributeThree == row : true)
+                                && ((number != string.Empty) ? x.LocationAttributeFour == number : true)
+                                ).ToList();
+
+                foreach (var item in a)
+                {
+                    var graveid = item.FkGrave;
+
+                    var f = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == graveid).ToList().FirstOrDefault()?.PhotoFile;
+
+                    result.Add(new GravePersonDetailModel(item, f == null ? "nopicture.png" : f));
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+
         public static string CleanPhotoPaths(ParafisDBTestoweEntities db)
 		{
 			var photos = db.CemeteryGravePhoto.Where(x => x.PhotoFile != null).ToList();

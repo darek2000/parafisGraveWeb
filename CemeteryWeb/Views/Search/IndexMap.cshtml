@@ -22,6 +22,21 @@
 			});
 	}
 
+	function showGraveData(e) {
+
+		$.ajax({
+			type: "POST",
+			url: '/Search/ShowGraveData',
+			data: { graveDetails: e },
+			success: function (data, textStatus, jqXHR) {
+				$('#graveInfo').html(data);
+			},
+			error: function (a, b, c) {
+				alert("Wystąpił bład podczas pobierania danych. Proszę skonatkować się ze wsparciem aplikacji")
+			}
+		});
+	}
+
 	function readPolygon() {
 
 		$.ajax({
@@ -271,7 +286,8 @@
 
 			if (p.getBounds().contains(e.latlng) == true) {
 				p.setStyle({ fillColor: 'red' });
-				alert("Współrzędne " + e.latlng + "\r" + "Grób: " + p.options.className);
+				//alert("Współrzędne " + e.latlng + "\r" + "Grób: " + p.options.className);
+				showGraveData(p.options.className);
 				return false;
 			}
 			else {

@@ -46,5 +46,16 @@ namespace CemeteryWeb.Controllers
 
             return PartialView("_GraveDetailsListPartial", model);
         }
+
+        [HttpPost]
+        public ActionResult ShowGraveData(string graveDetails)
+        {
+            var model = new List<GravePersonDetailModel>();
+
+            if (graveDetails != string.Empty)
+                model = Helper.GetGraveDetailsList(_dbContext, graveDetails);
+
+            return PartialView("_GraveDetailsListPartial", model);
+        }
     }
 }
