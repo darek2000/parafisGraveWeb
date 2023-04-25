@@ -21,6 +21,64 @@
 				}
 			});
 	}
+
+	function readPolygon() {
+
+		$.ajax({
+			type: "POST",
+			url: '/Map/Polygon_Read',
+			//dataType: 'json',
+			//data: { nameCategory: val },
+			success: function (data, textStatus, jqXHR) {
+
+				//alert(data);
+				if (data == null) {
+					return
+				}
+
+				polygons = [];
+
+				data.forEach(addPolygon);
+
+				//drawPolygons();
+			},
+			error: function (a, b, c) {
+				alert("Wystąpił bład podczas dodawania kategorii. Proszę skontaktować się ze wsparciem aplikacji")
+			}
+		});
+	}
+
+	function addPolygon(item) {
+
+		if (item.Points.length == 2) {
+
+			polygons.push(new L.rectangle([[item.Points[0].X, item.Points[0].Y], [item.Points[1].X, item.Points[1].Y]],
+				{
+					className: item.Name,
+					color: 'gray',
+					weight: 1,
+					fillColor: '#888',
+					fillOpacity: 0.5
+				}).addTo(map));
+		}
+		//polygon.Push(item);
+		
+
+		//var polygon = L.polygon([
+	//	[51.641654, 15.06276],
+	//	[51.641677, 15.063522],
+	//	[51.640702, 15.063548],
+	//	[51.640735, 15.06284]
+	//], {
+	//		color: 'black'
+	//		//fillColor: '#f03',
+	//		//fillOpacity: 0.5
+	//}).addTo(map);
+	}
+
+	function drawPolygons() {
+
+	}
 </script>
 
 <div class="row">
@@ -36,6 +94,7 @@
 				</div>
 			</div>*@
 		</div>
+		<input type="checkbox" id="cb-map-bright" name="cb-map-bright" value="">&nbsp;pokaż warstwe jasna&nbsp;&nbsp;<input type="checkbox" id="cb-map-showshapes" name="cb-map-showshapes" value="">&nbsp;pokaż obrysy
 	</div>
 	<div class="col-md-5">
 		<div class="row">
@@ -78,7 +137,12 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-8">
+			<div class="col-md-5">
+			</div>
+			<div class="col-md-2">
+				<button class="w-100 btn btn-md" type="button" onclick="readPolygon()">Zaczytaj kształty</button>
+			</div>
+			<div class="col-md-1">
 			</div>
 			<div class="col-md-2">
 				<button class="w-100 btn btn-md btn-primary" type="button" onclick="searchGrave()">Wyszukaj</button>
@@ -95,6 +159,60 @@
 
 <script>
 	var map = L.map('map').setView([51.64144, 15.06161], 17.8);
+
+	var prevZoom = map.getZoom();
+
+	var latLngBounds = L.latLngBounds([[51.64168, 15.062754], [51.640705, 15.063543]]);
+
+	var polygons = [];
+
+	var r1 = L.rectangle([[0, 0], [0, 0]]);
+
+	var imageOverlayMarks = L.imageOverlay('/Images/aerial-custom-bright.jpg', latLngBounds, {
+		opacity: 0.8,
+		//errorOverlayUrl: errorOverlayUrl,
+		//alt: altText,
+		interactive: true
+	});
+
+	var imageOverlay = L.imageOverlay('/Images/aerial-custom.jpg', latLngBounds, {
+		opacity: 0.8,
+		//errorOverlayUrl: errorOverlayUrl,
+		//alt: altText,
+		interactive: true
+	});
+
+	map.on('zoomend', function (e) {
+		//debugger;
+		var currZoom = map.getZoom();
+		var diff = prevZoom - currZoom;
+		if ((currZoom == 20) && $("#cb-map-bright").is(":checked")) {
+
+			if (map.hasLayer(imageOverlay)) {
+				map.removeLayer(imageOverlay);
+			}
+
+			imageOverlayMarks.addTo(map);
+		}
+
+		if (currZoom == 19) {
+
+			if (map.hasLayer(imageOverlayMarks)) {
+				map.removeLayer(imageOverlayMarks);
+			}
+
+			imageOverlay.addTo(map);
+		}
+
+		if (diff > 0) {
+			//alert('zoomed out: ' + currZoom);
+		} else if (diff < 0) {
+			//alert('zoomed in: ' + currZoom);
+		} else {
+			//alert('no change');
+		}
+		prevZoom = currZoom;
+	});
 
 	L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 		maxZoom: 22,
@@ -113,26 +231,77 @@
 	//}).addTo(map);
 
 	//var imageUrl = 'https://maps.lib.utexas.edu/maps/historical/newark_nj_1922.jpg';
-	var imageUrl = '/Images/aerial-custom.jpg';
-	var latLngBounds = L.latLngBounds([[51.64168, 15.062754], [51.640705, 15.063543]]);
+	//var imageUrl = '/Images/aerial-custom.jpg';
+	//var latLngBounds = L.latLngBounds([[51.64168, 15.062754], [51.640705, 15.063543]]);
 
-	var imageOverlay = L.imageOverlay(imageUrl, latLngBounds, {
-		opacity: 0.8,
-		//errorOverlayUrl: errorOverlayUrl,
-		//alt: altText,
-		interactive: true
-	}).addTo(map);
+	//var imageOverlay = L.imageOverlay('/Images/aerial-custom.jpg', latLngBounds, {
+	//	opacity: 0.8,
+	//	//errorOverlayUrl: errorOverlayUrl,
+	//	//alt: altText,
+	//	interactive: true
+	//}).addTo(map);
+
+	imageOverlay.addTo(map);
 
 	var rect = L.rectangle(latLngBounds,
 		{
 			color: 'black'
 			//fillColor: '#f03',
 			//fillOpacity: 0.5
-	}).addTo(map);
+		}).addTo(map);
+
+	//Initial onMapClick version
+	//function onMapClick(e) {
+
+	//	var cont = r1.getBounds().contains(e.latlng);
+
+	//	if (cont) {
+	//		r1.setStyle({ fillColor: 'red' });
+	//	}
+	//	else {
+	//		r1.setStyle({ fillColor: '#888' });
+	//	}
+
+	//	alert("You clicked the map at " + e.latlng + ". " + cont);
+	//}
 
 	function onMapClick(e) {
-		alert("You clicked the map at " + e.latlng);
+
+		polygons.every(p => {
+
+			if (p.getBounds().contains(e.latlng) == true) {
+				p.setStyle({ fillColor: 'red' });
+				alert("Współrzędne " + e.latlng + "\r" + "Grób: " + p.options.className);
+				return false;
+			}
+			else {
+				p.setStyle({ fillColor: '#888' });
+				return true;
+			}
+
+		});
 	}
 
 	map.on('click', onMapClick);
+
+	//showShapes();
+
+	function showShapes() {
+
+		r1 = L.rectangle([[51.641449, 15.062839], [51.641433, 15.062881]],
+			{
+				color: 'gray',
+				weight: 1,
+				fillColor: '#888',
+				fillOpacity: 0.5
+			}).addTo(map);
+
+		var r2 = L.rectangle([[51.641428, 15.06284], [51.641413, 15.062881]],
+			{
+				color: 'gray',
+				weight: 1,
+				fillColor: '#888',
+				fillOpacity: 0.5
+			}).addTo(map);
+	}
 </script>

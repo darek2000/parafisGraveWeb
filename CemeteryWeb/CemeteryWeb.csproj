@@ -130,6 +130,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\ToolsController.cs" />
     <Compile Include="DBContext\BookBaptism.cs">
@@ -218,7 +220,10 @@
     </Compile>
     <Compile Include="Helper.cs" />
     <Compile Include="Models\GraveModel.cs" />
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\PersonModel.cs" />
+    <Compile Include="Models\Point.cs" />
+    <Compile Include="Models\Polygon.cs" />
     <Compile Include="Models\SearchModel.cs" />
     <Compile Include="Models\GravePersonDetailModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -228,6 +233,9 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Data\graves.cords.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="DBContext\ParafiaDBModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ParafiaDBModel.Context.cs</LastGenOutput>
@@ -242,6 +250,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\aerial-custom-bright-marks.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\aerial-custom-bright.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\aerial-custom.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -291,9 +305,12 @@
     <Content Include="Views\Tools\CleanPhotoPath.cshtml" />
     <Content Include="Views\Tools\Index.cshtml" />
     <Content Include="Views\Search\IndexMap.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Shared\_Administration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Map\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

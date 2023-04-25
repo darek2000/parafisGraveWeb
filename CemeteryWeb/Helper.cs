@@ -114,5 +114,79 @@ namespace CemeteryWeb
 		{
             p.PhotoFile = System.IO.Path.GetFileName(p.PhotoFile);
 		}
+
+        private static List<Point> GetPointList(string line, string pathError)
+        {
+            var result = new List<Point>();
+
+            var columns = line.Split(';');
+
+            var idx = 0;
+
+            if (line.Count(x => x == ';') > 4)
+            {
+                idx = 0;
+            }
+
+            try
+            {
+                foreach (var col in columns)
+                {
+                    if (idx < 3)
+                    {
+                        idx++;
+                        continue;
+                    }
+
+                    var cords = col.Split(',');
+
+					decimal val = 0;
+
+					if (!decimal.TryParse(cords[0].Replace('.', ','), out val) || !decimal.TryParse(cords[1].Replace('.', ','), out val))
+					{
+						//System.IO.File.AppendAllText(pathError, line + "\n");
+					}
+					else
+						result.Add(new Point() { X = decimal.Parse(cords[0].Replace('.', ',')), Y = decimal.Parse(cords[1].Replace('.', ',')) });
+
+                    idx++;
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                var u = 0;
+
+                return result;
+            }
+        }
+
+        public static List<Polygon> GetPolygonList()
+		{
+            var result = new List<Polygon>();
+
+            var path = AppDomain.CurrentDomain.BaseDirectory + @"\Data\" + "graves.cords.txt";
+            var data = System.IO.File.ReadAllLines(path);
+
+			var pathError = AppDomain.CurrentDomain.BaseDirectory + @"\Data\" + "graves.cords.error.txt";
+
+			//if (System.IO.File.Exists(pathError))
+			//	System.IO.File.Delete(pathError);
+
+            foreach (var line in data)
+            {
+                var col = line.Split(';');
+
+                result.Add(new Polygon()
+                {
+                    Name = $"{col[0]} {col[1]} {col[2]}",
+                    Points = GetPointList(line, pathError)
+                });
+
+            }
+
+			return result;
+        }
     }
 }
