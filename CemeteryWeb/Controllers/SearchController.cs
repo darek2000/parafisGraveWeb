@@ -31,21 +31,32 @@ namespace CemeteryWeb.Controllers
         //[HttpPost]
         //public ActionResult SearchGrave(string namePerson, string surnamePerson)
         //{
-        //          var result = Helper.GetGraveDetails(_dbContext, namePerson, surnamePerson);
+        //    var result = Helper.GetGraveDetails(_dbContext, namePerson, surnamePerson);
 
-        //          return Json(new { status = true, dataGrave = result }, JsonRequestBehavior.AllowGet);
+        //    return Json(new { status = true, dataGrave = result }, JsonRequestBehavior.AllowGet);
         //}
 
         [HttpPost]
         public ActionResult SearchGrave(string namePerson, string surnamePerson, string sector, string row, string number)
         {
-			var model = new List<GravePersonDetailModel>();
+            var model = new List<GravePersonDetailModel>();
 
-			if (namePerson != string.Empty || surnamePerson != string.Empty || sector != string.Empty || row != string.Empty || number != string.Empty)
+            if (namePerson != string.Empty || surnamePerson != string.Empty || sector != string.Empty || row != string.Empty || number != string.Empty)
                 model = Helper.GetGraveDetailsList(_dbContext, namePerson, surnamePerson, sector, row, number);
 
             return PartialView("_GraveDetailsListPartial", model);
         }
+
+        //[HttpPost]
+        //public ActionResult SearchGrave(SearchModel search)
+        //{
+        //    var model = new List<GravePersonDetailModel>();
+
+        //    if (search.Name != string.Empty || search.Surname != string.Empty || search.Sector != string.Empty || search.Row != string.Empty || search.Number != string.Empty)
+        //        model = Helper.GetGraveDetailsList(_dbContext, search);
+
+        //    return PartialView("_GraveDetailsListPartial", model);
+        //}
 
         [HttpPost]
         public ActionResult ShowGraveData(string graveDetails)

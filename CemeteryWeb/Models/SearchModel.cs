@@ -28,5 +28,17 @@ namespace CemeteryWeb.Models
 
         [Display(Name = "Miejsce")]
         public string Number { get; set; }
+
+        [Display(Name = "Data urodz.")]
+        public string DateBirth { get; set; }
+
+        [Display(Name = "Data śmierci")]
+        public string DateDeath { get; set; }
+
+        [Display(Name = "Rok urodz.")]
+        public int? YearBirth { get; set; }
+
+        [Display(Name = "Rok śmierci")]
+        public int? YearDeath { get; set; }
     }
 }

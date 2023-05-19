@@ -1,15 +1,19 @@
 ﻿@model List<CemeteryWeb.Models.GravePersonDetailModel>
 
+<script>
+	$("#deathCountSpan").html(@Model.Count());
+</script>
 @if (Model != null)
 {
-	<div class="row">
+	@*<div class="row">
 		<div class="col-md-10">
-			<h3>Znaleziono osób: <span style="color: red">@Model.Count()</span></h3>
+			<h3>Znaleziono zmarłych: <span style="color: red">@Model.Count()</span></h3>
 		</div>
-	</div>
+	</div>*@
 	foreach (var item in Model)
 	{
-		<div class="row" style="border:1px solid lightgray;border-radius:10px;margin-bottom:20px">
+		@*<div class="row" style="border:1px solid lightgray;border-radius:10px;margin-bottom:20px">*@
+		<div class="row" style="border: 3px solid black; margin-bottom: 20px; padding: 5px">
 			<div class="col-md-4" style="margin: 1em">
 				<a target="_blank" href='..\GravePhotos\@item.FileName'><img src="..\GravePhotos\@item.FileName" width="180" /></a>
 			</div>
@@ -17,7 +21,10 @@
 				<h4><span style="color:red">Św.P. @item.Name @item.Surname</span></h4>
 				@if (item.YearBirth == null)
 				{
-					<h5><span style="color:gray"><b>Data urodzenia </b>@(((DateTime)item.DateBirth).ToShortDateString())</span></h5>
+					if (item.DateBirth != null)
+					{
+						<h5><span style="color:gray"><b>Data urodzenia </b>@(((DateTime)item.DateBirth).ToShortDateString())</span></h5>
+					}
 				}
 				else
 				{
@@ -25,15 +32,28 @@
 				}
 				@if (item.YearDeath == null)
 				{
-					<h5><span style="color:gray"><b>Data śmierci </b>@(((DateTime)item.DateDeath).ToShortDateString())</span></h5>
+					if (item.DateDeath != null)
+					{
+						<h5><span style="color:gray"><b>Data śmierci </b>@(((DateTime)item.DateDeath).ToShortDateString())</span></h5>
+					}
 				}
 				else
 				{
 					<h5><span style="color:gray"><b>Rok śmierci </b>@item.YearDeath</span></h5>
 				}
-				<h5><span style="color:black"><b>Sektor:  </b>@item.LocationAttributeTwo, <b>Rząd: </b>@item.LocationAttributeThree, <b>Miejsce: </b>@item.LocationAttributeFour</span></h5>
+				<h5><span style="color:black"><b>Sektor:  </b>@item.LocationAttributeTwo, <b>Rząd: </b>@item.LocationAttributeThree, <b>Miejsce: </b>@item.LocationAttributeFour</span> <button onclick="showSingleGrave('@item.Location');"> pokaż </button></h5>
 			</div>
 		</div>
 	}
 }
 
+<script>
+	$(document).ready(function () {
+
+		unselectGraves();
+
+		var foundGraves = @Html.Raw(Json.Encode(Model));
+
+		foundGraves.forEach(showGravesOnTheMap);
+	});
+</script>

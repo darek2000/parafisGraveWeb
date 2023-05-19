@@ -31,9 +31,14 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("0.0.0.8")]
-[assembly: AssemblyFileVersion("0.0.0.8")]
+[assembly: AssemblyVersion("0.0.0.12")]
+[assembly: AssemblyFileVersion("0.0.0.12")]
 
+//0.0.0.12 Added button pokaz
+//0.0.0.11 Updated grave search, result panel
+//0.0.0.11 Added grave editing panel
+//0.0.0.10 Added grave editing
+//0.0.0.9 Added showing graves for search results
 //0.0.0.8 Added showing details after clicking on grave
 //0.0.0.7 Added reading shapes from file, drawing shapes, clicking on shape
 //0.0.0.6 Added OpenStreetMap layer with background picture

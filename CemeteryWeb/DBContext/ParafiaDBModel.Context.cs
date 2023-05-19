@@ -47,5 +47,6 @@ namespace CemeteryWeb.DBContext
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<VisitSickPerson> VisitSickPerson { get; set; }
         public virtual DbSet<VGravePersonDetail> VGravePersonDetail { get; set; }
+        public virtual DbSet<GraveCoordinate> GraveCoordinate { get; set; }
     }
 }

@@ -231,7 +231,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div id="graveInfo" class="col-md-11" style="height: 390px; overflow-y: auto;">
+				<div id="graveInfo" class="col-md-11" style="height: 300px; overflow-y: auto;">
 
 				</div>
 			</div>
@@ -257,15 +257,20 @@
 
 	var imageOverlayMarks = L.imageOverlay('/Images/aerial-custom-bright.jpg', latLngBounds, {
 		opacity: 0.8,
+		//errorOverlayUrl: errorOverlayUrl,
+		//alt: altText,
 		interactive: true
 	});
 
 	var imageOverlay = L.imageOverlay('/Images/aerial-custom.jpg', latLngBounds, {
 		opacity: 0.8,
+		//errorOverlayUrl: errorOverlayUrl,
+		//alt: altText,
 		interactive: true
 	});
 
 	map.on('zoomend', function (e) {
+		//debugger;
 		var currZoom = map.getZoom();
 		var diff = prevZoom - currZoom;
 		if (currZoom == 20) {
@@ -290,6 +295,13 @@
 			imageOverlay.addTo(map);
 		}
 
+		if (diff > 0) {
+			//alert('zoomed out: ' + currZoom);
+		} else if (diff < 0) {
+			//alert('zoomed in: ' + currZoom);
+		} else {
+			//alert('no change');
+		}
 		prevZoom = currZoom;
 	});
 
@@ -304,6 +316,8 @@
 		{
 			color: 'black',
 			weight: 1
+			//fillColor: '#f03',
+			//fillOpacity: 0.5
 		}).addTo(map);
 
 	function onMapClick(e) {
@@ -316,6 +330,7 @@
 				}
 				lastClicked = p;
 				p.setStyle({ fillColor: colorGraveSelected });
+				//alert("Współrzędne " + e.latlng + "\r" + "Grób: " + p.options.className);
 				showGraveData(p.options.className);
 				return false;
 			}
@@ -323,6 +338,7 @@
 				p.setStyle({ fillColor: colorGraveShape });
 				return true;
 			}
+
 		});
 	}
 

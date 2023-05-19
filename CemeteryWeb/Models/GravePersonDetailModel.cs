@@ -33,6 +33,7 @@ namespace CemeteryWeb.Models
             LocationAttributeTwo = v.LocationAttributeTwo;
             LocationAttributeThree = v.LocationAttributeThree;
             LocationAttributeFour = v.LocationAttributeFour;
+            Location = $"{v.LocationAttributeTwo} {v.LocationAttributeThree} Grób {v.LocationAttributeFour}";
         }
 
         public int Id { get; set; }
@@ -49,6 +50,8 @@ namespace CemeteryWeb.Models
         public string LocationAttributeThree { get; set; }
         public string LocationAttributeFour { get; set; }
         public string FileName { get; set; }
+
+        public string Location { get; set; }
 
     }
 }

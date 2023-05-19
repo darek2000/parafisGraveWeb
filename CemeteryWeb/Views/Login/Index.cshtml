@@ -1,8 +1,28 @@
-﻿
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Administration.cshtml";
+﻿@model CemeteryWeb.Models.LoginModel
+
+@using (Html.BeginForm())
+{
+	<h1>Logowanie</h1>
+	<h2 class="errormsg">@ViewBag.ErrorMessage</h2>
+
+	if (TempData["InfoMessage"] != null)
+	{
+		<h2 class="infomsg">@TempData["InfoMessage"].ToString()</h2>
+	}
+
+	if (ViewBag.InfoMessage != null)
+	{
+		<h2 class="infomsg">@ViewBag.InfoMessage</h2>
+	}
+
+	<div class="form-group">
+		@Html.LabelFor(m => m.Username, htmlAttributes: new { @class = "control-label" })<br />
+		@Html.TextBoxFor(m => m.Username, htmlAttributes: new { placeholder = "Login użytkownika", @style = "padding: 5px; width: 200px" })
+	</div>
+	<div class="form-group">
+		@Html.LabelFor(m => m.Password, htmlAttributes: new { @class = "control-label" })<br />
+		@Html.PasswordFor(m => m.Password, htmlAttributes: new { placeholder = "hasło", @style = "padding: 5px; width: 150px" })
+	</div>
+
+	<button class="w-100 btn btn-lg btn-primary" type="submit">Zaloguj</button>
 }
-
-<h2>Index</h2>
-
