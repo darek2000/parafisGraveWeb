@@ -37,12 +37,12 @@ namespace CemeteryWeb.Controllers
         //}
 
         [HttpPost]
-        public ActionResult SearchGrave(string namePerson, string surnamePerson, string sector, string row, string number)
+        public ActionResult SearchGrave(string namePerson, string surnamePerson, string sector, string row, string number, int? yearBirth, int? yearDeath)
         {
             var model = new List<GravePersonDetailModel>();
 
-            if (namePerson != string.Empty || surnamePerson != string.Empty || sector != string.Empty || row != string.Empty || number != string.Empty)
-                model = Helper.GetGraveDetailsList(_dbContext, namePerson, surnamePerson, sector, row, number);
+            if (namePerson != string.Empty || surnamePerson != string.Empty || sector != string.Empty || row != string.Empty || number != string.Empty || yearBirth != null || yearDeath != null)
+                model = Helper.GetGraveDetailsList(_dbContext, namePerson, surnamePerson, sector, row, number, yearBirth, yearDeath);
 
             return PartialView("_GraveDetailsListPartial", model);
         }

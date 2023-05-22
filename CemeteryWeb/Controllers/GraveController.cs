@@ -28,7 +28,7 @@ namespace CemeteryWeb.Controllers
             var model = new List<GravePersonDetailModel>();
 
             if (namePerson != string.Empty || surnamePerson != string.Empty || sector != string.Empty || row != string.Empty || number != string.Empty)
-                model = Helper.GetGraveDetailsList(_dbContext, namePerson, surnamePerson, sector, row, number);
+                model = Helper.GetGraveDetailsList(_dbContext, namePerson, surnamePerson, sector, row, number, null, null);
 
             return PartialView("_EditGraveListPartial", model);
         }

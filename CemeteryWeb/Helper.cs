@@ -55,7 +55,7 @@ namespace CemeteryWeb
 			}
 		}
 
-		public static List<GravePersonDetailModel> GetGraveDetailsList(ParafisDBTestoweEntities db, string personName, string personSurname, string sector, string row, string number)
+		public static List<GravePersonDetailModel> GetGraveDetailsList(ParafisDBTestoweEntities db, string personName, string personSurname, string sector, string row, string number, int? yearBirth, int? yearDeath)
 		{
 			var result = new List<GravePersonDetailModel>();
 
@@ -66,7 +66,9 @@ namespace CemeteryWeb
 								&& (sector != string.Empty) ? x.LocationAttributeTwo == sector : true
 								&& (row != string.Empty) ? x.LocationAttributeThree == row : true
 								&& (number != string.Empty) ? x.LocationAttributeFour == number : true
-								).ToList();
+								&& (yearBirth != null) ? (x.YearBirth == yearBirth || x.DateBirth.Value.Year == yearBirth) : true
+                                && (yearDeath != null) ? (x.YearDeath == yearDeath || x.DateDeath.Value.Year == yearDeath) : true
+                                ).ToList();
 
 				foreach(var item in a)
 				{

@@ -7,12 +7,14 @@
 		var valSector = $("#Sector").val();
 		var valRow = $("#Row").val();
 		var valNumber = $("#Number").val();
+		var valYearBirth = $("#YearBirth").val();
+		var valYearDeath = $("#YearDeath").val();
 
-		if (valName != "" || valSurname != "" || valSector != "" || valRow != "" || valNumber != "")
+		if (valName != "" || valSurname != "" || valSector != "" || valRow != "" || valNumber != "" || valYearBirth != "" || valYearDeath != "")
 			$.ajax({
 				type: "POST",
 				url: '/Search/SearchGrave',
-				data: { namePerson: valName, surnamePerson: valSurname, sector: valSector, row: valRow, number: valNumber },
+				data: { namePerson: valName, surnamePerson: valSurname, sector: valSector, row: valRow, number: valNumber, yearBirth: valYearBirth, yearDeath: valYearDeath },
 				success: function (data, textStatus, jqXHR) {
 					$('#graveInfo').html(data);
 				},
@@ -180,24 +182,24 @@
 						@Html.TextBoxFor(m => m.YearBirth, htmlAttributes: new { placeholder = "Wprowadź", @style = "padding: 7px; width: 90px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
 					</div>
 				</div>
-				<div class="col-md-2">
+				@*<div class="col-md-2">
 					<div class="form-group">
 						@Html.LabelFor(m => m.DateBirth, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
 						@Html.TextBoxFor(m => m.DateBirth, htmlAttributes: new { placeholder = "Wprowadź", @style = "padding: 7px; width: 90px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
 					</div>
-				</div>
+				</div>*@
 				<div class="col-md-2">
 					<div class="form-group">
 						@Html.LabelFor(m => m.YearDeath, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
 						@Html.TextBoxFor(m => m.YearDeath, htmlAttributes: new { placeholder = "Wprowadź", @style = "padding: 7px; width: 90px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
 					</div>
 				</div>
-				<div class="col-md-2">
+				@*<div class="col-md-2">
 					<div class="form-group">
 						@Html.LabelFor(m => m.DateDeath, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
 						@Html.TextBoxFor(m => m.DateDeath, htmlAttributes: new { placeholder = "Wprowadź", @style = "padding: 7px; width: 90px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
 					</div>
-				</div>
+				</div>*@
 			</div>
 			<div class="row">
 				<div class="col-md-2">
