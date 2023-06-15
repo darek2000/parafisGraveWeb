@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a453653bf482445cb072ff32a92b422f" Name="Diagram1" ZoomLevel="50">
+      <Diagram DiagramId="a453653bf482445cb072ff32a92b422f" Name="Diagram1" ZoomLevel="74">
         <EntityTypeShape EntityType="ParafisDBTestoweModel.BookBaptism" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ParafisDBTestoweModel.BookCommunion" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ParafisDBTestoweModel.BookConfirmation" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
@@ -27,6 +27,7 @@
         <EntityTypeShape EntityType="ParafisDBTestoweModel.User" Width="1.5" PointX="14.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ParafisDBTestoweModel.VisitSickPerson" Width="1.5" PointX="14.75" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ParafisDBTestoweModel.VGravePersonDetail" Width="1.5" PointX="4.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParafisDBTestoweModel.GraveCoordinate" Width="1.5" PointX="7.375" PointY="15.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

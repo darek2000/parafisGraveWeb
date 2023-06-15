@@ -31,7 +31,21 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("0.0.0.0")]
-[assembly: AssemblyFileVersion("0.0.0.0")]
+[assembly: AssemblyVersion("0.0.0.14")]
+[assembly: AssemblyFileVersion("0.0.0.14")]
 
+//0.0.0.14 Added poly shapes
+//0.0.0.13 Added yearBirth and yearDeath
+//0.0.0.12 Added button pokaz
+//0.0.0.11 Updated grave search, result panel
+//0.0.0.11 Added grave editing panel
+//0.0.0.10 Added grave editing
+//0.0.0.9 Added showing graves for search results
+//0.0.0.8 Added showing details after clicking on grave
+//0.0.0.7 Added reading shapes from file, drawing shapes, clicking on shape
+//0.0.0.6 Added OpenStreetMap layer with background picture
+//0.0.0.5 Updated DateBirth and YearBirth error, tool for removing paths from photo filenames
+//0.0.0.4 Updated search result, added location details
+//0.0.0.3 Search changed, not allowed name and surname empty
+//0.0.0.2 Updated search
 //0.0.0.1 Added initial layout and logic

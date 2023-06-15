@@ -17,9 +17,25 @@ namespace CemeteryWeb.Models
         {
             AttributeOne = v.LocationAttributeOne;
             AttributeTwo = v.LocationAttributeTwo;
+            AttributeThree = v.LocationAttributeThree;
+            AttributeFour = v.LocationAttributeFour;
+            PersonList = new List<PersonModel>();
+        }
+
+        public GraveModel(VGravePersonDetail v, List<Person> person, string fileName)
+        {
+            AttributeOne = v.LocationAttributeOne;
+            AttributeTwo = v.LocationAttributeTwo;
             AttributeThree= v.LocationAttributeThree;
             AttributeFour= v.LocationAttributeFour;
+
             PersonList = new List<PersonModel>();
+
+            foreach(var p in person)
+            {
+                PersonList.Add(new PersonModel(p));
+            }
+            Filename = fileName;
         }
 
         public string AttributeOne { get; set; }

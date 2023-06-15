@@ -33,5 +33,6 @@ namespace CemeteryWeb.DBContext
         public string LocationAttributeThree { get; set; }
         public string LocationAttributeFour { get; set; }
         public Nullable<bool> IsForVerification { get; set; }
+        public Nullable<int> FkGraveCoordinate { get; set; }
     }
 }

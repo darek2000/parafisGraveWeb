@@ -1,0 +1,96 @@
+﻿@model CemeteryWeb.Models.SearchModel
+
+@{
+	Layout = "~/Views/Shared/_Administration.cshtml";
+}
+
+<script>
+	function searchGrave(e) {
+		var valName = $("#Name").val();
+		var valSurname = $("#Surname").val();
+		var valSector = $("#Sector").val();
+		var valRow = $("#Row").val();
+		var valNumber = $("#Number").val();
+
+		if (valName != "" || valSurname != "" || valSector != "" || valRow != "" || valNumber != "")
+			$.ajax({
+				type: "POST",
+				url: '/Grave/SearchGrave',
+				data: { namePerson: valName, surnamePerson: valSurname, sector: valSector, row: valRow, number: valNumber },
+				success: function (data, textStatus, jqXHR) {
+					$('#graveInfo').html(data);
+				},
+				error: function (a, b, c) {
+					alert("Wystąpił bład podczas pobierania danych. Proszę skonatkować się ze wsparciem aplikacji")
+				}
+			});
+	}
+</script>
+
+<h1>Edytowanie danych</h1>
+<h2 class="errormsg">@ViewBag.ErrorMessage</h2>
+
+<div class="row">
+	<div class="col-md-5">
+		<div class="row">
+			<div class="col-md-10">
+				<h3>Wyszukiwarka Osób</h3><br />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-5">
+				<div class="form-group">
+					@Html.LabelFor(m => m.Name, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
+					@Html.TextBoxFor(m => m.Name, htmlAttributes: new { placeholder = "Wprowadź imię", @style = "padding: 7px; width: 250px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group">
+					@Html.LabelFor(m => m.Surname, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
+					@Html.TextBoxFor(m => m.Surname, htmlAttributes: new { placeholder = "Wprowadź nazwisko", @style = "padding: 7px; width: 250px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+				<div class="form-group">
+					@Html.LabelFor(m => m.Sector, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
+					@Html.TextBoxFor(m => m.Sector, htmlAttributes: new { placeholder = "Wprowadź", @style = "padding: 7px; width: 100px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+					@Html.LabelFor(m => m.Row, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
+					@Html.TextBoxFor(m => m.Row, htmlAttributes: new { placeholder = "Wprowadź", @style = "padding: 7px; width: 100px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+					@Html.LabelFor(m => m.Number, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
+					@Html.TextBoxFor(m => m.Number, htmlAttributes: new { placeholder = "Wprowadź", @style = "padding: 7px; width: 100px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+			</div>
+			<div class="col-md-4">
+			</div>
+			<div class="col-md-1">
+			</div>
+			<div class="col-md-2">
+			</div>
+			<div class="col-md-1">
+			</div>
+			<div class="col-md-2">
+				<button class="w-100 btn btn-md btn-primary" type="button" onclick="searchGrave()">Wyszukaj</button>
+			</div>
+		</div>
+		<br /><br />
+	</div>
+</div>
+<div class="row">
+	<div id="graveInfo" class="col-md-11">
+
+	</div>
+</div>
