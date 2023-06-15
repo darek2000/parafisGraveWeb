@@ -23,10 +23,10 @@ namespace CemeteryWeb.Controllers
 			return View(new CemeteryWeb.Models.SearchModel());
 		}
 
-        public ActionResult IndexMap()
-        {
-            return View(new CemeteryWeb.Models.SearchModel());
-        }
+        //public ActionResult IndexMap()
+        //{
+        //    return View(new CemeteryWeb.Models.SearchModel());
+        //}
 
         //[HttpPost]
         //public ActionResult SearchGrave(string namePerson, string surnamePerson)

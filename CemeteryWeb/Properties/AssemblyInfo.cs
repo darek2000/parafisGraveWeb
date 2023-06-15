@@ -31,9 +31,10 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("0.0.0.13")]
-[assembly: AssemblyFileVersion("0.0.0.13")]
+[assembly: AssemblyVersion("0.0.0.14")]
+[assembly: AssemblyFileVersion("0.0.0.14")]
 
+//0.0.0.14 Added poly shapes
 //0.0.0.13 Added yearBirth and yearDeath
 //0.0.0.12 Added button pokaz
 //0.0.0.11 Updated grave search, result panel

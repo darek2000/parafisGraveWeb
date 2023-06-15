@@ -10,7 +10,7 @@ namespace CemeteryWeb.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Search");
         }
 
         public ActionResult About()
