@@ -59,12 +59,12 @@ namespace CemeteryWeb.Controllers
         //}
 
         [HttpPost]
-        public ActionResult ShowGraveData(string graveDetails)
+        public ActionResult ShowGraveData(string graveDetails, byte locLength, int cemeteryId = -1)
         {
             var model = new List<GravePersonDetailModel>();
 
             if (graveDetails != string.Empty)
-                model = Helper.GetGraveDetailsList(_dbContext, graveDetails);
+                model = Helper.GetGraveDetailsList(_dbContext, graveDetails, locLength, cemeteryId);
 
             return PartialView("_GraveDetailsListPartial", model);
         }

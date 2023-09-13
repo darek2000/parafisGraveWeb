@@ -345,8 +345,12 @@
     <None Include="Properties\PublishProfiles\parafiasz.aspnet.pl - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\cmentario.event.edit.js" />
+    <Content Include="Scripts\cmentario.event.search.js" />
     <Content Include="Scripts\cmentario.init.edit.js" />
+    <Content Include="Scripts\cmentario.init.js" />
     <Content Include="Scripts\cmentario.manipulation.edit.js" />
+    <Content Include="Scripts\cmentario.manipulation.js" />
+    <Content Include="Scripts\cmentario.search.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -371,7 +375,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Search\IndexOld.cshtml" />
     <Content Include="Views\Search\_GraveDetailsPartial.cshtml" />
     <Content Include="Views\Search\_GraveDetailsListPartial.cshtml" />
     <Content Include="Views\Search\Index - Copy.cshtml" />
@@ -381,12 +384,9 @@
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Shared\_Administration.cshtml" />
-    <Content Include="Views\Search\IndexMapInitial.cshtml" />
-    <Content Include="Views\Search\IndexMapAdmin.cshtml" />
     <Content Include="Views\Grave\Index.cshtml" />
     <Content Include="Views\Grave\_EditGraveListPartial.cshtml" />
     <Content Include="Views\Grave\Edit.cshtml" />
-    <Content Include="Views\Search\IndexMap.2023.05.19.cshtml" />
     <Content Include="Views\Grave\_EditGraveListPartial - old.cshtml" />
     <Content Include="Views\Grave\Edit - old.cshtml" />
     <Content Include="Views\Grave\_GraveDetailsPartial.cshtml" />

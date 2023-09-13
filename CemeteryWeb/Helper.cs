@@ -141,24 +141,40 @@ namespace CemeteryWeb
             }
         }
 
-        public static List<GravePersonDetailModel> GetGraveDetailsList(ParafisDBTestoweEntities db, string graveDetails)
-		{
+        public static List<GravePersonDetailModel> GetGraveDetailsList(ParafisDBTestoweEntities db, string graveDetails, byte locLength, int cemeteryId = -1)
+        {
 			var result = new List<GravePersonDetailModel>();
 
-			var locParams = graveDetails.Split(' ');
-			var sector = locParams[0];
-			var row = locParams[1];
-			var number = locParams[3];
+            var sector = string.Empty;
+            var row = string.Empty;
+            var number = string.Empty;
 
-			try
+            var locParams = graveDetails.Split(' ');
+            //var sector = locParams[0];
+            //var row = locParams[1];
+            //var number = locParams[3];
+
+            if (locLength == 3)
+            {
+                sector = locParams[0];
+                row = locParams[1];
+                number = locParams[2];
+            }
+            else
+            {
+                row = locParams[0];
+                number = locParams[1];
+            }
+
+            try
 			{
 				var a = db.VGravePersonDetail.Where(x => 
 									((sector != string.Empty) ? x.LocationAttributeTwo == sector : true)
 								&& ((row != string.Empty) ? x.LocationAttributeThree == row : true)
 								&& ((number != string.Empty) ? x.LocationAttributeFour == number : true)
-								).ToList();
+                                && (x.FkCemetery == cemeteryId)).ToList();
 
-				foreach (var item in a)
+                foreach (var item in a)
 				{
 					var graveid = item.FkGrave;
 

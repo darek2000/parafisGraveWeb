@@ -40,6 +40,13 @@ namespace CemeteryWeb.Models
             LocationAttributeTwo = v.LocationAttributeTwo;
             LocationAttributeThree = v.LocationAttributeThree;
             LocationAttributeFour = v.LocationAttributeFour;
+
+            //if (locLength == 2)
+            //    Location = $"{v.LocationAttributeThree} {v.LocationAttributeFour}";
+
+            //if (locLength == 3)
+            //    Location = $"{v.LocationAttributeTwo} {v.LocationAttributeThree} Grób {v.LocationAttributeFour}";
+
             Location = $"{v.LocationAttributeTwo} {v.LocationAttributeThree} Grób {v.LocationAttributeFour}";
 
             PhotoList = new List<string>();

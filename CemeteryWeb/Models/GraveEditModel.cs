@@ -14,7 +14,7 @@ namespace CemeteryWeb.Models
         {
         }
 
-        public GraveEditModel(int id, CemeteryGrave g, Person p, string[] photoList)
+        public GraveEditModel(int id, CemeteryGrave g, Person p, Dictionary<int, string> photoList)
         {
             AttributeOne = g.LocationAttributeOne;
             AttributeTwo = g.LocationAttributeTwo;
