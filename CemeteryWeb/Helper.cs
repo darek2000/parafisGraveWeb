@@ -149,7 +149,7 @@ namespace CemeteryWeb
             var row = string.Empty;
             var number = string.Empty;
 
-            var locParams = graveDetails.Split(' ');
+            var locParams = graveDetails.Replace("Grób ", "").Split(' ');
             //var sector = locParams[0];
             //var row = locParams[1];
             //var number = locParams[3];
@@ -347,6 +347,26 @@ namespace CemeteryWeb
 			}
 
 			return result;
+        }
+
+        public static List<Polygon> ReadPolygonSingleFromDatabase(ParafisDBTestoweEntities db, string pathError, byte locLength, string sector, string row, string number, int cemeteryId)
+        {
+            var result = new List<Polygon>();
+
+            var coordsId = db.CemeteryGrave.Where(x => x.FkCemetery == cemeteryId && x.FkGraveCoordinate != null
+                                                && ((sector != string.Empty) ? x.LocationAttributeTwo == sector : true)
+                                                && ((row != string.Empty) ? x.LocationAttributeThree == row : true)
+                                                && ((number != string.Empty) ? x.LocationAttributeFour == number : true)
+                                                ).Select(z => z.FkGraveCoordinate).ToList();
+
+            var list = db.GraveCoordinate.Where(x => coordsId.Contains(x.Id) == true).ToList();
+
+            foreach (var g in list)
+            {
+                result.Add(GetSinglePolygon(g.Coordinate, pathError));  //, locLength));
+            }
+
+            return result;
         }
 
         //TODO add filename as a call parameter

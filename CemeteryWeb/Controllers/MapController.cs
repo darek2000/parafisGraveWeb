@@ -38,6 +38,13 @@ namespace CemeteryWeb.Controllers
             return Json(result);
         }
 
+        public ActionResult PolygonSingle_Read(byte locLength, string sector, string row, string number, int cemeteryId)
+        {
+            var result = Helper.ReadPolygonSingleFromDatabase(_dbContext, string.Empty, locLength, sector, row, number, cemeteryId);
+
+            return Json(result);
+        }
+
         public ActionResult ImportGraveDetails()
         {
             var result = Helper.ReadGraveCoordsFromFileSaveDb(_dbContext);
