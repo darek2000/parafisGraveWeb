@@ -40,5 +40,72 @@ namespace CemeteryWeb.Controllers
 
             return View(model);
         }
+
+        [HttpPost]
+        public ActionResult EditGrave(GraveEditModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewData["ErrorMessage"] = "Proszę uzupełnić/poprawić dane";
+
+                model.PhotoList = Helper.GetGravePhotos(_dbContext, model.IdGrave);
+
+                return View(model);
+            }
+
+            var result = Helper.EditGrave(_dbContext, model);
+
+            if (result != string.Empty)
+            {
+                ViewData["ErrorMessage"] = $"Grób nie został zaktualizowany";
+
+                model.PhotoList = Helper.GetGravePhotos(_dbContext, model.IdGrave);
+
+                return View(model);
+            }
+
+            ViewData["InfoMessage"] = $"Grób zaktualizowany";
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult DeletePhoto(int photoId)
+        {
+            var result = Helper.DeletePhoto(_dbContext, photoId);
+
+            return Json(new { status = true, textStatus = result }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult ShowGravePhotos(int graveId)
+        {
+            var model = Helper.GetGravePhotos(_dbContext, graveId);
+
+            return PartialView("_GravePhotosPartial", model);
+        }
+
+        [HttpPost]
+        public ActionResult SaveGraveShape(int graveId, string[][] points, byte locLength)
+        {
+            var result = Helper.UpdateGraveCoordinates(_dbContext, graveId, points, locLength);
+
+            return Json(new { status = true, textStatus = result }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            //Helper.GetGraveDetails
+
+            var result = Helper.DeleteGrave(_dbContext, id);
+
+            if (result == string.Empty)
+                TempData["InfoMessage"] = $"Grób o id: {id} został skasowany";
+            else
+                TempData["ErrorMessage"] = result;
+
+            return RedirectToAction("Index", "Grave");
+        }
     }
 }

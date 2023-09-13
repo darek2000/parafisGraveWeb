@@ -27,5 +27,9 @@ namespace CemeteryWeb.DBContext
         public string LocationAttributeTwo { get; set; }
         public string LocationAttributeThree { get; set; }
         public string LocationAttributeFour { get; set; }
+        public Nullable<int> FkCemetery { get; set; }
+        public string Description { get; set; }
+        public Nullable<bool> IsReserved { get; set; }
+        public Nullable<bool> IsForVerification { get; set; }
     }
 }

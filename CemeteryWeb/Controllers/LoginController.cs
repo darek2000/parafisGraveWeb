@@ -46,6 +46,7 @@ namespace CemeteryWeb.Controllers
 
             Session["UserId"] = user.IDUser;
             Session["UserNameSurname"] = user.NameSurname;
+            Helper.SetLoggedUser(user.IDUser);
 
             return RedirectToAction("Index", "Grave");
         }

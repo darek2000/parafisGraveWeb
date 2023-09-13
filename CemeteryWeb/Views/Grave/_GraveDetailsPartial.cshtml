@@ -1,0 +1,9 @@
+﻿@model Dictionary<int, string>
+
+@foreach (var photoFile in Model)
+{
+	<div class="col-md-4" style="margin: 1em; align-content:center;">
+		<a target="_blank" href='..\..\GravePhotos\@photoFile.Value'><img src="..\..\GravePhotos\@photoFile.Value" width="180" /></a>
+		<p><span><button onclick="deletePhoto('@photoFile.Key')">Skasuj</button></span></p>
+	</div>
+}

@@ -278,6 +278,7 @@
           <Property Name="LocationAttributeFour" Type="nvarchar" MaxLength="50" />
           <Property Name="IsForVerification" Type="bit" />
           <Property Name="FkGraveCoordinate" Type="int" />
+          <Property Name="IsReserved" Type="bit" />
         </EntityType>
         <EntityType Name="CemeteryGravePayment">
           <Key>
@@ -522,6 +523,10 @@ warning 6002: The table/view 'ParafisDBTestowe.dbo.VGravePersonDetail' does not 
           <Property Name="LocationAttributeTwo" Type="nvarchar" MaxLength="50" />
           <Property Name="LocationAttributeThree" Type="nvarchar" MaxLength="50" />
           <Property Name="LocationAttributeFour" Type="nvarchar" MaxLength="50" />
+          <Property Name="FkCemetery" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="IsReserved" Type="bit" />
+          <Property Name="IsForVerification" Type="bit" />
         </EntityType>
         <EntityContainer Name="ParafisDBTestoweModelStoreContainer">
           <EntitySet Name="BookBaptism" EntityType="Self.BookBaptism" Schema="dbo" store:Type="Tables" />
@@ -560,7 +565,11 @@ warning 6002: The table/view 'ParafisDBTestowe.dbo.VGravePersonDetail' does not 
     [VGravePersonDetail].[LocationAttributeOne] AS [LocationAttributeOne], 
     [VGravePersonDetail].[LocationAttributeTwo] AS [LocationAttributeTwo], 
     [VGravePersonDetail].[LocationAttributeThree] AS [LocationAttributeThree], 
-    [VGravePersonDetail].[LocationAttributeFour] AS [LocationAttributeFour]
+    [VGravePersonDetail].[LocationAttributeFour] AS [LocationAttributeFour], 
+    [VGravePersonDetail].[FkCemetery] AS [FkCemetery], 
+    [VGravePersonDetail].[Description] AS [Description], 
+    [VGravePersonDetail].[IsReserved] AS [IsReserved], 
+    [VGravePersonDetail].[IsForVerification] AS [IsForVerification]
     FROM [dbo].[VGravePersonDetail] AS [VGravePersonDetail]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
@@ -841,6 +850,7 @@ warning 6002: The table/view 'ParafisDBTestowe.dbo.VGravePersonDetail' does not 
           <Property Name="LocationAttributeFour" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsForVerification" Type="Boolean" />
           <Property Name="FkGraveCoordinate" Type="Int32" />
+          <Property Name="IsReserved" Type="Boolean" />
         </EntityType>
         <EntityType Name="CemeteryGravePayment">
           <Key>
@@ -1075,6 +1085,10 @@ warning 6002: The table/view 'ParafisDBTestowe.dbo.VGravePersonDetail' does not 
           <Property Name="LocationAttributeTwo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LocationAttributeThree" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LocationAttributeFour" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FkCemetery" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IsReserved" Type="Boolean" />
+          <Property Name="IsForVerification" Type="Boolean" />
         </EntityType>
         <EntityContainer Name="ParafisDBTestoweEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BookBaptism" EntityType="Self.BookBaptism" />
@@ -1375,6 +1389,7 @@ warning 6002: The table/view 'ParafisDBTestowe.dbo.VGravePersonDetail' does not 
           <EntitySetMapping Name="CemeteryGrave">
             <EntityTypeMapping TypeName="ParafisDBTestoweModel.CemeteryGrave">
               <MappingFragment StoreEntitySet="CemeteryGrave">
+                <ScalarProperty Name="IsReserved" ColumnName="IsReserved" />
                 <ScalarProperty Name="FkGraveCoordinate" ColumnName="FkGraveCoordinate" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
@@ -1629,6 +1644,10 @@ warning 6002: The table/view 'ParafisDBTestowe.dbo.VGravePersonDetail' does not 
           <EntitySetMapping Name="VGravePersonDetail">
             <EntityTypeMapping TypeName="ParafisDBTestoweModel.VGravePersonDetail">
               <MappingFragment StoreEntitySet="VGravePersonDetail">
+                <ScalarProperty Name="IsForVerification" ColumnName="IsForVerification" />
+                <ScalarProperty Name="IsReserved" ColumnName="IsReserved" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="FkCemetery" ColumnName="FkCemetery" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FkGrave" ColumnName="FkGrave" />
                 <ScalarProperty Name="FkPerson" ColumnName="FkPerson" />

@@ -17,6 +17,7 @@ namespace CemeteryWeb.Models
 
         public PersonModel(Person v)
         {
+            IdPerson = v.Id;
             Name = v.Name;
             Surname = v.Surname;
 
@@ -35,6 +36,7 @@ namespace CemeteryWeb.Models
 
         public PersonModel(VGravePersonDetail v)
         {
+            IdPerson = v.Id;
             Name = v.Name;
             Surname = v.Surname;
 
@@ -50,6 +52,8 @@ namespace CemeteryWeb.Models
             if (YearDeath != null)
                 YearDeath = (int)YearDeath;
         }
+
+        public int? IdPerson { get; set; }
 
         [Display(Name = "Imię")]
         public string Name { get; set; }

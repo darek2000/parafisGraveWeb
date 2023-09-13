@@ -2,14 +2,14 @@
 
 <style>
 	#searchresult td {
-		padding : 20px;
+		padding: 20px;
 	}
 </style>
 @if (Model != null)
 {
 	<div class="row">
 		<div class="col-md-10">
-			<h3>Znaleziono osób: <span style="color: red">@Model.Count()</span></h3>
+			<h3>Znaleziono zmarłych: <span style="color: red">@Model.Count()</span></h3>
 		</div>
 	</div>
 	<div class="row">
@@ -22,10 +22,16 @@
 					<td>Rok urodzenia</td>
 					<td>Data śmierci</td>
 					<td>Rok śmierci</td>
-					<td>Sektor</td>
+					<td>Kwatera</td>
 					<td>Rząd</td>
 					<td>Numer</td>
+					<td>Rezerw.</td>
+					<td>Weryfik.</td>
+					<td>GrPers ID</td>
+					<td>Pers ID</td>
+					<td>Gr ID</td>
 					<td>Akcja</td>
+					<td>Link</td>
 				</tr>
 				@foreach (var item in Model)
 				{
@@ -40,7 +46,12 @@
 
 						@if (item.YearBirth == null)
 						{
-							<td><h4><span>@(((DateTime)item.DateBirth).ToShortDateString())</span></h4></td>
+							<td>
+								@if (item.DateBirth != null)
+								{
+									<h4><span>@(((DateTime)item.DateBirth).ToShortDateString())</span></h4>
+								}
+							</td>
 							<td></td>
 						}
 						else
@@ -50,7 +61,12 @@
 						}
 						@if (item.YearDeath == null)
 						{
-							<td><h4><span>@(((DateTime)item.DateDeath).ToShortDateString())</span></h4></td>
+							<td>
+								@if (item.DateDeath != null)
+								{
+									<h4><span>@(((DateTime)item.DateDeath).ToShortDateString())</span></h4>
+								}
+							</td>
 							<td></td>
 						}
 						else
@@ -63,14 +79,61 @@
 							<h4><span>@item.LocationAttributeThree</span></h4>
 						</td>
 						<td>
+							<h4><span>@item.LocationAttributeFour</span></h4>
+						</td>
+						<td>
 							<h4>
-								<span>
-									@item.LocationAttributeFour
-								</span>
+								@if (item.IsReserved == true)
+								{
+									<span>Tak</span>
+								}
+								else
+								{
+									<span>Nie</span>
+								}
 							</h4>
 						</td>
 						<td>
+							<h4>
+								@if (item.IsForVerification == true)
+								{
+									<span>Tak</span>
+								}
+								else
+								{
+									<span>Nie</span>
+								}
+							</h4>
+						</td>
+						<td>
+							<h4><span>@item.Id</span></h4>
+						</td>
+						<td>
+							<h4><span>@item.FkPerson</span></h4>
+						</td>
+						<td>
+							<h4><span>@item.FkGrave</span></h4>
+						</td>
+						<td>
 							<button onclick="editGrave('@item.Id');">Edytuj</button>
+						</td>
+						<td>
+							<a target="_blank" href="/Grave/Edit/@item.Id">Edycja</a>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="14" style="margin: 0px; padding: 0px;">
+							<span><b>Zdjęcia: </b></span>
+							@foreach (var pic in item.PhotoList)
+							{
+								<span><a target="_blank" href="~/GravePhotos/@pic">@pic</a>&nbsp;</span>;
+							}
+						</td>
+					</tr>
+					<tr>
+						<td colspan="14" style="border-bottom: 1px solid black; margin: 0px; padding: 0px;">
+							<span><b>Opis: </b></span>
+							<span>@item.Description</span>
 						</td>
 					</tr>
 				}
@@ -80,15 +143,6 @@
 }
 
 <script>
-	@*$(document).ready(function () {
-
-		unselectGraves();
-
-		var foundGraves = @Html.Raw(Json.Encode(Model));
-
-		foundGraves.forEach(showGravesOnTheMap);
-	});*@
-
 	function editGrave(graveId) {
 
 		window.location.href = '@Url.Action("Edit", "Grave")/' + graveId;

@@ -2,6 +2,7 @@
 using CemeteryWeb.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -12,6 +13,15 @@ namespace CemeteryWeb
 	public static class Helper
 	{
         private static readonly string _salt = "ProgramParafia";
+
+        private static readonly string _gravePhotosDir = AppDomain.CurrentDomain.BaseDirectory + "GravePhotos";
+
+        private static int _loggedUser = -1;
+
+        public static void SetLoggedUser(int id)
+        {
+            _loggedUser = id;
+        }
 
         public static GraveModel GetGraveDetails(ParafisDBTestoweEntities db, string personName, string personSurname)
 		{
@@ -74,12 +84,14 @@ namespace CemeteryWeb
 				{
 					var graveid = item.FkGrave;
 
-					var f = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == graveid).ToList().FirstOrDefault()?.PhotoFile;
+                    //var f = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == graveid).ToList().FirstOrDefault()?.PhotoFile;
+                    var f = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == graveid).Select(z => z.PhotoFile).ToList();
 
-					result.Add(new GravePersonDetailModel(item, f == null ? "nopicture.png" : f));
-				}
+                    //result.Add(new GravePersonDetailModel(item, f == null ? "nopicture.png" : f));
+                    result.Add(new GravePersonDetailModel(item, GetPhotoList(f)));
+                }
 
-				return result;
+                return result;
 			}
 			catch (Exception ex)
 			{
@@ -87,6 +99,14 @@ namespace CemeteryWeb
 				throw new Exception(ex.Message);
 			}
 		}
+
+        private static List<string> GetPhotoList(List<string> list)
+        {
+            if (list.Count == 0)
+                return new List<string>() { "nopicture.png" };
+            else
+                return list;
+        }
 
         public static List<GravePersonDetailModel> GetGraveDetailsList(ParafisDBTestoweEntities db, SearchModel search)
         {
@@ -105,9 +125,11 @@ namespace CemeteryWeb
                 {
                     var graveid = item.FkGrave;
 
-                    var f = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == graveid).ToList().FirstOrDefault()?.PhotoFile;
+                    //var f = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == graveid).ToList().FirstOrDefault()?.PhotoFile;
+                    var f = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == graveid).Select(z => z.PhotoFile).ToList();
 
-                    result.Add(new GravePersonDetailModel(item, f == null ? "nopicture.png" : f));
+                    //result.Add(new GravePersonDetailModel(item, f == null ? "nopicture.png" : f));
+                    result.Add(new GravePersonDetailModel(item, GetPhotoList(f)));
                 }
 
                 return result;
@@ -140,10 +162,14 @@ namespace CemeteryWeb
 				{
 					var graveid = item.FkGrave;
 
-					var f = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == graveid).ToList().FirstOrDefault()?.PhotoFile;
+                    //var f = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == graveid).ToList().FirstOrDefault()?.PhotoFile;
 
-					result.Add(new GravePersonDetailModel(item, f == null ? "nopicture.png" : f));
-				}
+                    //result.Add(new GravePersonDetailModel(item, f == null ? "nopicture.png" : f));
+
+                    var f = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == graveid).Select(z => z.PhotoFile).ToList();
+
+                    result.Add(new GravePersonDetailModel(item, GetPhotoList(f)));
+                }
 
 				return result;
 			}
@@ -405,9 +431,357 @@ namespace CemeteryWeb
 
 			var person = db.Person.Find(info.FkPerson);
 
-			var photos = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == info.FkGrave).Select(z => z.PhotoFile).ToArray();
+            //var photos = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == info.FkGrave).Select(z => z.PhotoFile).ToArray();
+            var photos = GetGravePhotos(db, (int)info.FkGrave);
 
-			return new GraveEditModel(info.Id, grave, person, photos);
-		}
+            //return new GraveEditModel(info.Id, grave, person, photos);
+            return new GraveEditModel(info, photos);
+        }
+
+        public static Dictionary<int, string> GetGravePhotos(ParafisDBTestoweEntities db, int id)
+        {
+            return db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == id).ToDictionary(z => z.Id, z => z.PhotoFile);
+        }
+
+        public static string UpdateGraveCoordinates(ParafisDBTestoweEntities db, int graveId, string[][] points, byte locLength)
+        {
+            var result = string.Empty;
+
+            var grave = db.CemeteryGrave.Find(graveId);
+
+            if (grave == null)
+                return $"Brak grobu o identyfikatorze id: {graveId}";
+
+            var coords = db.GraveCoordinate.Find(grave.FkGraveCoordinate);
+
+            if (coords == null)
+            {
+                coords = db.GraveCoordinate.Add(new GraveCoordinate());
+
+                coords.TimeStamp = DateTime.Now;
+
+                var locAttrib = (locLength == 3) ? $"{grave.LocationAttributeTwo};{grave.LocationAttributeThree};{grave.LocationAttributeFour}" : $"{grave.LocationAttributeThree};{grave.LocationAttributeFour}";
+
+                coords.Coordinate = locAttrib;
+
+                db.SaveChanges();
+
+                grave.FkGraveCoordinate = coords.Id;
+
+                db.SaveChanges();
+
+                result = $"Brak koordynat o identyfikatorze id: {grave.FkGraveCoordinate}. Utworozno obiekt z koordynatami";
+            }
+
+            try
+            {
+                var col = coords.Coordinate.Split(';');
+
+                var locAttrib = (locLength == 3) ? $"{col[0]};{col[1]};{col[2]}" : $"{col[0]};{col[1]}";
+
+                var locPoints = GetCoordinateLine(points).TrimEnd(';');
+
+                coords.Coordinate = $"{locAttrib};{locPoints}";
+
+                db.SaveChanges();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                return $"Wystąpił wyjątek podczas zapisywania koordynat dla grobu id: {graveId}, Msg:{ex.Message}, IntMsg: {ex.InnerException.Message}";
+            }
+        }
+
+        private static string GetCoordinateLine(string[][] points)
+        {
+            var result = string.Empty;
+
+            foreach (var p in points)
+                result += $"{p[0]},{p[1]};";
+
+            return result;
+        }
+
+        public static string EditGrave(ParafisDBTestoweEntities db, GraveEditModel model)
+        {
+            string result = string.Empty;
+
+            if (model.IdGrave == -1)
+                return result;
+
+            var grave = db.CemeteryGrave.Find(model.IdGrave);
+
+            //TODO 
+            //save Grave changes, person, photos
+            UpdateCemeteryGrave(db, model);
+
+            result = UpdatePerson(db, model);
+
+            //if result not string.empty then doent SaveChange
+            if (result != string.Empty)
+                return result;
+
+            db.SaveChanges();
+
+            foreach (var file in model.Photos)
+            {
+                if (file == null)
+                    continue;
+
+                if (CheckIfPhotoExist(db, grave.Id, file.FileName) != 0)
+                    continue;
+
+                SaveImageToFolder(_gravePhotosDir, file);
+
+                AddPhotoToGrave(db, model.IdGrave, file.FileName);
+            }
+
+            model.PhotoList = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == grave.Id).ToDictionary(c => c.Id, c => c.PhotoFile);
+
+            return result;
+        }
+
+        public static string DeleteGrave(ParafisDBTestoweEntities db, int idGrave)
+        {
+            try
+            {
+                var gp = db.CemeteryGravePerson.Find(idGrave);
+
+                if (gp == null)
+                    return $"Grób o id:{idGrave} nie istnieje";
+
+                var p = db.Person.Find(gp.FkPerson);
+
+                if (p != null)
+                    db.Person.Remove(p);
+
+                db.CemeteryGravePerson.Remove(gp);
+
+                db.SaveChanges();
+
+                return string.Empty;
+            }
+            catch (Exception ex)
+            {
+
+                return $"Wystąpił błąd podczas kasowania grobu o id:{idGrave}. Message: {ex.Message}, InternalException: {ex.InnerException.Message}";
+            }
+        }
+
+        public static string UpdatePerson(ParafisDBTestoweEntities db, GraveEditModel model)
+        {
+            string result = string.Empty;
+
+            DateTime dt;
+            int year = -1;
+
+            try
+            {
+                var p = db.Person.Find(model.PersonGrave.IdPerson);
+
+                p.Name = model.PersonGrave.Name;
+                p.Surname = model.PersonGrave.Surname;
+                if (model.PersonGrave.DateBirth != null)
+                {
+                    if (DateTime.TryParse(model.PersonGrave.DateBirth, out dt) == true)
+                    {
+                        if (p.DateBirth != dt)
+                        {
+                            p.DateBirth = dt;
+                        }
+                    }
+                    else
+                        result += "Nie można zapisać daty urodzenia\n";
+                }
+                else
+                {
+                    //clear DateBirth
+                    //if (p.DateBirth != null)
+                    //	p.DateBirth = null;
+                }
+
+                if (p.YearBirth != model.PersonGrave.YearBirth)
+                    p.YearBirth = model.PersonGrave.YearBirth;
+
+                if (model.PersonGrave.DateDeath != null)
+                {
+                    if (DateTime.TryParse(model.PersonGrave.DateDeath, out dt) == true)
+                    {
+                        if (p.DateDeath != dt)
+                            p.DateDeath = dt;
+                    }
+                    else
+                        result += "Nie można zapisać daty zgonu\n";
+                }
+                else
+                {
+                    //clear DateDeath
+                }
+
+                if (p.YearDeath != model.PersonGrave.YearDeath)
+                    p.YearDeath = model.PersonGrave.YearDeath;
+            }
+            catch (Exception ex)
+            {
+
+                result += $"Wyjątek: {ex.Message}, {ex.InnerException.Message}";
+            }
+
+            return result;
+        }
+
+        private static string AddPhotoToGrave(ParafisDBTestoweEntities db, int graveId, string fileName)
+        {
+            string result = string.Empty;
+
+            try
+            {
+                var p = db.CemeteryGravePhoto.Add(new CemeteryGravePhoto());
+
+                p.TimeStamp = DateTime.Now;
+                p.FkCemeteryGrave = graveId;
+                p.FkUser = _loggedUser;
+                p.PhotoFile = fileName;
+
+                db.SaveChanges();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return $"Wystąpił wyjątek podczas dodawania zdjęcia {fileName} dla grobu {graveId}";
+            }
+        }
+
+        private static int CheckIfPhotoExist(ParafisDBTestoweEntities db, int graveId, string fileName)
+        {
+            return db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == graveId && x.PhotoFile == fileName).Count();
+        }
+
+        public static string SaveImageToFolder(string pathName, HttpPostedFileBase httpFile)
+        {
+            var result = string.Empty;
+
+            MemoryStream target = new MemoryStream();
+
+            httpFile.InputStream.CopyTo(target);
+
+            byte[] img = target.ToArray();
+
+            var pathFull = string.Format(@"{0}\{1}", pathName, httpFile.FileName);
+
+            using (FileStream file = new FileStream(pathFull, FileMode.Create, System.IO.FileAccess.Write))
+            {
+                try
+                {
+                    file.Write(img, 0, img.Length);
+
+                    return result;
+
+                }
+                catch (Exception e)
+                {
+                    return $"Błąd podczas zapisania tymczasowo zdjęcia {httpFile.FileName} w folderze {pathName}. Message: {e.Message}, InnerException: {e.InnerException?.Message}\n";
+                }
+            }
+        }
+
+        //TODO result as string and try-catch
+        public static void UpdateCemeteryGrave(ParafisDBTestoweEntities db, GraveEditModel model)
+        {
+            CemeteryGrave grave;
+            CemeteryGravePerson gp;
+            bool flagSave = false;
+
+            grave = db.CemeteryGrave.Find(model.IdGrave);
+            gp = db.CemeteryGravePerson.Find(model.FkPersonGrave);
+
+            if (grave.LocationAttributeOne != model.AttributeOne || grave.LocationAttributeTwo != model.AttributeTwo
+                || grave.LocationAttributeThree != model.AttributeThree || grave.LocationAttributeFour != model.AttributeFour || grave.FkCemetery != model.FkCemeteryUser)
+            {
+                grave = db.CemeteryGrave.Where(x =>
+                                            ((model.AttributeOne != null) ? x.LocationAttributeOne == model.AttributeOne : true)
+                                            && ((model.AttributeTwo != null) ? x.LocationAttributeTwo == model.AttributeTwo : true)
+                                            && ((model.AttributeThree != null) ? x.LocationAttributeThree == model.AttributeThree : true)
+                                            && ((model.AttributeFour != null) ? x.LocationAttributeFour == model.AttributeFour : true)
+                                            && ((grave.FkCemetery != model.FkCemeteryUser) ? x.FkCemetery == model.FkCemeteryUser : x.FkCemetery == model.FkCemetery)).FirstOrDefault();
+
+                if (grave == null)
+                {
+                    grave = db.CemeteryGrave.Add(new CemeteryGrave());
+
+                    grave.TimeStamp = DateTime.Now;
+                    grave.LocationAttributeOne = model.AttributeOne;
+                    grave.LocationAttributeTwo = model.AttributeTwo;
+                    grave.LocationAttributeThree = model.AttributeThree;
+                    grave.LocationAttributeFour = model.AttributeFour;
+                    grave.FkCemetery = (grave.FkCemetery != model.FkCemeteryUser) ? model.FkCemeteryUser : model.FkCemetery;
+                    grave.FkUser = _loggedUser;
+
+                    db.SaveChanges();
+                }
+
+                gp.FkGrave = grave.Id;
+                model.IdGrave = grave.Id;
+                db.SaveChanges();
+            }
+
+            if (grave.FkCemetery != model.FkCemeteryUser)
+            {
+                grave.FkCemetery = model.FkCemeteryUser;
+                flagSave = true;
+            }
+
+            if (grave.IsReserved != model.IsReserved)
+            {
+                grave.IsReserved = model.IsReserved;
+                flagSave = true;
+            }
+
+            if (grave.IsForVerification != model.IsForVerification)
+            {
+                grave.IsForVerification = model.IsForVerification;
+                flagSave = true;
+            }
+
+            if (gp.Description != model.Description)
+            {
+                gp.Description = model.Description;
+                flagSave = true;
+            }
+
+            if (flagSave)
+                db.SaveChanges();
+        }
+
+        public static string DeletePhoto(ParafisDBTestoweEntities db, int photoId)
+        {
+            string result = string.Empty;
+            string fileName = string.Empty;
+
+            try
+            {
+                var p = db.CemeteryGravePhoto.Find(photoId);
+
+                if (p == null)
+                    return $"Brak zdjęcia o ID: {photoId}";
+
+                fileName = p.PhotoFile;
+
+                db.CemeteryGravePhoto.Remove(p);
+
+                db.SaveChanges();
+
+                File.Delete(string.Format(@"{0}\{1}", _gravePhotosDir, fileName));
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return $"Wystąpił wyjątek podczas kasowania zdjęcia: {photoId}. {ex.Message}, {ex.InnerException.Message}";
+            }
+        }
     }
 }

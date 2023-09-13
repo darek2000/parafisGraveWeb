@@ -2,54 +2,252 @@
 
 @{
 	Layout = "~/Views/Shared/_Administration.cshtml";
+	string cemeteryName = "cmentarza w Sieniawie Żarskiej";
+	short locParamsAmount = 3;
 }
 
-@using (Html.BeginForm())
-{
-	@Html.HiddenFor(m => m.Id)
+<script>
+	//initial config variables
 
-	<div class="row">
-		<div class="col-md-5">
-			<div class="form-group">
-				@Html.LabelFor(m => m.PersonGrave.Name, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
-				@Html.TextBoxFor(m => m.PersonGrave.Name, htmlAttributes: new { placeholder = "Wprowadź imię", @style = "padding: 7px; width: 250px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
-			</div>
-		</div>
-		<div class="col-md-5">
-			<div class="form-group">
-				@Html.LabelFor(m => m.PersonGrave.Surname, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
-				@Html.TextBoxFor(m => m.PersonGrave.Surname, htmlAttributes: new { placeholder = "Wprowadź nazwisko", @style = "padding: 7px; width: 250px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-2">
-			<div class="form-group">
-				@Html.LabelFor(m => m.AttributeTwo, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
-				@Html.TextBoxFor(m => m.AttributeTwo, htmlAttributes: new { placeholder = "Wprowadź", @style = "padding: 7px; width: 100px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
-			</div>
-		</div>
-		<div class="col-md-2">
-			<div class="form-group">
-				@Html.LabelFor(m => m.AttributeThree, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
-				@Html.TextBoxFor(m => m.AttributeThree, htmlAttributes: new { placeholder = "Wprowadź", @style = "padding: 7px; width: 100px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
-			</div>
-		</div>
-		<div class="col-md-2">
-			<div class="form-group">
-				@Html.LabelFor(m => m.AttributeFour, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
-				@Html.TextBoxFor(m => m.AttributeFour, htmlAttributes: new { placeholder = "Wprowadź", @style = "padding: 7px; width: 100px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
-			</div>
-		</div>
-	</div>
+	var configSetViewCords = [51.64104, 15.06310];
+	var configLatLngBounds = [[51.64168, 15.062754], [51.640705, 15.063543]];
+	var configZoomLevel = 20.3;
+	var configIdCemetery = 1;
+	var configLocParamsLength = 3;
+	var configLayerPic = 'aerial-custom.jpg';
+	var configGraveSector = '@Model.AttributeTwo';
+	var configGraveRow = '@Model.AttributeThree';
+	var configGraveNumber = '@Model.AttributeFour';
+	var configMaxZoom = 24;
 
-	<div class="row">
-		@foreach (var photoFile in Model.PhotoList)
+	function showGravePhotos(e) {
+
+		$.ajax({
+			type: "POST",
+			url: '/Grave/ShowGravePhotos',
+			data: { graveId: e },
+			success: function (data, textStatus, jqXHR) {
+				$('#gravePhotos').html(data);
+			},
+			error: function (a, b, c) {
+				alert("Wystąpił bład podczas pobierania zdjęć. Proszę skonatkować się ze wsparciem aplikacji")
+			}
+		});
+	}
+
+	function deletePhoto(id) {
+
+		console.log("deletePhoto: " + id);
+
+		if (confirm("Czy na pewno skasować zdjęcie?") == false)
+			return;
+
+		$.ajax({
+			type: "POST",
+			url: '/Grave/DeletePhoto',
+			data: { photoId: id },
+			success: function (data, textStatus, jqXHR) {
+				showGravePhotos(@Model.IdGrave);
+			},
+			error: function (a, b, c) {
+				alert("Wystąpił bład podczas kasowania zdjęcia. Proszę skonatkować się ze wsparciem aplikacji")
+			}
+		});
+	}
+
+	function saveCustomShape() {
+
+		console.log("saveCustomShape: ");
+
+		if (shape.length == 0) {
+
+			alert("Nowy kształt nie może być pusty");
+			return;
+		}
+
+		$.ajax({
+			type: "POST",
+			url: '/Grave/SaveGraveShape',
+			data: { graveId: @Model.IdGrave, points: shape, locLength: configLocParamsLength },
+			success: function (data, textStatus, jqXHR) {
+				console.log("saveCustomShape: Saved. Status: " + data.textStatus);
+				removeCustomShape();
+				readPolygon();
+			},
+			error: function (a, b, c) {
+				alert("Wystąpił bład podczas zapisywania koordynat. Proszę skonatkować się ze wsparciem aplikacji")
+			}
+		});
+	}
+</script>
+
+<div class="row">
+	<div class="col-md-7">
+		<h3>Mapa @cemeteryName</h3>
+		<div id="map" style="height: 600px">
+		</div>
+		@{Html.RenderPartial("_MapEditNavigation"); }
+	</div>
+	<div class="col-md-5">
+		@using (Html.BeginForm("Edit", "Grave", FormMethod.Post, new { enctype = "multipart/form-data" }))
 		{
-			<div class="col-md-2" style="margin: 1em">
-				<a target="_blank" href='..\..\GravePhotos\@photoFile'><img src="..\..\GravePhotos\@photoFile" width="180" /></a>
+			if (ViewData["ErrorMessage"] != null)
+			{
+				<h2 class="errormsg">@ViewData["ErrorMessage"].ToString()</h2>
+			}
+			if (ViewData["InfoMessage"] != null)
+			{
+				<h2 class="infomsg">@ViewData["InfoMessage"].ToString()</h2>
+			}
+			@Html.HiddenFor(m => m.IdGrave)
+			@Html.HiddenFor(m => m.FkCemetery)
+			@Html.HiddenFor(m => m.PersonGrave.IdPerson)
+			@Html.HiddenFor(m => m.FkPersonGrave)
+			@Html.HiddenFor(m => m.FkCemeteryUser)
+			<div class="row">
+				<div class="col-md-12">
+					<h3>Edytowanie grobu</h3>
+					<h5>GraveId: @Model.IdGrave,&nbsp; PersId: @Model.PersonGrave.IdPerson</h5>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						@Html.LabelFor(m => m.PersonGrave.Name, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
+						@Html.TextBoxFor(m => m.PersonGrave.Name, htmlAttributes: new { placeholder = "Wprowadź imię", @style = "padding: 7px; width: 250px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						@Html.LabelFor(m => m.PersonGrave.Surname, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
+						@Html.TextBoxFor(m => m.PersonGrave.Surname, htmlAttributes: new { placeholder = "Wprowadź nazwisko", @style = "padding: 7px; width: 250px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3">
+					<div class="form-group">
+						@Html.LabelFor(m => m.PersonGrave.DateBirth, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
+						@Html.TextBoxFor(m => m.PersonGrave.DateBirth, htmlAttributes: new { placeholder = "Data", @style = "padding: 7px; width: 100px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="form-group">
+						@Html.LabelFor(m => m.PersonGrave.YearBirth, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
+						@Html.TextBoxFor(m => m.PersonGrave.YearBirth, htmlAttributes: new { placeholder = "Rok", @style = "padding: 7px; width: 80px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="form-group">
+						@Html.LabelFor(m => m.PersonGrave.DateDeath, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
+						@Html.TextBoxFor(m => m.PersonGrave.DateDeath, htmlAttributes: new { placeholder = "Data", @style = "padding: 7px; width: 100px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="form-group">
+						@Html.LabelFor(m => m.PersonGrave.YearDeath, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
+						@Html.TextBoxFor(m => m.PersonGrave.YearDeath, htmlAttributes: new { placeholder = "Rok", @style = "padding: 7px; width: 80px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				@if (locParamsAmount == 3)
+				{
+					<div class="col-md-3">
+						<div class="form-group">
+							@Html.LabelFor(m => m.AttributeTwo, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
+							@Html.TextBoxFor(m => m.AttributeTwo, htmlAttributes: new { placeholder = "Wprowadź", @style = "padding: 7px; width: 100px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
+						</div>
+					</div>
+				}
+				<div class="col-md-3">
+					<div class="form-group">
+						@Html.LabelFor(m => m.AttributeThree, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
+						@Html.TextBoxFor(m => m.AttributeThree, htmlAttributes: new { placeholder = "Wprowadź", @style = "padding: 7px; width: 100px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="form-group">
+						@Html.LabelFor(m => m.AttributeFour, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
+						@Html.TextBoxFor(m => m.AttributeFour, htmlAttributes: new { placeholder = "Wprowadź", @style = "padding: 7px; width: 100px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-2">
+					<div class="form-group">
+						@Html.LabelFor(m => m.IsForVerification, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
+						@Html.CheckBoxFor(m => m.IsForVerification, htmlAttributes: new { @style = "padding: 7px; border:1px solid lightgray;" })
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="form-group">
+						@Html.LabelFor(m => m.IsReserved, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
+						@Html.CheckBoxFor(m => m.IsReserved, htmlAttributes: new { @style = "padding: 7px; border:1px solid lightgray;" })
+					</div>
+				</div>
+				<div class="col-md-7">
+					<div class="form-group">
+						@Html.LabelFor(m => m.Description, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
+						@Html.TextBoxFor(m => m.Description, htmlAttributes: new { placeholder = "Wprowadź", @style = "padding: 7px; max-width: 400px !important; width: 400px; border:1px solid lightgray;border-radius:3px;" })
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-4">
+					<span>Uwaga! Jeśli zmianie ulega lokalizacja grobu (kwatera, rząd miejsce) to najpierw należy je zmienić i zapisać. Rezerwacje i Weryfikacje zmianiamy dopiero później</span>
+				</div>
+				<div class="col-md-7">
+					<span>Uwaga! Opis można zmienić nawet ze zmiana lokalizacji (kwatera, rząd, miejsce)</span>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-4">
+					@Html.TextBoxFor(m => m.Photos, htmlAttributes: new { type = "file", @multiple = "multiple" }) <br />
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-4">
+					<input type="submit" value="Zapisz zmiany" />
+				</div>
 			</div>
 		}
-	</div>
+		<div class="row">
+			<div class="col-md-9">
+				<br />
+			</div>
+			<div class="col-md-2">
+				<button onclick="deleteGrave(@Model.FkPersonGrave);"> Usuń grób </button>
+			</div>
+			<div class="col-md-1">
+				<br />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<h3>Aktualne zdjęcia</h3>
+			</div>
+		</div>
+		<div class="row" id="gravePhotos">
 
-}
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="../../Scripts/cmentario.init.edit.js"></script>
+<script type="text/javascript" src="../../Scripts/cmentario.event.edit.js"></script>
+<script type="text/javascript" src="../../Scripts/cmentario.manipulation.edit.js"></script>
+
+<script>
+	 $(document).ready(function () {
+
+		 readPolygon();
+
+		 showGravePhotos(@Model.IdGrave);
+	});
+
+</script>

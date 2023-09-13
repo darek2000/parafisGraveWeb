@@ -18,6 +18,13 @@ namespace CemeteryWeb.Models
             FileName= filename;
         }
 
+        public GravePersonDetailModel(VGravePersonDetail v, List<string> filenameList) : this(v)
+        {
+            FileName = filenameList.FirstOrDefault();
+
+            PhotoList.AddRange(filenameList);
+        }
+
         public GravePersonDetailModel(VGravePersonDetail v)
         {
             Id = v.Id;
@@ -34,6 +41,12 @@ namespace CemeteryWeb.Models
             LocationAttributeThree = v.LocationAttributeThree;
             LocationAttributeFour = v.LocationAttributeFour;
             Location = $"{v.LocationAttributeTwo} {v.LocationAttributeThree} Grób {v.LocationAttributeFour}";
+
+            PhotoList = new List<string>();
+
+            Description = v.Description;
+            IsReserved = (v.IsReserved != null) ? (bool)v.IsReserved : false;
+            IsForVerification = (v.IsForVerification != null) ? (bool)v.IsForVerification : false;
         }
 
         public int Id { get; set; }
@@ -53,5 +66,9 @@ namespace CemeteryWeb.Models
 
         public string Location { get; set; }
 
+        public List<string> PhotoList { get; set; }
+        public string Description { get; set; }
+        public bool IsReserved { get; set; }
+        public bool IsForVerification { get; set; }
     }
 }
