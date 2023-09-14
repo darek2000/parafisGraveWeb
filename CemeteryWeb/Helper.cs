@@ -540,6 +540,251 @@ namespace CemeteryWeb
             return result;
         }
 
+        private static int? CheckIfGraveExists(ParafisDBTestoweEntities db, GraveAddModel model)
+        {
+            var g = db.CemeteryGrave.Where(x => x.FkCemetery == model.FkCemetery
+                                    && ((model.LocLength >= 3 && model.AttributeTwo != string.Empty) ? x.LocationAttributeTwo == model.AttributeTwo : true)
+                                    && ((model.LocLength >= 2 && model.AttributeThree != string.Empty) ? x.LocationAttributeThree == model.AttributeThree : true)
+                                    && ((model.LocLength >= 1 && model.AttributeFour != string.Empty) ? x.LocationAttributeFour == model.AttributeFour : true)
+                                    ).FirstOrDefault();
+
+            if (g != null)
+                model.IdGrave = g.Id;
+
+            return (g != null) ? g.Id : -1;
+        }
+
+        private static string AddGraveDB(ParafisDBTestoweEntities db, GraveAddModel model)
+        {
+            string result = string.Empty;
+
+            try
+            {
+                var g = db.CemeteryGrave.Add(new CemeteryGrave());
+
+                g.TimeStamp = DateTime.Now;
+                g.FkCemetery = model.FkCemetery;
+                g.LocationAttributeOne = model.AttributeOne;
+                g.LocationAttributeTwo = model.AttributeTwo;
+                g.LocationAttributeThree = model.AttributeThree;
+                g.LocationAttributeFour = model.AttributeFour;
+                g.FkUser = _loggedUser;
+                g.IsForVerification = model.IsForVerification;
+                g.IsReserved = model.IsReserved;
+
+                db.SaveChanges();
+
+                model.IdGrave = g.Id;
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                return $"Wyjątek podczas dodawania grobu. Message: {ex.Message}, Internal.Message: {ex.InnerException.Message}";
+            }
+        }
+
+        private static string CheckIfPersonExists(ParafisDBTestoweEntities db, GraveAddModel model)
+        {
+            DateTime dtBirth = DateTime.Now;
+            DateTime dtDeath = DateTime.Now;
+            string result = string.Empty;
+
+            if (model.DateBirth != null)
+            {
+                if (DateTime.TryParse(model.DateBirth, out dtBirth) != true)
+                {
+                    result += "Nie można rozpoznać daty urodzenia\n";
+                }
+            }
+
+            if (model.DateDeath != null)
+            {
+                if (DateTime.TryParse(model.DateDeath, out dtDeath) != true)
+                {
+                    result += "Nie można rozpoznać daty zgonu\n";
+                }
+            }
+
+            if (result != string.Empty)
+                return result;
+
+            var g = db.Person.Where(x => x.Name == model.Name && x.Surname == model.Surname
+                                    && ((model.BirthYear != null) ? x.YearBirth == model.BirthYear : true)
+                                    && ((model.DeathYear != null) ? x.YearDeath == model.DeathYear : true)
+                                    && ((model.DateBirth != string.Empty) ? (x.DateBirth.Value.Year == dtBirth.Year && x.DateBirth.Value.Month == dtBirth.Month && x.DateBirth.Value.Day == dtBirth.Day) : true)
+                                    && ((model.DateDeath != string.Empty) ? (x.DateDeath.Value.Year == dtDeath.Year && x.DateDeath.Value.Month == dtDeath.Month && x.DateDeath.Value.Day == dtDeath.Day) : true)
+                                    ).FirstOrDefault();
+
+            return (g != null) ? $"Osoba już istnieje. Nie można dodać osoby z tymi samymi danymi" : string.Empty;
+        }
+
+        private static string AddPersonDB(ParafisDBTestoweEntities db, GraveAddModel model)
+        {
+            string result = string.Empty;
+            DateTime dt;
+
+            try
+            {
+                var r = db.Person.Add(new Person());
+
+                r.TimeStamp = DateTime.Now;
+                r.Name = model.Name;
+                r.Surname = model.Surname;
+
+                if (model.DateBirth != null)
+                {
+                    if (DateTime.TryParse(model.DateBirth, out dt) == true)
+                    {
+                        r.DateBirth = dt;
+                    }
+                    else
+                        result += "Nie można zapisać daty urodzenia\n";
+                }
+                else
+                {
+                }
+
+                if (model.BirthYear != null)
+                    r.YearBirth = model.BirthYear;
+
+                if (model.DateDeath != null)
+                {
+                    if (DateTime.TryParse(model.DateDeath, out dt) == true)
+                    {
+                        r.DateDeath = dt;
+                    }
+                    else
+                        result += "Nie można zapisać daty zgonu\n";
+                }
+                else
+                {
+                }
+
+                if (model.DeathYear != null)
+                    r.YearDeath = model.DeathYear;
+
+                r.FKUser = _loggedUser;
+
+                db.SaveChanges();
+
+                model.FkPerson = r.Id;
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                return $"Wyjątek podczas dodawania grobu. Message: {ex.Message}, Internal.Message: {ex.InnerException.Message}";
+            }
+        }
+
+        private static string AddGravePersonDB(ParafisDBTestoweEntities db, GraveAddModel model)
+        {
+            string result = string.Empty;
+            DateTime dt;
+
+            try
+            {
+                var g = db.CemeteryGravePerson.Add(new CemeteryGravePerson());
+
+                g.TimeStamp = DateTime.Now;
+                g.Surname = model.Surname;
+                g.Name = model.Name;
+
+                if (model.DateBirth != null)
+                {
+                    if (DateTime.TryParse(model.DateBirth, out dt) == true)
+                    {
+                        g.DateBirth = dt;
+                    }
+                    else
+                        result += "Nie można zapisać daty urodzenia\n";
+                }
+                else
+                {
+                }
+
+                //if (model.BirthYear != null)
+                //    g.YearBirth = model.BirthYear;
+
+                if (model.DateDeath != null)
+                {
+                    if (DateTime.TryParse(model.DateDeath, out dt) == true)
+                    {
+                        g.DateDeath = dt;
+                    }
+                    else
+                        result += "Nie można zapisać daty zgonu\n";
+                }
+                else
+                {
+                }
+
+                //if (model.DeathYear != null)
+                //    g.YearDeath = model.DeathYear;
+
+                g.FkGrave = model.IdGrave;
+                g.FkPerson = model.FkPerson;
+                g.FkUser = _loggedUser;
+
+                db.SaveChanges();
+
+                return string.Empty;
+            }
+            catch (Exception ex)
+            {
+
+                return $"Wystąpił błąd podczas dodawania grobu z osobą. Błąd Message: {ex.Message}, InternalMessage: {ex.InnerException.Message}";
+            }
+        }
+
+        public static string AddGrave(ParafisDBTestoweEntities db, GraveAddModel model)
+        {
+            string result = string.Empty;
+
+            var graveId = CheckIfGraveExists(db, model);
+
+            if (graveId == -1)
+                result = AddGraveDB(db, model);
+
+            if (result != string.Empty)
+                return result;
+
+            result = CheckIfPersonExists(db, model);
+
+            if (result != string.Empty)
+                return result;
+
+            result = AddPersonDB(db, model);
+
+            if (result != string.Empty)
+                return result;
+
+            result = AddGravePersonDB(db, model);
+
+            if (result != string.Empty)
+                return result;
+
+            foreach (var file in model.Photos)
+            {
+                if (file == null)
+                    continue;
+
+                if (CheckIfPhotoExist(db, (int)graveId, file.FileName) != 0)
+                    continue;
+
+                SaveImageToFolder(_gravePhotosDir, file);
+
+                AddPhotoToGrave(db, (int)graveId, file.FileName);
+            }
+
+            model.PhotoList = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == graveId).ToDictionary(c => c.Id, c => c.PhotoFile);
+
+            return result;
+        }
+
         public static string EditGrave(ParafisDBTestoweEntities db, GraveEditModel model)
         {
             string result = string.Empty;

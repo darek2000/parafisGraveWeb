@@ -31,9 +31,10 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("0.0.0.16")]
-[assembly: AssemblyFileVersion("0.0.0.16")]
+[assembly: AssemblyVersion("0.0.0.17")]
+[assembly: AssemblyFileVersion("0.0.0.17")]
 
+//0.0.0.17 Added adding grave
 //0.0.0.16 Updated Edit grave
 //0.0.0.15 Updated GravePersonDetailModel
 //0.0.0.14 Added poly shapes

@@ -22,6 +22,41 @@ namespace CemeteryWeb.Controllers
             return View(new SearchModel());
         }
 
+        public ActionResult Add()
+        {
+            ViewData["MapAreaName"] = " Cmentarz Sieniawa Żarska";
+
+            return View(new GraveAddModel() { FkCemetery = 1, LocLength = 3 });
+        }
+
+        [HttpPost]
+        public ActionResult Add(GraveAddModel model)
+        {
+            ViewData["MapAreaName"] = " Cmentarz Sieniawa Żarska";
+
+            if (!ModelState.IsValid)
+            {
+                ViewData["ErrorMessage"] = "Proszę uzupełnić/poprawić dane";
+
+                return View(model);
+            }
+
+            var result = Helper.AddGrave(_dbContext, model);
+
+            if (result != string.Empty)
+            {
+                ViewData["ErrorMessage"] = $"Grób nie został dodany. Błąd: {result}";
+
+                model.PhotoList = Helper.GetGravePhotos(_dbContext, (int)model.IdGrave);
+
+                return View(model);
+            }
+
+            ViewData["InfoMessage"] = $"Grób dodany";
+
+            return View(model);
+        }
+
         [HttpPost]
         public ActionResult SearchGrave(string namePerson, string surnamePerson, string sector, string row, string number)
         {
