@@ -36,7 +36,7 @@ namespace CemeteryWeb.Models
 
         public PersonModel(VGravePersonDetail v)
         {
-            IdPerson = v.Id;
+            IdPerson = v.FkPerson;
             Name = v.Name;
             Surname = v.Surname;
 

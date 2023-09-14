@@ -71,13 +71,13 @@ namespace CemeteryWeb
 
 			try
 			{
-				var a = db.VGravePersonDetail.Where(x => (personName != string.Empty) ? x.Name == personName : true 
-								&& (personSurname != string.Empty) ? x.Surname == personSurname : true
-								&& (sector != string.Empty) ? x.LocationAttributeTwo == sector : true
-								&& (row != string.Empty) ? x.LocationAttributeThree == row : true
-								&& (number != string.Empty) ? x.LocationAttributeFour == number : true
-								&& (yearBirth != null) ? (x.YearBirth == yearBirth || x.DateBirth.Value.Year == yearBirth) : true
-                                && (yearDeath != null) ? (x.YearDeath == yearDeath || x.DateDeath.Value.Year == yearDeath) : true
+				var a = db.VGravePersonDetail.Where(x => ((personName != string.Empty) ? x.Name == personName : true)
+								&& ((personSurname != string.Empty) ? x.Surname == personSurname : true)
+								&& ((sector != string.Empty) ? x.LocationAttributeTwo == sector : true)
+								&& ((row != string.Empty) ? x.LocationAttributeThree == row : true)
+								&& ((number != string.Empty) ? x.LocationAttributeFour == number : true)
+								&& ((yearBirth != null) ? (x.YearBirth == yearBirth || x.DateBirth.Value.Year == yearBirth) : true)
+                                && ((yearDeath != null) ? (x.YearDeath == yearDeath || x.DateDeath.Value.Year == yearDeath) : true)
                                 ).ToList();
 
 				foreach(var item in a)

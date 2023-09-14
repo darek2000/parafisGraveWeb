@@ -77,7 +77,7 @@ namespace CemeteryWeb.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditGrave(GraveEditModel model)
+        public ActionResult Edit(GraveEditModel model)
         {
             if (!ModelState.IsValid)
             {
