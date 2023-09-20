@@ -40,9 +40,14 @@ namespace CemeteryWeb.Controllers
 
         public ActionResult PolygonSingle_Read(byte locLength, string sector, string row, string number, int cemeteryId)
         {
-            var result = Helper.ReadPolygonSingleFromDatabase(_dbContext, string.Empty, locLength, sector, row, number, cemeteryId);
+            if ((sector == string.Empty) && (row == string.Empty) && number == string.Empty)
+                return Json(new List<Polygon>());
+            else
+            {
+                var result = Helper.ReadPolygonSingleFromDatabase(_dbContext, string.Empty, locLength, sector, row, number, cemeteryId);
 
-            return Json(result);
+                return Json(result);
+            }
         }
 
         public ActionResult ImportGraveDetails()

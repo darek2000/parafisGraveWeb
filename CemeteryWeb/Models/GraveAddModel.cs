@@ -26,7 +26,7 @@ namespace CemeteryWeb.Models
         [Display(Name = "Aleja")]
         public string AttributeOne { get; set; }
 
-        [Display(Name = "Kwatera")]
+        [Display(Name = "Sektor")]
         public string AttributeTwo { get; set; }
 
         [Display(Name = "Rząd")]

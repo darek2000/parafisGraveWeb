@@ -26,7 +26,7 @@ namespace CemeteryWeb.Controllers
         {
             ViewData["MapAreaName"] = " Cmentarz Sieniawa Żarska";
 
-            return View(new GraveAddModel() { FkCemetery = 1, LocLength = 3 });
+            return View(new GraveAddModel() { FkCemetery = 1, LocLength = 3, IdGrave = -1 });
         }
 
         [HttpPost]

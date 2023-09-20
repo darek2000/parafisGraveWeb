@@ -1,4 +1,37 @@
-﻿//read shape for Edit (init)
+﻿var map = L.map('map').setView(configSetViewCords, configZoomLevel);
+
+var prevZoom = map.getZoom();
+
+var latLngBounds = L.latLngBounds(configLatLngBounds);
+
+var polygons = [];
+
+//var lastClicked = null;
+//var lastSingleSelected = null;
+
+var colorGraveShape = '#888';
+var colorGraveSelected = 'green';
+var colorGraveAssigned = 'red';
+var colorGraveGray = 'yellow';
+var colorGraveOutline = 'yellow';
+var colorGraveFill = 'silver';	//'#888'
+var colorGravePolyOutline = 'yellow'; // '#00f';
+var colorGravePolyFill = 'yellow';
+
+
+var imageOverlay = L.imageOverlay('/Images/' + configLayerPic, latLngBounds, {
+	opacity: 0.8,
+	interactive: true
+});
+
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	maxZoom: configMaxZoom,
+	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
+imageOverlay.addTo(map);
+
+//read shape for Edit (init)
 //additional parameter
 function readPolygon() {
 
@@ -75,36 +108,3 @@ function addPolygon(item) {
 		});
 	}
 }
-
-var map = L.map('map').setView(configSetViewCords, configZoomLevel);
-
-var prevZoom = map.getZoom();
-
-var latLngBounds = L.latLngBounds(configLatLngBounds);
-
-var polygons = [];
-
-//var lastClicked = null;
-//var lastSingleSelected = null;
-
-var colorGraveShape = '#888';
-var colorGraveSelected = 'green';
-var colorGraveAssigned = 'red';
-var colorGraveGray = 'yellow';
-var colorGraveOutline = 'yellow';
-var colorGraveFill = 'silver';	//'#888'
-var colorGravePolyOutline = 'yellow'; // '#00f';
-var colorGravePolyFill = 'yellow';
-
-
-var imageOverlay = L.imageOverlay('/Images/' + configLayerPic, latLngBounds, {
-	opacity: 0.8,
-	interactive: true
-});
-
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-	maxZoom: configMaxZoom,
-	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);
-
-imageOverlay.addTo(map);

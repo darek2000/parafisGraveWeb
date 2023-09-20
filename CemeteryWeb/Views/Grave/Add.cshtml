@@ -22,6 +22,11 @@
 
 	function showGravePhotos(e) {
 
+		console.log("showGravePhotos: " + e);
+
+		if (e == -1)
+			return;
+
 		$.ajax({
 			type: "POST",
 			url: '/Grave/ShowGravePhotos',
@@ -85,10 +90,10 @@
 
 <div class="row">
 	<div class="col-md-7">
-		@*<h3>Mapa @cemeteryName</h3>
+		<h3>Mapa @cemeteryName</h3>
 			<div id="map" style="height: 600px">
 			</div>
-			@{Html.RenderPartial("_MapEditNavigation"); }*@
+			@{Html.RenderPartial("_MapEditNavigation"); }
 	</div>
 	<div class="col-md-5">
 		@using (Html.BeginForm("Add", "Grave", FormMethod.Post, new { enctype = "multipart/form-data" }))

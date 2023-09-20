@@ -38,3 +38,15 @@ h3.search::after {
     height: .4rem;
     content: '';
 }
+
+.errormsg {
+    color: red !important;
+}
+
+.infomsg {
+    color: green !important;
+}
+
+.captionmsg {
+    color: black !important;
+}
