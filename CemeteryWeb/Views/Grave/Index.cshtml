@@ -11,12 +11,14 @@
 		var valSector = $("#Sector").val();
 		var valRow = $("#Row").val();
 		var valNumber = $("#Number").val();
+		var valVerification = $('input[id="IsForVerification"]')[0].checked;
+		var valReserved = $('input[id="IsReserved"]')[0].checked;
 
 		if (valName != "" || valSurname != "" || valSector != "" || valRow != "" || valNumber != "")
 			$.ajax({
 				type: "POST",
-				url: '/Grave/SearchGrave',
-				data: { namePerson: valName, surnamePerson: valSurname, sector: valSector, row: valRow, number: valNumber },
+				url: '/Grave/EditSearchGrave',
+				data: { namePerson: valName, surnamePerson: valSurname, sector: valSector, row: valRow, number: valNumber, verification: valVerification, reserved: valReserved },
 				success: function (data, textStatus, jqXHR) {
 					$('#graveInfo').html(data);
 				},
@@ -52,7 +54,7 @@
 	<div class="col-md-4">
 		<div class="row">
 			<div class="col-md-12">
-				<h3>Wyszukiwarka Osób</h3><br />
+				<h3>Wyszukiwarka zmarłych</h3><br />
 			</div>
 		</div>
 		<div class="row">
@@ -89,6 +91,23 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					@Html.LabelFor(m => m.IsForVerification, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
+					@Html.CheckBoxFor(m => m.IsForVerification, htmlAttributes: new { @style = "padding: 7px; border:1px solid lightgray;" })<br />
+					<span>Uwaga! Zaleca się stosować wyszukiwanie Weryfikacji razem z dodatkowym/ymi atrybutami, w przyciwnym przypadku wynik będzie miał dużą ilość rekordów</span>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					@Html.LabelFor(m => m.IsReserved, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
+					@Html.CheckBoxFor(m => m.IsReserved, htmlAttributes: new { @style = "padding: 7px; border:1px solid lightgray;" })<br />
+					<span>Uwaga! Zaleca się stosować wyszukiwanie Rezerwacji razem z dodatkowym/ymi atrybutami, w przyciwnym przypadku wynik będzie miał dużą ilość rekordów</span>
+				</div>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-md-9">
 			</div>
@@ -101,7 +120,7 @@
 	<div class="col-md-3">
 		<div class="row">
 			<div class="col-md-12">
-				<h3>Wyszukiwarka Grobów</h3><br />
+				<h3>Wyszukiwarka grobów</h3><br />
 			</div>
 		</div>
 		<div class="row" style="margin-left:20px">

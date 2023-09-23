@@ -57,17 +57,6 @@ namespace CemeteryWeb.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public ActionResult SearchGrave(string namePerson, string surnamePerson, string sector, string row, string number)
-        {
-            var model = new List<GravePersonDetailModel>();
-
-            if (namePerson != string.Empty || surnamePerson != string.Empty || sector != string.Empty || row != string.Empty || number != string.Empty)
-                model = Helper.GetGraveDetailsList(_dbContext, namePerson, surnamePerson, sector, row, number, null, null);
-
-            return PartialView("_EditGraveListPartial", model);
-        }
-
         [HttpGet]
         public ActionResult Edit(int id)
         {
@@ -155,16 +144,36 @@ namespace CemeteryWeb.Controllers
             }
             else if (nameFilter == "nocords")
             {
-                model = Helper.GetNoCordsGraveList(_dbContext);
-                return PartialView("_NoCordsGraveListPartial", model);
+                return PartialView("_NoCordsGraveListPartial", Helper.GetNoCordsGraveList(_dbContext));
             }
-            else if (nameFilter == "lackingparam")
+            else if (nameFilter == "lackinglocparam")
             {
-                model = Helper.GetLackingParamsGraveList(_dbContext);
-                return PartialView("_LackingParamsGraveListPartial", model);
+                return PartialView("_LackingParamsGraveListPartial", Helper.GetLackingParamsGraveList(_dbContext));
             }
             else
                 return PartialView("_EmptyListPartial", model);
+        }
+
+        [HttpPost]
+        public ActionResult SearchGrave(string namePerson, string surnamePerson, string sector, string row, string number)
+        {
+            var model = new List<GravePersonDetailModel>();
+
+            if (namePerson != string.Empty || surnamePerson != string.Empty || sector != string.Empty || row != string.Empty || number != string.Empty)
+                model = Helper.GetGraveDetailsList(_dbContext, namePerson, surnamePerson, sector, row, number, null, null);
+
+            return PartialView("_EditGraveListPartial", model);
+        }
+
+        [HttpPost]
+        public ActionResult EditSearchGrave(string namePerson, string surnamePerson, string sector, string row, string number, bool verification, bool reserved)
+        {
+            var model = new List<GravePersonDetailModel>();
+
+            if (namePerson != string.Empty || surnamePerson != string.Empty || sector != string.Empty || row != string.Empty || number != string.Empty)
+                model = Helper.GetGraveDetailsList(_dbContext, namePerson, surnamePerson, sector, row, number, null, null);
+
+            return PartialView("_EditGraveListPartial", model);
         }
     }
 }

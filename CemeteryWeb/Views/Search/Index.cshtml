@@ -23,181 +23,12 @@
 
 <script type="text/javascript" src="../Scripts/cmentario.search.js"></script>
 
-@*<script>
-		function searchGrave(e) {
-			var valName = $("#Name").val();
-			var valSurname = $("#Surname").val();
-			var valSector = $("#Sector").val();
-			var valRow = $("#Row").val();
-			var valNumber = $("#Number").val();
-			var valYearBirth = $("#YearBirth").val();
-			var valYearDeath = $("#YearDeath").val();
-
-			if (valName != "" || valSurname != "" || valSector != "" || valRow != "" || valNumber != "" || valYearBirth != "" || valYearDeath != "")
-				$.ajax({
-					type: "POST",
-					url: '/Search/SearchGrave',
-					data: { namePerson: valName, surnamePerson: valSurname, sector: valSector, row: valRow, number: valNumber, yearBirth: valYearBirth, yearDeath: valYearDeath },
-					success: function (data, textStatus, jqXHR) {
-						$('#graveInfo').html(data);
-					},
-					error: function (a, b, c) {
-						alert("Wystąpił bład podczas pobierania danych. Proszę skonatkować się ze wsparciem aplikacji")
-					}
-				});
-		}
-
-		function showGraveData(e) {
-
-			$.ajax({
-				type: "POST",
-				url: '/Search/ShowGraveData',
-				data: { graveDetails: e },
-				success: function (data, textStatus, jqXHR) {
-					$('#graveInfo').html(data);
-				},
-				error: function (a, b, c) {
-					alert("Wystąpił bład podczas wyszukiwania danych. Proszę skonatkować się ze wsparciem aplikacji")
-				}
-			});
-		}
-
-		function readPolygon() {
-
-			$.ajax({
-				type: "POST",
-				url: '/Map/Polygon_Read',
-				//dataType: 'json',
-				//data: { nameCategory: val },
-				success: function (data, textStatus, jqXHR) {
-
-					//alert(data);
-					if (data == null) {
-						return
-					}
-
-					polygons = [];
-
-					data.forEach(addPolygon);
-
-					//drawPolygons();
-				},
-				error: function (a, b, c) {
-					alert("Wystąpił bład podczas zaczytywania kształtów. Proszę skontaktować się ze wsparciem aplikacji")
-				}
-			});
-		}
-
-		function importPolygon() {
-
-			$.ajax({
-				type: "POST",
-				url: '/Map/ImportGraveDetails',
-				//dataType: 'json',
-				//data: { nameCategory: val },
-				success: function (data, textStatus, jqXHR) {
-
-					alert(data.message);
-
-				},
-				error: function (a, b, c) {
-					alert("Wystąpił bład podczas importu kształtów. Proszę skontaktować się ze wsparciem aplikacji")
-				}
-			});
-		}
-
-		function unselectGraves() {
-
-			polygons.every(p => {
-
-				p.setStyle({ fillColor: colorGraveShape });
-
-				return true;
-			});
-
-			lastSingleSelected = null;
-			lastClicked = null;
-		}
-
-		function showGravesOnTheMap(item) {
-
-			polygons.every(p => {
-
-				if (p.options.className == item.Location) {
-
-					p.setStyle({ fillColor: colorGraveSelected });
-
-					return false;
-				}
-				else {
-
-					return true;
-				}
-
-			});
-		}
-
-		function showSingleGrave(location) {
-
-			if (lastSingleSelected != null)
-				lastSingleSelected.setStyle({ fillColor: colorGraveSelected });
-
-			var grave = polygons.find(p => p.options.className == location)
-
-			if (grave == null)
-				return;
-
-			grave.setStyle({ fillColor: 'green' });
-
-			lastSingleSelected = grave;
-		}
-
-		function addPolygon(item) {
-
-			if (item.Points.length == 2) {
-
-				polygons.push(new L.rectangle([[item.Points[0].X, item.Points[0].Y], [item.Points[1].X, item.Points[1].Y]],
-					{
-						className: item.Name,
-						color: 'gray',
-						weight: 1,
-						fillColor: '#888',
-						fillOpacity: 0.5
-					}).addTo(map));
-			}
-
-			else if (item.Points.length > 2) {
-
-				var polyShape = [];
-
-				item.Points.forEach((p) => { polyShape.push([p.X, p.Y]) });
-				polyShape.push([item.Points[0].X, item.Points[0].Y]);	//closing shape
-
-				polygons.push(new L.polyline(polyShape,
-					{
-						className: item.Name,
-						color: 'yellow',
-						weight: 1,
-						fillColor: '#888',
-						fillOpacity: 0.5
-					}).addTo(map));
-			}
-		}
-
-		function drawPolygons() {
-
-		}
-	</script>*@
-
 <div class="row">
 	<div class="col-md-7">
 		<h3>Mapa</h3>
 		<input type="checkbox" id="cb-map-showshapes" name="cb-map-showshapes" value="" checked>&nbsp;pokaż obrysy grobów
 		<div id="map" style="height: 1100px">
 		</div>
-		@*<footer>
-				<p>&copy; @DateTime.Now.Year - Inwentaryzacja danych została wykonana przez <a target="_blank" href="http://www.archiveo.pl">Archiveo.pl</a>. Wykorzystano system do zarządzania cmentarzem <a target="_blank" href="http://cmentario.pl">Cmentario.pl</a>. Wszelkie prawa zastrzeżone</p>
-			</footer>*@
 	</div>
 	<div class="col-md-5">
 		<div class="row">
@@ -277,7 +108,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div id="graveInfo" class="col-md-11" style="height: 390px; overflow-y: auto;">
+			<div id="graveInfo" class="col-md-11" style="height: 800px; overflow-y: auto;">
 
 			</div>
 		</div>

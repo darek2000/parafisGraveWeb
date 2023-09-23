@@ -187,6 +187,7 @@
     <Compile Include="Models\GraveAddModel.cs" />
     <Compile Include="Models\GraveEditModel.cs" />
     <Compile Include="Models\GraveModel.cs" />
+    <Compile Include="Models\GraveParamsModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\PersonModel.cs" />
     <Compile Include="Models\Point.cs" />
@@ -352,6 +353,8 @@
     <Content Include="Views\Shared\_MapEditNavigation.cshtml" />
     <Content Include="Views\Grave\_GravePhotosPartial.cshtml" />
     <Content Include="Views\Grave\Add.cshtml" />
+    <Content Include="Views\Grave\_NoCordsGraveListPartial.cshtml" />
+    <Content Include="Views\Grave\_LackingParamsGraveListPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

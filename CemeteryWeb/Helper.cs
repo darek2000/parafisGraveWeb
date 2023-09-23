@@ -12,18 +12,18 @@ namespace CemeteryWeb
 {
 	public static class Helper
 	{
-        private static readonly string _salt = "ProgramParafia";
+		private static readonly string _salt = "ProgramParafia";
 
-        private static readonly string _gravePhotosDir = AppDomain.CurrentDomain.BaseDirectory + "GravePhotos";
+		private static readonly string _gravePhotosDir = AppDomain.CurrentDomain.BaseDirectory + "GravePhotos";
 
-        private static int _loggedUser = -1;
+		private static int _loggedUser = -1;
 
-        public static void SetLoggedUser(int id)
-        {
-            _loggedUser = id;
-        }
+		public static void SetLoggedUser(int id)
+		{
+			_loggedUser = id;
+		}
 
-        public static GraveModel GetGraveDetails(CmentarioDBEntities db, string personName, string personSurname)
+		public static GraveModel GetGraveDetails(CmentarioDBEntities db, string personName, string personSurname)
 		{
 			try
 			{
@@ -65,7 +65,7 @@ namespace CemeteryWeb
 			}
 		}
 
-		public static List<GravePersonDetailModel> GetGraveDetailsList(CmentarioDBEntities db, string personName, string personSurname, string sector, string row, string number, int? yearBirth, int? yearDeath)
+		public static List<GravePersonDetailModel> GetGraveDetailsList(CmentarioDBEntities db, string personName, string personSurname, string sector, string row, string number, int? yearBirth, int? yearDeath, bool? verification = null, bool? reserved = null)
 		{
 			var result = new List<GravePersonDetailModel>();
 
@@ -77,21 +77,23 @@ namespace CemeteryWeb
 								&& ((row != string.Empty) ? x.LocationAttributeThree == row : true)
 								&& ((number != string.Empty) ? x.LocationAttributeFour == number : true)
 								&& ((yearBirth != null) ? (x.YearBirth == yearBirth || x.DateBirth.Value.Year == yearBirth) : true)
-                                && ((yearDeath != null) ? (x.YearDeath == yearDeath || x.DateDeath.Value.Year == yearDeath) : true)
-                                ).ToList();
+								&& ((yearDeath != null) ? (x.YearDeath == yearDeath || x.DateDeath.Value.Year == yearDeath) : true)
+								&& ((verification != null) ? x.IsForVerification == verification : true)
+								&& ((reserved != null) ? x.IsReserved == reserved : true)
+								).ToList();
 
 				foreach(var item in a)
 				{
 					var graveid = item.FkGrave;
 
-                    //var f = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == graveid).ToList().FirstOrDefault()?.PhotoFile;
-                    var f = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == graveid).Select(z => z.PhotoFile).ToList();
+					//var f = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == graveid).ToList().FirstOrDefault()?.PhotoFile;
+					var f = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == graveid).Select(z => z.PhotoFile).ToList();
 
-                    //result.Add(new GravePersonDetailModel(item, f == null ? "nopicture.png" : f));
-                    result.Add(new GravePersonDetailModel(item, GetPhotoList(f)));
-                }
+					//result.Add(new GravePersonDetailModel(item, f == null ? "nopicture.png" : f));
+					result.Add(new GravePersonDetailModel(item, GetPhotoList(f)));
+				}
 
-                return result;
+				return result;
 			}
 			catch (Exception ex)
 			{
@@ -100,92 +102,92 @@ namespace CemeteryWeb
 			}
 		}
 
-        private static List<string> GetPhotoList(List<string> list)
-        {
-            if (list.Count == 0)
-                return new List<string>() { "nopicture.png" };
-            else
-                return list;
-        }
+		private static List<string> GetPhotoList(List<string> list)
+		{
+			if (list.Count == 0)
+				return new List<string>() { "nopicture.png" };
+			else
+				return list;
+		}
 
-        public static List<GravePersonDetailModel> GetGraveDetailsList(CmentarioDBEntities db, SearchModel search)
-        {
-            var result = new List<GravePersonDetailModel>();
-
-            try
-            {
-                var a = db.VGravePersonDetail.Where(x => (search.Name != string.Empty) ? x.Name == search.Name : true
-                                && (search.Surname != string.Empty) ? x.Surname == search.Surname : true
-                                && (search.Sector != string.Empty) ? x.LocationAttributeTwo == search.Sector : true
-                                && (search.Row != string.Empty) ? x.LocationAttributeThree == search.Row : true
-                                && (search.Number != string.Empty) ? x.LocationAttributeFour == search.Number : true
-                                ).ToList();
-
-                foreach (var item in a)
-                {
-                    var graveid = item.FkGrave;
-
-                    //var f = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == graveid).ToList().FirstOrDefault()?.PhotoFile;
-                    var f = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == graveid).Select(z => z.PhotoFile).ToList();
-
-                    //result.Add(new GravePersonDetailModel(item, f == null ? "nopicture.png" : f));
-                    result.Add(new GravePersonDetailModel(item, GetPhotoList(f)));
-                }
-
-                return result;
-            }
-            catch (Exception ex)
-            {
-
-                throw new Exception(ex.Message);
-            }
-        }
-
-        public static List<GravePersonDetailModel> GetGraveDetailsList(CmentarioDBEntities db, string graveDetails, byte locLength, int cemeteryId = -1)
-        {
+		public static List<GravePersonDetailModel> GetGraveDetailsList(CmentarioDBEntities db, SearchModel search)
+		{
 			var result = new List<GravePersonDetailModel>();
 
-            var sector = string.Empty;
-            var row = string.Empty;
-            var number = string.Empty;
+			try
+			{
+				var a = db.VGravePersonDetail.Where(x => (search.Name != string.Empty) ? x.Name == search.Name : true
+								&& (search.Surname != string.Empty) ? x.Surname == search.Surname : true
+								&& (search.Sector != string.Empty) ? x.LocationAttributeTwo == search.Sector : true
+								&& (search.Row != string.Empty) ? x.LocationAttributeThree == search.Row : true
+								&& (search.Number != string.Empty) ? x.LocationAttributeFour == search.Number : true
+								).ToList();
 
-            var locParams = graveDetails.Replace("Grób ", "").Split(' ');
-            //var sector = locParams[0];
-            //var row = locParams[1];
-            //var number = locParams[3];
+				foreach (var item in a)
+				{
+					var graveid = item.FkGrave;
 
-            if (locLength == 3)
-            {
-                sector = locParams[0];
-                row = locParams[1];
-                number = locParams[2];
-            }
-            else
-            {
-                row = locParams[0];
-                number = locParams[1];
-            }
+					//var f = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == graveid).ToList().FirstOrDefault()?.PhotoFile;
+					var f = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == graveid).Select(z => z.PhotoFile).ToList();
 
-            try
+					//result.Add(new GravePersonDetailModel(item, f == null ? "nopicture.png" : f));
+					result.Add(new GravePersonDetailModel(item, GetPhotoList(f)));
+				}
+
+				return result;
+			}
+			catch (Exception ex)
+			{
+
+				throw new Exception(ex.Message);
+			}
+		}
+
+		public static List<GravePersonDetailModel> GetGraveDetailsList(CmentarioDBEntities db, string graveDetails, byte locLength, int cemeteryId = -1)
+		{
+			var result = new List<GravePersonDetailModel>();
+
+			var sector = string.Empty;
+			var row = string.Empty;
+			var number = string.Empty;
+
+			var locParams = graveDetails.Replace("Grób ", "").Split(' ');
+			//var sector = locParams[0];
+			//var row = locParams[1];
+			//var number = locParams[3];
+
+			if (locLength == 3)
+			{
+				sector = locParams[0];
+				row = locParams[1];
+				number = locParams[2];
+			}
+			else
+			{
+				row = locParams[0];
+				number = locParams[1];
+			}
+
+			try
 			{
 				var a = db.VGravePersonDetail.Where(x => 
 									((sector != string.Empty) ? x.LocationAttributeTwo == sector : true)
 								&& ((row != string.Empty) ? x.LocationAttributeThree == row : true)
 								&& ((number != string.Empty) ? x.LocationAttributeFour == number : true)
-                                && (x.FkCemetery == cemeteryId)).ToList();
+								&& (x.FkCemetery == cemeteryId)).ToList();
 
-                foreach (var item in a)
+				foreach (var item in a)
 				{
 					var graveid = item.FkGrave;
 
-                    //var f = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == graveid).ToList().FirstOrDefault()?.PhotoFile;
+					//var f = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == graveid).ToList().FirstOrDefault()?.PhotoFile;
 
-                    //result.Add(new GravePersonDetailModel(item, f == null ? "nopicture.png" : f));
+					//result.Add(new GravePersonDetailModel(item, f == null ? "nopicture.png" : f));
 
-                    var f = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == graveid).Select(z => z.PhotoFile).ToList();
+					var f = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == graveid).Select(z => z.PhotoFile).ToList();
 
-                    result.Add(new GravePersonDetailModel(item, GetPhotoList(f)));
-                }
+					result.Add(new GravePersonDetailModel(item, GetPhotoList(f)));
+				}
 
 				return result;
 			}
@@ -274,13 +276,13 @@ namespace CemeteryWeb
 				return result;
 			}
 		}
-        private static List<Polygon> GetPolygons(string[] data, string pathError)
-        {
-            var result = new List<Polygon>();
+		private static List<Polygon> GetPolygons(string[] data, string pathError)
+		{
+			var result = new List<Polygon>();
 
-            foreach (var line in data)
-            {
-                var col = line.Split(';');
+			foreach (var line in data)
+			{
+				var col = line.Split(';');
 
 				//result.Add(new Polygon()
 				//{
@@ -289,23 +291,23 @@ namespace CemeteryWeb
 				//});
 
 				result.Add(GetSinglePolygon(line, pathError));
-            }
+			}
 
-            return result;
-        }
+			return result;
+		}
 
 		private static Polygon GetSinglePolygon(string line, string pathError)
 		{
-            var col = line.Split(';');
+			var col = line.Split(';');
 
 			return new Polygon()
 			{
 				Name = $"{col[0]} {col[1]} {col[2]}",
 				Points = GetPointList(line, pathError)
 			};
-        }
+		}
 
-        public static List<Polygon> ReadPolygonFromFile()
+		public static List<Polygon> ReadPolygonFromFile()
 		{
 			var result = new List<Polygon>();
 			
@@ -335,9 +337,9 @@ namespace CemeteryWeb
 			return GetPolygons(data, pathError);
 		}
 
-        public static List<Polygon> ReadPolygonFromDatabase(CmentarioDBEntities db, string pathError)
-        {
-            var result = new List<Polygon>();
+		public static List<Polygon> ReadPolygonFromDatabase(CmentarioDBEntities db, string pathError)
+		{
+			var result = new List<Polygon>();
 
 			var list = db.GraveCoordinate.ToList();
 
@@ -347,30 +349,30 @@ namespace CemeteryWeb
 			}
 
 			return result;
-        }
+		}
 
-        public static List<Polygon> ReadPolygonSingleFromDatabase(CmentarioDBEntities db, string pathError, byte locLength, string sector, string row, string number, int cemeteryId)
-        {
-            var result = new List<Polygon>();
+		public static List<Polygon> ReadPolygonSingleFromDatabase(CmentarioDBEntities db, string pathError, byte locLength, string sector, string row, string number, int cemeteryId)
+		{
+			var result = new List<Polygon>();
 
-            var coordsId = db.CemeteryGrave.Where(x => x.FkCemetery == cemeteryId && x.FkGraveCoordinate != null
-                                                && ((sector != string.Empty) ? x.LocationAttributeTwo == sector : true)
-                                                && ((row != string.Empty) ? x.LocationAttributeThree == row : true)
-                                                && ((number != string.Empty) ? x.LocationAttributeFour == number : true)
-                                                ).Select(z => z.FkGraveCoordinate).ToList();
+			var coordsId = db.CemeteryGrave.Where(x => x.FkCemetery == cemeteryId && x.FkGraveCoordinate != null
+												&& ((sector != string.Empty) ? x.LocationAttributeTwo == sector : true)
+												&& ((row != string.Empty) ? x.LocationAttributeThree == row : true)
+												&& ((number != string.Empty) ? x.LocationAttributeFour == number : true)
+												).Select(z => z.FkGraveCoordinate).ToList();
 
-            var list = db.GraveCoordinate.Where(x => coordsId.Contains(x.Id) == true).ToList();
+			var list = db.GraveCoordinate.Where(x => coordsId.Contains(x.Id) == true).ToList();
 
-            foreach (var g in list)
-            {
-                result.Add(GetSinglePolygon(g.Coordinate, pathError));  //, locLength));
-            }
+			foreach (var g in list)
+			{
+				result.Add(GetSinglePolygon(g.Coordinate, pathError));  //, locLength));
+			}
 
-            return result;
-        }
+			return result;
+		}
 
-        //TODO add filename as a call parameter
-        public static string ReadGraveCoordsFromFileSaveDb(CmentarioDBEntities db)
+		//TODO add filename as a call parameter
+		public static string ReadGraveCoordsFromFileSaveDb(CmentarioDBEntities db)
 		{
 			var result = string.Empty;
 			var path = AppDomain.CurrentDomain.BaseDirectory + @"\Data\" + "graves.cords.txt";
@@ -392,7 +394,7 @@ namespace CemeteryWeb
 					db.SaveChanges();
 
 					FindGraveAssignCoordinate(db, line, c.Id);
-                }
+				}
 				catch (Exception e)
 				{
 					return $"Wystąpił problem podczas importu koordynaty: {line}, Message: {e.Message}, InnerException: {e.InnerException}";
@@ -425,41 +427,41 @@ namespace CemeteryWeb
 			}
 		}
 
-        public static User GetLoggedUser(CmentarioDBEntities db, LoginModel model)
-        {
-            if (model == null)
-                return null;
+		public static User GetLoggedUser(CmentarioDBEntities db, LoginModel model)
+		{
+			if (model == null)
+				return null;
 
-            return GetUserData(db, model.Username, GetHashedPass(model.Password));
-        }
+			return GetUserData(db, model.Username, GetHashedPass(model.Password));
+		}
 
-        private static User GetUserData(CmentarioDBEntities db, string login, string password)
-        {
-            if ((login == null) || (password == null))
-                return null;
+		private static User GetUserData(CmentarioDBEntities db, string login, string password)
+		{
+			if ((login == null) || (password == null))
+				return null;
 
-            var result = db.User.Where(x => x.Login == login && x.Pass == password).FirstOrDefault();
+			var result = db.User.Where(x => x.Login == login && x.Pass == password).FirstOrDefault();
 
-            return result;
-        }
+			return result;
+		}
 
-        public static string GetHashedPass(string text)
-        {
-            if (String.IsNullOrEmpty(text))
-            {
-                return String.Empty;
-            }
+		public static string GetHashedPass(string text)
+		{
+			if (String.IsNullOrEmpty(text))
+			{
+				return String.Empty;
+			}
 
-            using (var sha = new SHA256Managed())
-            {
-                byte[] textBytes = Encoding.UTF8.GetBytes(text + _salt);
-                byte[] hashBytes = sha.ComputeHash(textBytes);
+			using (var sha = new SHA256Managed())
+			{
+				byte[] textBytes = Encoding.UTF8.GetBytes(text + _salt);
+				byte[] hashBytes = sha.ComputeHash(textBytes);
 
-                return BitConverter.ToString(hashBytes).Replace("-", String.Empty);
-            }
-        }
+				return BitConverter.ToString(hashBytes).Replace("-", String.Empty);
+			}
+		}
 
-        public static GraveEditModel GetGraveDetails(CmentarioDBEntities db, int id)
+		public static GraveEditModel GetGraveDetails(CmentarioDBEntities db, int id)
 		{
 			var info = db.VGravePersonDetail.Find(id);
 
@@ -467,617 +469,656 @@ namespace CemeteryWeb
 
 			var person = db.Person.Find(info.FkPerson);
 
-            //var photos = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == info.FkGrave).Select(z => z.PhotoFile).ToArray();
-            var photos = GetGravePhotos(db, (int)info.FkGrave);
+			//var photos = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == info.FkGrave).Select(z => z.PhotoFile).ToArray();
+			var photos = GetGravePhotos(db, (int)info.FkGrave);
 
-            //return new GraveEditModel(info.Id, grave, person, photos);
-            return new GraveEditModel(info, photos);
-        }
+			//return new GraveEditModel(info.Id, grave, person, photos);
+			return new GraveEditModel(info, photos);
+		}
 
-        public static Dictionary<int, string> GetGravePhotos(CmentarioDBEntities db, int id)
-        {
-            return db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == id).ToDictionary(z => z.Id, z => z.PhotoFile);
-        }
+		public static Dictionary<int, string> GetGravePhotos(CmentarioDBEntities db, int id)
+		{
+			return db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == id).ToDictionary(z => z.Id, z => z.PhotoFile);
+		}
 
-        public static string UpdateGraveCoordinates(CmentarioDBEntities db, int graveId, string[][] points, byte locLength)
-        {
-            var result = string.Empty;
+		public static string UpdateGraveCoordinates(CmentarioDBEntities db, int graveId, string[][] points, byte locLength)
+		{
+			var result = string.Empty;
 
-            var grave = db.CemeteryGrave.Find(graveId);
+			var grave = db.CemeteryGrave.Find(graveId);
 
-            if (grave == null)
-                return $"Brak grobu o identyfikatorze id: {graveId}";
+			if (grave == null)
+				return $"Brak grobu o identyfikatorze id: {graveId}";
 
-            var coords = db.GraveCoordinate.Find(grave.FkGraveCoordinate);
+			var coords = db.GraveCoordinate.Find(grave.FkGraveCoordinate);
 
-            if (coords == null)
-            {
-                coords = db.GraveCoordinate.Add(new GraveCoordinate());
+			if (coords == null)
+			{
+				coords = db.GraveCoordinate.Add(new GraveCoordinate());
 
-                coords.TimeStamp = DateTime.Now;
+				coords.TimeStamp = DateTime.Now;
 
-                var locAttrib = (locLength == 3) ? $"{grave.LocationAttributeTwo};{grave.LocationAttributeThree};{grave.LocationAttributeFour}" : $"{grave.LocationAttributeThree};{grave.LocationAttributeFour}";
+				var locAttrib = (locLength == 3) ? $"{grave.LocationAttributeTwo};{grave.LocationAttributeThree};{grave.LocationAttributeFour}" : $"{grave.LocationAttributeThree};{grave.LocationAttributeFour}";
 
-                coords.Coordinate = locAttrib;
+				coords.Coordinate = locAttrib;
 
-                db.SaveChanges();
+				db.SaveChanges();
 
-                grave.FkGraveCoordinate = coords.Id;
+				grave.FkGraveCoordinate = coords.Id;
 
-                db.SaveChanges();
+				db.SaveChanges();
 
-                result = $"Brak koordynat o identyfikatorze id: {grave.FkGraveCoordinate}. Utworozno obiekt z koordynatami";
-            }
+				result = $"Brak koordynat o identyfikatorze id: {grave.FkGraveCoordinate}. Utworozno obiekt z koordynatami";
+			}
 
-            try
-            {
-                var col = coords.Coordinate.Split(';');
+			try
+			{
+				var col = coords.Coordinate.Split(';');
 
-                var locAttrib = (locLength == 3) ? $"{col[0]};{col[1]};{col[2]}" : $"{col[0]};{col[1]}";
+				var locAttrib = (locLength == 3) ? $"{col[0]};{col[1]};{col[2]}" : $"{col[0]};{col[1]}";
 
-                var locPoints = GetCoordinateLine(points).TrimEnd(';');
+				var locPoints = GetCoordinateLine(points).TrimEnd(';');
 
-                coords.Coordinate = $"{locAttrib};{locPoints}";
+				coords.Coordinate = $"{locAttrib};{locPoints}";
 
-                db.SaveChanges();
+				db.SaveChanges();
 
-                return result;
-            }
-            catch (Exception ex)
-            {
+				return result;
+			}
+			catch (Exception ex)
+			{
 
-                return $"Wystąpił wyjątek podczas zapisywania koordynat dla grobu id: {graveId}, Msg:{ex.Message}, IntMsg: {ex.InnerException.Message}";
-            }
-        }
+				return $"Wystąpił wyjątek podczas zapisywania koordynat dla grobu id: {graveId}, Msg:{ex.Message}, IntMsg: {ex.InnerException.Message}";
+			}
+		}
 
-        private static string GetCoordinateLine(string[][] points)
-        {
-            var result = string.Empty;
+		private static string GetCoordinateLine(string[][] points)
+		{
+			var result = string.Empty;
 
-            foreach (var p in points)
-                result += $"{p[0]},{p[1]};";
+			foreach (var p in points)
+				result += $"{p[0]},{p[1]};";
+
+			return result;
+		}
+
+		private static int? CheckIfGraveExists(CmentarioDBEntities db, GraveAddModel model)
+		{
+			var g = db.CemeteryGrave.Where(x => x.FkCemetery == model.FkCemetery
+									&& ((model.LocLength >= 3 && model.AttributeTwo != string.Empty) ? x.LocationAttributeTwo == model.AttributeTwo : true)
+									&& ((model.LocLength >= 2 && model.AttributeThree != string.Empty) ? x.LocationAttributeThree == model.AttributeThree : true)
+									&& ((model.LocLength >= 1 && model.AttributeFour != string.Empty) ? x.LocationAttributeFour == model.AttributeFour : true)
+									).FirstOrDefault();
+
+			if (g != null)
+				model.IdGrave = g.Id;
+
+			return (g != null) ? g.Id : -1;
+		}
+
+		private static string AddGraveDB(CmentarioDBEntities db, GraveAddModel model)
+		{
+			string result = string.Empty;
+
+			try
+			{
+				var g = db.CemeteryGrave.Add(new CemeteryGrave());
+
+				g.TimeStamp = DateTime.Now;
+				g.FkCemetery = model.FkCemetery;
+				g.LocationAttributeOne = model.AttributeOne;
+				g.LocationAttributeTwo = model.AttributeTwo;
+				g.LocationAttributeThree = model.AttributeThree;
+				g.LocationAttributeFour = model.AttributeFour;
+				g.FkUser = _loggedUser;
+				g.IsForVerification = model.IsForVerification;
+				g.IsReserved = model.IsReserved;
+
+				db.SaveChanges();
+
+				model.IdGrave = g.Id;
+
+				return result;
+			}
+			catch (Exception ex)
+			{
+
+				return $"Wyjątek podczas dodawania grobu. Message: {ex.Message}, Internal.Message: {ex.InnerException.Message}";
+			}
+		}
+
+		private static string CheckIfPersonExists(CmentarioDBEntities db, GraveAddModel model)
+		{
+			DateTime dtBirth = DateTime.Now;
+			DateTime dtDeath = DateTime.Now;
+			string result = string.Empty;
+
+			if (model.DateBirth != null)
+			{
+				if (DateTime.TryParse(model.DateBirth, out dtBirth) != true)
+				{
+					result += "Nie można rozpoznać daty urodzenia\n";
+				}
+			}
+
+			if (model.DateDeath != null)
+			{
+				if (DateTime.TryParse(model.DateDeath, out dtDeath) != true)
+				{
+					result += "Nie można rozpoznać daty zgonu\n";
+				}
+			}
+
+			if (result != string.Empty)
+				return result;
+
+			var g = db.Person.Where(x => x.Name == model.Name && x.Surname == model.Surname
+									&& ((model.BirthYear != null) ? x.YearBirth == model.BirthYear : true)
+									&& ((model.DeathYear != null) ? x.YearDeath == model.DeathYear : true)
+									&& ((model.DateBirth != string.Empty) ? (x.DateBirth.Value.Year == dtBirth.Year && x.DateBirth.Value.Month == dtBirth.Month && x.DateBirth.Value.Day == dtBirth.Day) : true)
+									&& ((model.DateDeath != string.Empty) ? (x.DateDeath.Value.Year == dtDeath.Year && x.DateDeath.Value.Month == dtDeath.Month && x.DateDeath.Value.Day == dtDeath.Day) : true)
+									).FirstOrDefault();
+
+			return (g != null) ? $"Osoba już istnieje. Nie można dodać osoby z tymi samymi danymi" : string.Empty;
+		}
+
+		private static string AddPersonDB(CmentarioDBEntities db, GraveAddModel model)
+		{
+			string result = string.Empty;
+			DateTime dt;
+
+			try
+			{
+				var r = db.Person.Add(new Person());
+
+				r.TimeStamp = DateTime.Now;
+				r.Name = model.Name;
+				r.Surname = model.Surname;
+
+				if (model.DateBirth != null)
+				{
+					if (DateTime.TryParse(model.DateBirth, out dt) == true)
+					{
+						r.DateBirth = dt;
+					}
+					else
+						result += "Nie można zapisać daty urodzenia\n";
+				}
+				else
+				{
+				}
+
+				if (model.BirthYear != null)
+					r.YearBirth = model.BirthYear;
+
+				if (model.DateDeath != null)
+				{
+					if (DateTime.TryParse(model.DateDeath, out dt) == true)
+					{
+						r.DateDeath = dt;
+					}
+					else
+						result += "Nie można zapisać daty zgonu\n";
+				}
+				else
+				{
+				}
+
+				if (model.DeathYear != null)
+					r.YearDeath = model.DeathYear;
+
+				r.FKUser = _loggedUser;
+
+				db.SaveChanges();
+
+				model.FkPerson = r.Id;
+
+				return result;
+			}
+			catch (Exception ex)
+			{
+
+				return $"Wyjątek podczas dodawania grobu. Message: {ex.Message}, Internal.Message: {ex.InnerException.Message}";
+			}
+		}
+
+		private static string AddGravePersonDB(CmentarioDBEntities db, GraveAddModel model)
+		{
+			string result = string.Empty;
+			DateTime dt;
+
+			try
+			{
+				var g = db.CemeteryGravePerson.Add(new CemeteryGravePerson());
+
+				g.TimeStamp = DateTime.Now;
+				g.Surname = model.Surname;
+				g.Name = model.Name;
+
+				if (model.DateBirth != null)
+				{
+					if (DateTime.TryParse(model.DateBirth, out dt) == true)
+					{
+						g.DateBirth = dt;
+					}
+					else
+						result += "Nie można zapisać daty urodzenia\n";
+				}
+				else
+				{
+				}
+
+				//if (model.BirthYear != null)
+				//    g.YearBirth = model.BirthYear;
+
+				if (model.DateDeath != null)
+				{
+					if (DateTime.TryParse(model.DateDeath, out dt) == true)
+					{
+						g.DateDeath = dt;
+					}
+					else
+						result += "Nie można zapisać daty zgonu\n";
+				}
+				else
+				{
+				}
+
+				//if (model.DeathYear != null)
+				//    g.YearDeath = model.DeathYear;
+
+				g.FkGrave = model.IdGrave;
+				g.FkPerson = model.FkPerson;
+				g.FkUser = _loggedUser;
+
+				db.SaveChanges();
+
+				return string.Empty;
+			}
+			catch (Exception ex)
+			{
+
+				return $"Wystąpił błąd podczas dodawania grobu z osobą. Błąd Message: {ex.Message}, InternalMessage: {ex.InnerException.Message}";
+			}
+		}
+
+		public static string AddGrave(CmentarioDBEntities db, GraveAddModel model)
+		{
+			string result = string.Empty;
+
+			var graveId = CheckIfGraveExists(db, model);
+
+			if (graveId == -1)
+				result = AddGraveDB(db, model);
+
+			if (result != string.Empty)
+				return result;
+
+			result = CheckIfPersonExists(db, model);
+
+			if (result != string.Empty)
+				return result;
+
+			result = AddPersonDB(db, model);
+
+			if (result != string.Empty)
+				return result;
+
+			result = AddGravePersonDB(db, model);
+
+			if (result != string.Empty)
+				return result;
+
+			foreach (var file in model.Photos)
+			{
+				if (file == null)
+					continue;
+
+				if (CheckIfPhotoExist(db, (int)graveId, file.FileName) != 0)
+					continue;
+
+				SaveImageToFolder(_gravePhotosDir, file);
+
+				AddPhotoToGrave(db, (int)graveId, file.FileName);
+			}
+
+			model.PhotoList = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == graveId).ToDictionary(c => c.Id, c => c.PhotoFile);
+
+			return result;
+		}
+
+		public static string EditGrave(CmentarioDBEntities db, GraveEditModel model)
+		{
+			string result = string.Empty;
+
+			if (model.IdGrave == -1)
+				return result;
+
+			var grave = db.CemeteryGrave.Find(model.IdGrave);
+
+			//TODO 
+			//save Grave changes, person, photos
+			UpdateCemeteryGrave(db, model);
+
+			result = UpdatePerson(db, model);
+
+			//if result not string.empty then doent SaveChange
+			if (result != string.Empty)
+				return result;
+
+			db.SaveChanges();
+
+			foreach (var file in model.Photos)
+			{
+				if (file == null)
+					continue;
+
+				if (CheckIfPhotoExist(db, grave.Id, file.FileName) != 0)
+					continue;
+
+				SaveImageToFolder(_gravePhotosDir, file);
+
+				AddPhotoToGrave(db, model.IdGrave, file.FileName);
+			}
+
+			model.PhotoList = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == grave.Id).ToDictionary(c => c.Id, c => c.PhotoFile);
+
+			return result;
+		}
+
+		public static string DeleteGrave(CmentarioDBEntities db, int idGrave)
+		{
+			try
+			{
+				var gp = db.CemeteryGravePerson.Find(idGrave);
+
+				if (gp == null)
+					return $"Grób o id:{idGrave} nie istnieje";
+
+				var p = db.Person.Find(gp.FkPerson);
+
+				if (p != null)
+					db.Person.Remove(p);
+
+				db.CemeteryGravePerson.Remove(gp);
+
+				db.SaveChanges();
+
+				return string.Empty;
+			}
+			catch (Exception ex)
+			{
+
+				return $"Wystąpił błąd podczas kasowania grobu o id:{idGrave}. Message: {ex.Message}, InternalException: {ex.InnerException.Message}";
+			}
+		}
+
+		public static string UpdatePerson(CmentarioDBEntities db, GraveEditModel model)
+		{
+			string result = string.Empty;
+
+			DateTime dt;
+			int year = -1;
+
+			try
+			{
+				var p = db.Person.Find(model.PersonGrave.IdPerson);
+
+				p.Name = model.PersonGrave.Name;
+				p.Surname = model.PersonGrave.Surname;
+				if (model.PersonGrave.DateBirth != null)
+				{
+					if (DateTime.TryParse(model.PersonGrave.DateBirth, out dt) == true)
+					{
+						if (p.DateBirth != dt)
+						{
+							p.DateBirth = dt;
+						}
+					}
+					else
+						result += "Nie można zapisać daty urodzenia\n";
+				}
+				else
+				{
+					//clear DateBirth
+					//if (p.DateBirth != null)
+					//	p.DateBirth = null;
+				}
+
+				if (p.YearBirth != model.PersonGrave.YearBirth)
+					p.YearBirth = model.PersonGrave.YearBirth;
+
+				if (model.PersonGrave.DateDeath != null)
+				{
+					if (DateTime.TryParse(model.PersonGrave.DateDeath, out dt) == true)
+					{
+						if (p.DateDeath != dt)
+							p.DateDeath = dt;
+					}
+					else
+						result += "Nie można zapisać daty zgonu\n";
+				}
+				else
+				{
+					//clear DateDeath
+				}
+
+				if (p.YearDeath != model.PersonGrave.YearDeath)
+					p.YearDeath = model.PersonGrave.YearDeath;
+			}
+			catch (Exception ex)
+			{
+
+				result += $"Wyjątek: {ex.Message}, {ex.InnerException.Message}";
+			}
+
+			return result;
+		}
+
+		private static string AddPhotoToGrave(CmentarioDBEntities db, int graveId, string fileName)
+		{
+			string result = string.Empty;
+
+			try
+			{
+				var p = db.CemeteryGravePhoto.Add(new CemeteryGravePhoto());
+
+				p.TimeStamp = DateTime.Now;
+				p.FkCemeteryGrave = graveId;
+				p.FkUser = _loggedUser;
+				p.PhotoFile = fileName;
+
+				db.SaveChanges();
+
+				return result;
+			}
+			catch (Exception ex)
+			{
+				return $"Wystąpił wyjątek podczas dodawania zdjęcia {fileName} dla grobu {graveId}";
+			}
+		}
+
+		private static int CheckIfPhotoExist(CmentarioDBEntities db, int graveId, string fileName)
+		{
+			return db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == graveId && x.PhotoFile == fileName).Count();
+		}
+
+		public static string SaveImageToFolder(string pathName, HttpPostedFileBase httpFile)
+		{
+			var result = string.Empty;
+
+			MemoryStream target = new MemoryStream();
+
+			httpFile.InputStream.CopyTo(target);
+
+			byte[] img = target.ToArray();
+
+			var pathFull = string.Format(@"{0}\{1}", pathName, httpFile.FileName);
+
+			using (FileStream file = new FileStream(pathFull, FileMode.Create, System.IO.FileAccess.Write))
+			{
+				try
+				{
+					file.Write(img, 0, img.Length);
+
+					return result;
+
+				}
+				catch (Exception e)
+				{
+					return $"Błąd podczas zapisania tymczasowo zdjęcia {httpFile.FileName} w folderze {pathName}. Message: {e.Message}, InnerException: {e.InnerException?.Message}\n";
+				}
+			}
+		}
+
+		//TODO result as string and try-catch
+		public static void UpdateCemeteryGrave(CmentarioDBEntities db, GraveEditModel model)
+		{
+			CemeteryGrave grave;
+			CemeteryGravePerson gp;
+			bool flagSave = false;
+
+			grave = db.CemeteryGrave.Find(model.IdGrave);
+			gp = db.CemeteryGravePerson.Find(model.FkPersonGrave);
+
+			if (grave.LocationAttributeOne != model.AttributeOne || grave.LocationAttributeTwo != model.AttributeTwo
+				|| grave.LocationAttributeThree != model.AttributeThree || grave.LocationAttributeFour != model.AttributeFour || grave.FkCemetery != model.FkCemeteryUser)
+			{
+				grave = db.CemeteryGrave.Where(x =>
+											((model.AttributeOne != null) ? x.LocationAttributeOne == model.AttributeOne : true)
+											&& ((model.AttributeTwo != null) ? x.LocationAttributeTwo == model.AttributeTwo : true)
+											&& ((model.AttributeThree != null) ? x.LocationAttributeThree == model.AttributeThree : true)
+											&& ((model.AttributeFour != null) ? x.LocationAttributeFour == model.AttributeFour : true)
+											&& ((grave.FkCemetery != model.FkCemeteryUser) ? x.FkCemetery == model.FkCemeteryUser : x.FkCemetery == model.FkCemetery)).FirstOrDefault();
+
+				if (grave == null)
+				{
+					grave = db.CemeteryGrave.Add(new CemeteryGrave());
+
+					grave.TimeStamp = DateTime.Now;
+					grave.LocationAttributeOne = model.AttributeOne;
+					grave.LocationAttributeTwo = model.AttributeTwo;
+					grave.LocationAttributeThree = model.AttributeThree;
+					grave.LocationAttributeFour = model.AttributeFour;
+					grave.FkCemetery = (grave.FkCemetery != model.FkCemeteryUser) ? model.FkCemeteryUser : model.FkCemetery;
+					grave.FkUser = _loggedUser;
+
+					db.SaveChanges();
+				}
+
+				gp.FkGrave = grave.Id;
+				model.IdGrave = grave.Id;
+				db.SaveChanges();
+			}
+
+			if (grave.FkCemetery != model.FkCemeteryUser)
+			{
+				grave.FkCemetery = model.FkCemeteryUser;
+				flagSave = true;
+			}
+
+			if (grave.IsReserved != model.IsReserved)
+			{
+				grave.IsReserved = model.IsReserved;
+				flagSave = true;
+			}
+
+			if (grave.IsForVerification != model.IsForVerification)
+			{
+				grave.IsForVerification = model.IsForVerification;
+				flagSave = true;
+			}
+
+			if (gp.Description != model.Description)
+			{
+				gp.Description = model.Description;
+				flagSave = true;
+			}
+
+			if (flagSave)
+				db.SaveChanges();
+		}
+
+		public static string DeletePhoto(CmentarioDBEntities db, int photoId)
+		{
+			string result = string.Empty;
+			string fileName = string.Empty;
+
+			try
+			{
+				var p = db.CemeteryGravePhoto.Find(photoId);
+
+				if (p == null)
+					return $"Brak zdjęcia o ID: {photoId}";
+
+				fileName = p.PhotoFile;
+
+				db.CemeteryGravePhoto.Remove(p);
+
+				db.SaveChanges();
+
+				File.Delete(string.Format(@"{0}\{1}", _gravePhotosDir, fileName));
+
+				return result;
+			}
+			catch (Exception ex)
+			{
+				return $"Wystąpił wyjątek podczas kasowania zdjęcia: {photoId}. {ex.Message}, {ex.InnerException.Message}";
+			}
+		}
+
+		public static string GetUnassignedCordsList(CmentarioDBEntities db)
+		{
+			return string.Empty;
+		}
+
+		public static List<GraveParamsModel> GetNoCordsGraveList(CmentarioDBEntities db)
+		{
+			var result = new List<GraveParamsModel>();
+
+			var graves = db.CemeteryGrave.Where(x => x.FkGraveCoordinate== null).ToList();
+
+			foreach(var g in graves)
+				result.Add(new GraveParamsModel(g, GetDeadInGrave(db, g.Id)));
+
+			return result;
+		}
+
+		public static List<GraveParamsModel> GetLackingParamsGraveList(CmentarioDBEntities db)
+		{
+            var result = new List<GraveParamsModel>();
+
+            var graves = GetGravesWithLackingParams(db);
+
+            foreach (var g in graves)
+                result.Add(new GraveParamsModel(g, GetDeadInGrave(db, g.Id)));
 
             return result;
         }
 
-        private static int? CheckIfGraveExists(CmentarioDBEntities db, GraveAddModel model)
-        {
-            var g = db.CemeteryGrave.Where(x => x.FkCemetery == model.FkCemetery
-                                    && ((model.LocLength >= 3 && model.AttributeTwo != string.Empty) ? x.LocationAttributeTwo == model.AttributeTwo : true)
-                                    && ((model.LocLength >= 2 && model.AttributeThree != string.Empty) ? x.LocationAttributeThree == model.AttributeThree : true)
-                                    && ((model.LocLength >= 1 && model.AttributeFour != string.Empty) ? x.LocationAttributeFour == model.AttributeFour : true)
-                                    ).FirstOrDefault();
-
-            if (g != null)
-                model.IdGrave = g.Id;
-
-            return (g != null) ? g.Id : -1;
+		public static List<string> GetDeadInGrave(CmentarioDBEntities db, int graveId)
+		{
+			return GetDeadFullNameInGrave(db, graveId);
         }
 
-        private static string AddGraveDB(CmentarioDBEntities db, GraveAddModel model)
-        {
-            string result = string.Empty;
+		//public static List<int?> GetDeadIdsInGrave(CmentarioDBEntities db, int graveId)
+		//{
+		//	return db.CemeteryGravePerson.Where(x => x.FkGrave == graveId).Select(z => z.FkPerson).ToList();
+  //      }
 
-            try
-            {
-                var g = db.CemeteryGrave.Add(new CemeteryGrave());
+		public static List<string> GetDeadFullNameInGrave(CmentarioDBEntities db, int graveId)
+		{
+			var deadList = db.VGravePersonDetail.Where(x => x.FkGrave == graveId).ToList();
 
-                g.TimeStamp = DateTime.Now;
-                g.FkCemetery = model.FkCemetery;
-                g.LocationAttributeOne = model.AttributeOne;
-                g.LocationAttributeTwo = model.AttributeTwo;
-                g.LocationAttributeThree = model.AttributeThree;
-                g.LocationAttributeFour = model.AttributeFour;
-                g.FkUser = _loggedUser;
-                g.IsForVerification = model.IsForVerification;
-                g.IsReserved = model.IsReserved;
+			return deadList.Select(x => $"{x.Name} {x.Surname}").ToList();
 
-                db.SaveChanges();
-
-                model.IdGrave = g.Id;
-
-                return result;
-            }
-            catch (Exception ex)
-            {
-
-                return $"Wyjątek podczas dodawania grobu. Message: {ex.Message}, Internal.Message: {ex.InnerException.Message}";
-            }
         }
 
-        private static string CheckIfPersonExists(CmentarioDBEntities db, GraveAddModel model)
-        {
-            DateTime dtBirth = DateTime.Now;
-            DateTime dtDeath = DateTime.Now;
-            string result = string.Empty;
-
-            if (model.DateBirth != null)
-            {
-                if (DateTime.TryParse(model.DateBirth, out dtBirth) != true)
-                {
-                    result += "Nie można rozpoznać daty urodzenia\n";
-                }
-            }
-
-            if (model.DateDeath != null)
-            {
-                if (DateTime.TryParse(model.DateDeath, out dtDeath) != true)
-                {
-                    result += "Nie można rozpoznać daty zgonu\n";
-                }
-            }
-
-            if (result != string.Empty)
-                return result;
-
-            var g = db.Person.Where(x => x.Name == model.Name && x.Surname == model.Surname
-                                    && ((model.BirthYear != null) ? x.YearBirth == model.BirthYear : true)
-                                    && ((model.DeathYear != null) ? x.YearDeath == model.DeathYear : true)
-                                    && ((model.DateBirth != string.Empty) ? (x.DateBirth.Value.Year == dtBirth.Year && x.DateBirth.Value.Month == dtBirth.Month && x.DateBirth.Value.Day == dtBirth.Day) : true)
-                                    && ((model.DateDeath != string.Empty) ? (x.DateDeath.Value.Year == dtDeath.Year && x.DateDeath.Value.Month == dtDeath.Month && x.DateDeath.Value.Day == dtDeath.Day) : true)
-                                    ).FirstOrDefault();
-
-            return (g != null) ? $"Osoba już istnieje. Nie można dodać osoby z tymi samymi danymi" : string.Empty;
+		public static List<CemeteryGrave> GetGravesWithLackingParams(CmentarioDBEntities db)
+		{
+			return db.CemeteryGrave.Where(x => (x.LocationAttributeTwo == null || x.LocationAttributeTwo == string.Empty)
+											|| (x.LocationAttributeThree == null || x.LocationAttributeThree == string.Empty)
+											|| (x.LocationAttributeFour == null || x.LocationAttributeFour == string.Empty)).ToList();
         }
-
-        private static string AddPersonDB(CmentarioDBEntities db, GraveAddModel model)
-        {
-            string result = string.Empty;
-            DateTime dt;
-
-            try
-            {
-                var r = db.Person.Add(new Person());
-
-                r.TimeStamp = DateTime.Now;
-                r.Name = model.Name;
-                r.Surname = model.Surname;
-
-                if (model.DateBirth != null)
-                {
-                    if (DateTime.TryParse(model.DateBirth, out dt) == true)
-                    {
-                        r.DateBirth = dt;
-                    }
-                    else
-                        result += "Nie można zapisać daty urodzenia\n";
-                }
-                else
-                {
-                }
-
-                if (model.BirthYear != null)
-                    r.YearBirth = model.BirthYear;
-
-                if (model.DateDeath != null)
-                {
-                    if (DateTime.TryParse(model.DateDeath, out dt) == true)
-                    {
-                        r.DateDeath = dt;
-                    }
-                    else
-                        result += "Nie można zapisać daty zgonu\n";
-                }
-                else
-                {
-                }
-
-                if (model.DeathYear != null)
-                    r.YearDeath = model.DeathYear;
-
-                r.FKUser = _loggedUser;
-
-                db.SaveChanges();
-
-                model.FkPerson = r.Id;
-
-                return result;
-            }
-            catch (Exception ex)
-            {
-
-                return $"Wyjątek podczas dodawania grobu. Message: {ex.Message}, Internal.Message: {ex.InnerException.Message}";
-            }
-        }
-
-        private static string AddGravePersonDB(CmentarioDBEntities db, GraveAddModel model)
-        {
-            string result = string.Empty;
-            DateTime dt;
-
-            try
-            {
-                var g = db.CemeteryGravePerson.Add(new CemeteryGravePerson());
-
-                g.TimeStamp = DateTime.Now;
-                g.Surname = model.Surname;
-                g.Name = model.Name;
-
-                if (model.DateBirth != null)
-                {
-                    if (DateTime.TryParse(model.DateBirth, out dt) == true)
-                    {
-                        g.DateBirth = dt;
-                    }
-                    else
-                        result += "Nie można zapisać daty urodzenia\n";
-                }
-                else
-                {
-                }
-
-                //if (model.BirthYear != null)
-                //    g.YearBirth = model.BirthYear;
-
-                if (model.DateDeath != null)
-                {
-                    if (DateTime.TryParse(model.DateDeath, out dt) == true)
-                    {
-                        g.DateDeath = dt;
-                    }
-                    else
-                        result += "Nie można zapisać daty zgonu\n";
-                }
-                else
-                {
-                }
-
-                //if (model.DeathYear != null)
-                //    g.YearDeath = model.DeathYear;
-
-                g.FkGrave = model.IdGrave;
-                g.FkPerson = model.FkPerson;
-                g.FkUser = _loggedUser;
-
-                db.SaveChanges();
-
-                return string.Empty;
-            }
-            catch (Exception ex)
-            {
-
-                return $"Wystąpił błąd podczas dodawania grobu z osobą. Błąd Message: {ex.Message}, InternalMessage: {ex.InnerException.Message}";
-            }
-        }
-
-        public static string AddGrave(CmentarioDBEntities db, GraveAddModel model)
-        {
-            string result = string.Empty;
-
-            var graveId = CheckIfGraveExists(db, model);
-
-            if (graveId == -1)
-                result = AddGraveDB(db, model);
-
-            if (result != string.Empty)
-                return result;
-
-            result = CheckIfPersonExists(db, model);
-
-            if (result != string.Empty)
-                return result;
-
-            result = AddPersonDB(db, model);
-
-            if (result != string.Empty)
-                return result;
-
-            result = AddGravePersonDB(db, model);
-
-            if (result != string.Empty)
-                return result;
-
-            foreach (var file in model.Photos)
-            {
-                if (file == null)
-                    continue;
-
-                if (CheckIfPhotoExist(db, (int)graveId, file.FileName) != 0)
-                    continue;
-
-                SaveImageToFolder(_gravePhotosDir, file);
-
-                AddPhotoToGrave(db, (int)graveId, file.FileName);
-            }
-
-            model.PhotoList = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == graveId).ToDictionary(c => c.Id, c => c.PhotoFile);
-
-            return result;
-        }
-
-        public static string EditGrave(CmentarioDBEntities db, GraveEditModel model)
-        {
-            string result = string.Empty;
-
-            if (model.IdGrave == -1)
-                return result;
-
-            var grave = db.CemeteryGrave.Find(model.IdGrave);
-
-            //TODO 
-            //save Grave changes, person, photos
-            UpdateCemeteryGrave(db, model);
-
-            result = UpdatePerson(db, model);
-
-            //if result not string.empty then doent SaveChange
-            if (result != string.Empty)
-                return result;
-
-            db.SaveChanges();
-
-            foreach (var file in model.Photos)
-            {
-                if (file == null)
-                    continue;
-
-                if (CheckIfPhotoExist(db, grave.Id, file.FileName) != 0)
-                    continue;
-
-                SaveImageToFolder(_gravePhotosDir, file);
-
-                AddPhotoToGrave(db, model.IdGrave, file.FileName);
-            }
-
-            model.PhotoList = db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == grave.Id).ToDictionary(c => c.Id, c => c.PhotoFile);
-
-            return result;
-        }
-
-        public static string DeleteGrave(CmentarioDBEntities db, int idGrave)
-        {
-            try
-            {
-                var gp = db.CemeteryGravePerson.Find(idGrave);
-
-                if (gp == null)
-                    return $"Grób o id:{idGrave} nie istnieje";
-
-                var p = db.Person.Find(gp.FkPerson);
-
-                if (p != null)
-                    db.Person.Remove(p);
-
-                db.CemeteryGravePerson.Remove(gp);
-
-                db.SaveChanges();
-
-                return string.Empty;
-            }
-            catch (Exception ex)
-            {
-
-                return $"Wystąpił błąd podczas kasowania grobu o id:{idGrave}. Message: {ex.Message}, InternalException: {ex.InnerException.Message}";
-            }
-        }
-
-        public static string UpdatePerson(CmentarioDBEntities db, GraveEditModel model)
-        {
-            string result = string.Empty;
-
-            DateTime dt;
-            int year = -1;
-
-            try
-            {
-                var p = db.Person.Find(model.PersonGrave.IdPerson);
-
-                p.Name = model.PersonGrave.Name;
-                p.Surname = model.PersonGrave.Surname;
-                if (model.PersonGrave.DateBirth != null)
-                {
-                    if (DateTime.TryParse(model.PersonGrave.DateBirth, out dt) == true)
-                    {
-                        if (p.DateBirth != dt)
-                        {
-                            p.DateBirth = dt;
-                        }
-                    }
-                    else
-                        result += "Nie można zapisać daty urodzenia\n";
-                }
-                else
-                {
-                    //clear DateBirth
-                    //if (p.DateBirth != null)
-                    //	p.DateBirth = null;
-                }
-
-                if (p.YearBirth != model.PersonGrave.YearBirth)
-                    p.YearBirth = model.PersonGrave.YearBirth;
-
-                if (model.PersonGrave.DateDeath != null)
-                {
-                    if (DateTime.TryParse(model.PersonGrave.DateDeath, out dt) == true)
-                    {
-                        if (p.DateDeath != dt)
-                            p.DateDeath = dt;
-                    }
-                    else
-                        result += "Nie można zapisać daty zgonu\n";
-                }
-                else
-                {
-                    //clear DateDeath
-                }
-
-                if (p.YearDeath != model.PersonGrave.YearDeath)
-                    p.YearDeath = model.PersonGrave.YearDeath;
-            }
-            catch (Exception ex)
-            {
-
-                result += $"Wyjątek: {ex.Message}, {ex.InnerException.Message}";
-            }
-
-            return result;
-        }
-
-        private static string AddPhotoToGrave(CmentarioDBEntities db, int graveId, string fileName)
-        {
-            string result = string.Empty;
-
-            try
-            {
-                var p = db.CemeteryGravePhoto.Add(new CemeteryGravePhoto());
-
-                p.TimeStamp = DateTime.Now;
-                p.FkCemeteryGrave = graveId;
-                p.FkUser = _loggedUser;
-                p.PhotoFile = fileName;
-
-                db.SaveChanges();
-
-                return result;
-            }
-            catch (Exception ex)
-            {
-                return $"Wystąpił wyjątek podczas dodawania zdjęcia {fileName} dla grobu {graveId}";
-            }
-        }
-
-        private static int CheckIfPhotoExist(CmentarioDBEntities db, int graveId, string fileName)
-        {
-            return db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == graveId && x.PhotoFile == fileName).Count();
-        }
-
-        public static string SaveImageToFolder(string pathName, HttpPostedFileBase httpFile)
-        {
-            var result = string.Empty;
-
-            MemoryStream target = new MemoryStream();
-
-            httpFile.InputStream.CopyTo(target);
-
-            byte[] img = target.ToArray();
-
-            var pathFull = string.Format(@"{0}\{1}", pathName, httpFile.FileName);
-
-            using (FileStream file = new FileStream(pathFull, FileMode.Create, System.IO.FileAccess.Write))
-            {
-                try
-                {
-                    file.Write(img, 0, img.Length);
-
-                    return result;
-
-                }
-                catch (Exception e)
-                {
-                    return $"Błąd podczas zapisania tymczasowo zdjęcia {httpFile.FileName} w folderze {pathName}. Message: {e.Message}, InnerException: {e.InnerException?.Message}\n";
-                }
-            }
-        }
-
-        //TODO result as string and try-catch
-        public static void UpdateCemeteryGrave(CmentarioDBEntities db, GraveEditModel model)
-        {
-            CemeteryGrave grave;
-            CemeteryGravePerson gp;
-            bool flagSave = false;
-
-            grave = db.CemeteryGrave.Find(model.IdGrave);
-            gp = db.CemeteryGravePerson.Find(model.FkPersonGrave);
-
-            if (grave.LocationAttributeOne != model.AttributeOne || grave.LocationAttributeTwo != model.AttributeTwo
-                || grave.LocationAttributeThree != model.AttributeThree || grave.LocationAttributeFour != model.AttributeFour || grave.FkCemetery != model.FkCemeteryUser)
-            {
-                grave = db.CemeteryGrave.Where(x =>
-                                            ((model.AttributeOne != null) ? x.LocationAttributeOne == model.AttributeOne : true)
-                                            && ((model.AttributeTwo != null) ? x.LocationAttributeTwo == model.AttributeTwo : true)
-                                            && ((model.AttributeThree != null) ? x.LocationAttributeThree == model.AttributeThree : true)
-                                            && ((model.AttributeFour != null) ? x.LocationAttributeFour == model.AttributeFour : true)
-                                            && ((grave.FkCemetery != model.FkCemeteryUser) ? x.FkCemetery == model.FkCemeteryUser : x.FkCemetery == model.FkCemetery)).FirstOrDefault();
-
-                if (grave == null)
-                {
-                    grave = db.CemeteryGrave.Add(new CemeteryGrave());
-
-                    grave.TimeStamp = DateTime.Now;
-                    grave.LocationAttributeOne = model.AttributeOne;
-                    grave.LocationAttributeTwo = model.AttributeTwo;
-                    grave.LocationAttributeThree = model.AttributeThree;
-                    grave.LocationAttributeFour = model.AttributeFour;
-                    grave.FkCemetery = (grave.FkCemetery != model.FkCemeteryUser) ? model.FkCemeteryUser : model.FkCemetery;
-                    grave.FkUser = _loggedUser;
-
-                    db.SaveChanges();
-                }
-
-                gp.FkGrave = grave.Id;
-                model.IdGrave = grave.Id;
-                db.SaveChanges();
-            }
-
-            if (grave.FkCemetery != model.FkCemeteryUser)
-            {
-                grave.FkCemetery = model.FkCemeteryUser;
-                flagSave = true;
-            }
-
-            if (grave.IsReserved != model.IsReserved)
-            {
-                grave.IsReserved = model.IsReserved;
-                flagSave = true;
-            }
-
-            if (grave.IsForVerification != model.IsForVerification)
-            {
-                grave.IsForVerification = model.IsForVerification;
-                flagSave = true;
-            }
-
-            if (gp.Description != model.Description)
-            {
-                gp.Description = model.Description;
-                flagSave = true;
-            }
-
-            if (flagSave)
-                db.SaveChanges();
-        }
-
-        public static string DeletePhoto(CmentarioDBEntities db, int photoId)
-        {
-            string result = string.Empty;
-            string fileName = string.Empty;
-
-            try
-            {
-                var p = db.CemeteryGravePhoto.Find(photoId);
-
-                if (p == null)
-                    return $"Brak zdjęcia o ID: {photoId}";
-
-                fileName = p.PhotoFile;
-
-                db.CemeteryGravePhoto.Remove(p);
-
-                db.SaveChanges();
-
-                File.Delete(string.Format(@"{0}\{1}", _gravePhotosDir, fileName));
-
-                return result;
-            }
-            catch (Exception ex)
-            {
-                return $"Wystąpił wyjątek podczas kasowania zdjęcia: {photoId}. {ex.Message}, {ex.InnerException.Message}";
-            }
-        }
-
-        public static string GetUnassignedCordsList(CmentarioDBEntities db)
-        {
-            return string.Empty;
-        }
-
-        public static string GetNoCordsGraveList(CmentarioDBEntities db)
-        {
-            return string.Empty;
-        }
-
-        public static string GetLackingParamsGraveList(CmentarioDBEntities db)
-        {
-            return string.Empty;
-        }
-    }
+	}
 }

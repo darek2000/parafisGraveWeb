@@ -40,5 +40,11 @@ namespace CemeteryWeb.Models
 
         [Display(Name = "Rok śmierci")]
         public int? YearDeath { get; set; }
+
+        [Display(Name = "Rezerwacja")]
+        public bool IsReserved { get; set; }
+
+        [Display(Name = "Weryfikacja")]
+        public bool IsForVerification { get; set; }
     }
 }
