@@ -12,17 +12,11 @@ namespace CemeteryWeb.DBContext
     using System;
     using System.Collections.Generic;
     
-    public partial class Diary
+    public partial class VUnassignedCords
     {
         public int Id { get; set; }
-        public Nullable<System.DateTime> TimeStamp { get; set; }
-        public string EventTitle { get; set; }
-        public Nullable<System.DateTime> EventDate { get; set; }
-        public Nullable<short> EventType { get; set; }
-        public Nullable<short> EventCategory { get; set; }
-        public string EventRemarks { get; set; }
-        public Nullable<int> FkUser { get; set; }
-        public string IdMembers { get; set; }
-        public Nullable<bool> IsForVerification { get; set; }
+        public Nullable<int> FkGraveCoordinate { get; set; }
+        public Nullable<int> FkGrave { get; set; }
+        public string Coordinate { get; set; }
     }
 }

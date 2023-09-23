@@ -9,11 +9,11 @@ namespace CemeteryWeb.Controllers
 {
     public class ToolsController : Controller
     {
-        private ParafisDBTestoweEntities _dbContext;
+        private CmentarioDBEntities _dbContext;
 
         public ToolsController()
         {
-            _dbContext = new ParafisDBTestoweEntities();
+            _dbContext = new CmentarioDBEntities();
         }
 
         public ActionResult Index()

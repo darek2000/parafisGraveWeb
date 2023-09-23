@@ -31,10 +31,11 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("0.0.0.21")]
-[assembly: AssemblyFileVersion("0.0.0.21")]
+[assembly: AssemblyVersion("0.0.0.22")]
+[assembly: AssemblyFileVersion("0.0.0.22")]
 
-//0.0.0.21 Update adding grave(empty)
+//0.0.0.22 Updated db structure, added diagnostic features
+//0.0.0.21 Updated adding grave(empty)
 //0.0.0.20 Update web config max file size
 //0.0.0.19 Fix Search by all params
 //0.0.0.18 Fix for edit PersonModel

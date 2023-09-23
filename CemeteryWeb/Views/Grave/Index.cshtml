@@ -25,29 +25,47 @@
 				}
 			});
 	}
+
+	function filterGrave(e) {
+		var valFilter = $('input[name="radio_filtergravesearch"]:checked').attr("id");
+
+		console.log("filterGrave: " + valFilter);
+
+		$.ajax({
+			type: "POST",
+			url: '/Grave/FilterGrave',
+			data: { nameFilter: valFilter },
+			success: function (data, textStatus, jqXHR) {
+				$('#graveInfo').html(data);
+			},
+			error: function (a, b, c) {
+				alert("Wystąpił bład podczas pobierania danych. Proszę skonatkować się ze wsparciem aplikacji")
+			}
+		});
+	}
 </script>
 
 <h1>Edytowanie danych</h1>
 <h2 class="errormsg">@ViewBag.ErrorMessage</h2>
 
 <div class="row">
-	<div class="col-md-5">
+	<div class="col-md-4">
 		<div class="row">
-			<div class="col-md-10">
+			<div class="col-md-12">
 				<h3>Wyszukiwarka Osób</h3><br />
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-5">
+			<div class="col-md-6">
 				<div class="form-group">
 					@Html.LabelFor(m => m.Name, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
-					@Html.TextBoxFor(m => m.Name, htmlAttributes: new { placeholder = "Wprowadź imię", @style = "padding: 7px; width: 250px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
+					@Html.TextBoxFor(m => m.Name, htmlAttributes: new { placeholder = "Wprowadź imię", @style = "padding: 7px; width: 200px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
 				</div>
 			</div>
-			<div class="col-md-5">
+			<div class="col-md-6">
 				<div class="form-group">
 					@Html.LabelFor(m => m.Surname, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
-					@Html.TextBoxFor(m => m.Surname, htmlAttributes: new { placeholder = "Wprowadź nazwisko", @style = "padding: 7px; width: 250px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
+					@Html.TextBoxFor(m => m.Surname, htmlAttributes: new { placeholder = "Wprowadź nazwisko", @style = "padding: 7px; width: 200px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
 				</div>
 			</div>
 		</div>
@@ -55,42 +73,57 @@
 			<div class="col-md-2">
 				<div class="form-group">
 					@Html.LabelFor(m => m.Sector, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
-					@Html.TextBoxFor(m => m.Sector, htmlAttributes: new { placeholder = "Wprowadź", @style = "padding: 7px; width: 100px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
+					@Html.TextBoxFor(m => m.Sector, htmlAttributes: new { placeholder = "Wprowadź", @style = "padding: 7px; width: 80px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
 				</div>
 			</div>
 			<div class="col-md-2">
 				<div class="form-group">
 					@Html.LabelFor(m => m.Row, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
-					@Html.TextBoxFor(m => m.Row, htmlAttributes: new { placeholder = "Wprowadź", @style = "padding: 7px; width: 100px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
+					@Html.TextBoxFor(m => m.Row, htmlAttributes: new { placeholder = "Wprowadź", @style = "padding: 7px; width: 80px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
 				</div>
 			</div>
 			<div class="col-md-2">
 				<div class="form-group">
 					@Html.LabelFor(m => m.Number, htmlAttributes: new { @class = "control-label", @style = "color:gray" })<br />
-					@Html.TextBoxFor(m => m.Number, htmlAttributes: new { placeholder = "Wprowadź", @style = "padding: 7px; width: 100px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
+					@Html.TextBoxFor(m => m.Number, htmlAttributes: new { placeholder = "Wprowadź", @style = "padding: 7px; width: 80px; border:1px solid lightgray;border-radius:3px;border-color:lightgray" })
 				</div>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-2">
+			<div class="col-md-9">
 			</div>
-			<div class="col-md-4">
-			</div>
-			<div class="col-md-1">
-			</div>
-			<div class="col-md-2">
-			</div>
-			<div class="col-md-1">
-			</div>
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<button class="w-100 btn btn-md btn-primary" type="button" onclick="searchGrave()">Wyszukaj</button>
 			</div>
 		</div>
 		<br /><br />
 	</div>
-</div>
-<div class="row">
-	<div id="graveInfo" class="col-md-11">
-
+	<div class="col-md-3">
+		<div class="row">
+			<div class="col-md-12">
+				<h3>Wyszukiwarka Grobów</h3><br />
+			</div>
+		</div>
+		<div class="row" style="margin-left:20px">
+			<input type="radio" id="nocords" name="radio_filtergravesearch" value="nocords" checked>
+			<label class="control-label" style="color:gray" for="nocords">Groby bez obrysów</label><br /><br />
+			<input type="radio" id="unassignedcords" name="radio_filtergravesearch" value="unassignedcords">
+			<label class="control-label" style="color:gray" for="unassignedcords">Obrysy nieprzypisane</label><br /><br />
+			<input type="radio" id="lackinglocparam" name="radio_filtergravesearch" value="lackingparam">
+			<label class="control-label" style="color:gray" for="lackinglocparam">Niepełna lokalizacja</label><br /><br />
+		</div>
+		<div class="row">
+			<div class="col-md-9">
+			</div>
+			<div class="col-md-3">
+				<button class="w-100 btn btn-md" type="button" onclick="filterGrave()">Wyszukaj</button>
+			</div>
+		</div>
+		<br /><br />
 	</div>
-</div>
+	</div>
+	<div class="row">
+		<div id="graveInfo" class="col-md-11">
+
+		</div>
+	</div>

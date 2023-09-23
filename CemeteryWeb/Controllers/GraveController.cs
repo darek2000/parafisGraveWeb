@@ -10,11 +10,11 @@ namespace CemeteryWeb.Controllers
 {
     public class GraveController : Controller
     {
-        private ParafisDBTestoweEntities _dbContext;
+        private CmentarioDBEntities _dbContext;
 
         public GraveController()
         {
-            _dbContext = new ParafisDBTestoweEntities();
+            _dbContext = new CmentarioDBEntities();
         }
 
         public ActionResult Index()
@@ -141,6 +141,30 @@ namespace CemeteryWeb.Controllers
                 TempData["ErrorMessage"] = result;
 
             return RedirectToAction("Index", "Grave");
+        }
+
+        [HttpPost]
+        public ActionResult FilterGrave(string nameFilter)
+        {
+            var model = string.Empty;
+
+            if (nameFilter == "unassignedcords")
+            {
+                model = Helper.GetUnassignedCordsList(_dbContext);
+                return PartialView("_UnassignedCordsListPartial", model);
+            }
+            else if (nameFilter == "nocords")
+            {
+                model = Helper.GetNoCordsGraveList(_dbContext);
+                return PartialView("_NoCordsGraveListPartial", model);
+            }
+            else if (nameFilter == "lackingparam")
+            {
+                model = Helper.GetLackingParamsGraveList(_dbContext);
+                return PartialView("_LackingParamsGraveListPartial", model);
+            }
+            else
+                return PartialView("_EmptyListPartial", model);
         }
     }
 }

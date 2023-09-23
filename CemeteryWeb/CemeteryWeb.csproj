@@ -135,27 +135,6 @@
     <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\ToolsController.cs" />
-    <Compile Include="DBContext\BookBaptism.cs">
-      <DependentUpon>ParafiaDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBContext\BookCommunion.cs">
-      <DependentUpon>ParafiaDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBContext\BookConfirmation.cs">
-      <DependentUpon>ParafiaDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBContext\BookDeath.cs">
-      <DependentUpon>ParafiaDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBContext\BookMarriage.cs">
-      <DependentUpon>ParafiaDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBContext\Carol.cs">
-      <DependentUpon>ParafiaDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBContext\CarolFamily.cs">
-      <DependentUpon>ParafiaDBModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DBContext\Cemetery.cs">
       <DependentUpon>ParafiaDBModel.tt</DependentUpon>
     </Compile>
@@ -169,21 +148,6 @@
       <DependentUpon>ParafiaDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DBContext\CemeteryGravePhoto.cs">
-      <DependentUpon>ParafiaDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBContext\Diary.cs">
-      <DependentUpon>ParafiaDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBContext\Donation.cs">
-      <DependentUpon>ParafiaDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBContext\Family.cs">
-      <DependentUpon>ParafiaDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBContext\FamilyMember.cs">
-      <DependentUpon>ParafiaDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBContext\Finance.cs">
       <DependentUpon>ParafiaDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DBContext\GraveCoordinate.cs">
@@ -207,16 +171,13 @@
     <Compile Include="DBContext\Person.cs">
       <DependentUpon>ParafiaDBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DBContext\Supplier.cs">
-      <DependentUpon>ParafiaDBModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DBContext\User.cs">
       <DependentUpon>ParafiaDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DBContext\VGravePersonDetail.cs">
       <DependentUpon>ParafiaDBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DBContext\VisitSickPerson.cs">
+    <Compile Include="DBContext\VUnassignedCords.cs">
       <DependentUpon>ParafiaDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">

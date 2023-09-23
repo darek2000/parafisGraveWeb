@@ -11,11 +11,11 @@ namespace CemeteryWeb.Controllers
 {
 	public class SearchController : Controller
 	{
-		private ParafisDBTestoweEntities _dbContext;
+		private CmentarioDBEntities _dbContext;
 
 		public SearchController()
 		{
-			_dbContext = new ParafisDBTestoweEntities();
+			_dbContext = new CmentarioDBEntities();
 		}
 
 		public ActionResult Index()

@@ -10,11 +10,11 @@ namespace CemeteryWeb.Controllers
 {
     public class LoginController : Controller
     {
-        private ParafisDBTestoweEntities _dbContext;
+        private CmentarioDBEntities _dbContext;
 
         public LoginController()
         {
-            _dbContext = new ParafisDBTestoweEntities();
+            _dbContext = new CmentarioDBEntities();
         }
 
         public ActionResult Index()

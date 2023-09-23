@@ -12,11 +12,11 @@ namespace CemeteryWeb.Controllers
 {
     public class MapController : Controller
     {
-        private ParafisDBTestoweEntities _dbContext;
+        private CmentarioDBEntities _dbContext;
 
         public MapController()
         {
-            _dbContext = new ParafisDBTestoweEntities();
+            _dbContext = new CmentarioDBEntities();
         }
 
         public ActionResult Index()

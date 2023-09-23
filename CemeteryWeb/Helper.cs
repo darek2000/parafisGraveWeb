@@ -23,7 +23,7 @@ namespace CemeteryWeb
             _loggedUser = id;
         }
 
-        public static GraveModel GetGraveDetails(ParafisDBTestoweEntities db, string personName, string personSurname)
+        public static GraveModel GetGraveDetails(CmentarioDBEntities db, string personName, string personSurname)
 		{
 			try
 			{
@@ -65,7 +65,7 @@ namespace CemeteryWeb
 			}
 		}
 
-		public static List<GravePersonDetailModel> GetGraveDetailsList(ParafisDBTestoweEntities db, string personName, string personSurname, string sector, string row, string number, int? yearBirth, int? yearDeath)
+		public static List<GravePersonDetailModel> GetGraveDetailsList(CmentarioDBEntities db, string personName, string personSurname, string sector, string row, string number, int? yearBirth, int? yearDeath)
 		{
 			var result = new List<GravePersonDetailModel>();
 
@@ -108,7 +108,7 @@ namespace CemeteryWeb
                 return list;
         }
 
-        public static List<GravePersonDetailModel> GetGraveDetailsList(ParafisDBTestoweEntities db, SearchModel search)
+        public static List<GravePersonDetailModel> GetGraveDetailsList(CmentarioDBEntities db, SearchModel search)
         {
             var result = new List<GravePersonDetailModel>();
 
@@ -141,7 +141,7 @@ namespace CemeteryWeb
             }
         }
 
-        public static List<GravePersonDetailModel> GetGraveDetailsList(ParafisDBTestoweEntities db, string graveDetails, byte locLength, int cemeteryId = -1)
+        public static List<GravePersonDetailModel> GetGraveDetailsList(CmentarioDBEntities db, string graveDetails, byte locLength, int cemeteryId = -1)
         {
 			var result = new List<GravePersonDetailModel>();
 
@@ -196,7 +196,7 @@ namespace CemeteryWeb
 			}
 		}
 
-		public static string CleanPhotoPaths(ParafisDBTestoweEntities db)
+		public static string CleanPhotoPaths(CmentarioDBEntities db)
 		{
 			var photos = db.CemeteryGravePhoto.Where(x => x.PhotoFile != null).ToList();
 			bool changeFlag = false;
@@ -335,7 +335,7 @@ namespace CemeteryWeb
 			return GetPolygons(data, pathError);
 		}
 
-        public static List<Polygon> ReadPolygonFromDatabase(ParafisDBTestoweEntities db, string pathError)
+        public static List<Polygon> ReadPolygonFromDatabase(CmentarioDBEntities db, string pathError)
         {
             var result = new List<Polygon>();
 
@@ -349,7 +349,7 @@ namespace CemeteryWeb
 			return result;
         }
 
-        public static List<Polygon> ReadPolygonSingleFromDatabase(ParafisDBTestoweEntities db, string pathError, byte locLength, string sector, string row, string number, int cemeteryId)
+        public static List<Polygon> ReadPolygonSingleFromDatabase(CmentarioDBEntities db, string pathError, byte locLength, string sector, string row, string number, int cemeteryId)
         {
             var result = new List<Polygon>();
 
@@ -370,7 +370,7 @@ namespace CemeteryWeb
         }
 
         //TODO add filename as a call parameter
-        public static string ReadGraveCoordsFromFileSaveDb(ParafisDBTestoweEntities db)
+        public static string ReadGraveCoordsFromFileSaveDb(CmentarioDBEntities db)
 		{
 			var result = string.Empty;
 			var path = AppDomain.CurrentDomain.BaseDirectory + @"\Data\" + "graves.cords.txt";
@@ -402,7 +402,7 @@ namespace CemeteryWeb
 			return "Zaimportowano koordynaty grobów";
 		}
 
-		private static void FindGraveAssignCoordinate(ParafisDBTestoweEntities db, string line, int coordsId)
+		private static void FindGraveAssignCoordinate(CmentarioDBEntities db, string line, int coordsId)
 		{
 			var locParams = line.Split(';');
 			var sector = locParams[0];
@@ -425,7 +425,7 @@ namespace CemeteryWeb
 			}
 		}
 
-        public static User GetLoggedUser(ParafisDBTestoweEntities db, LoginModel model)
+        public static User GetLoggedUser(CmentarioDBEntities db, LoginModel model)
         {
             if (model == null)
                 return null;
@@ -433,7 +433,7 @@ namespace CemeteryWeb
             return GetUserData(db, model.Username, GetHashedPass(model.Password));
         }
 
-        private static User GetUserData(ParafisDBTestoweEntities db, string login, string password)
+        private static User GetUserData(CmentarioDBEntities db, string login, string password)
         {
             if ((login == null) || (password == null))
                 return null;
@@ -459,7 +459,7 @@ namespace CemeteryWeb
             }
         }
 
-        public static GraveEditModel GetGraveDetails(ParafisDBTestoweEntities db, int id)
+        public static GraveEditModel GetGraveDetails(CmentarioDBEntities db, int id)
 		{
 			var info = db.VGravePersonDetail.Find(id);
 
@@ -474,12 +474,12 @@ namespace CemeteryWeb
             return new GraveEditModel(info, photos);
         }
 
-        public static Dictionary<int, string> GetGravePhotos(ParafisDBTestoweEntities db, int id)
+        public static Dictionary<int, string> GetGravePhotos(CmentarioDBEntities db, int id)
         {
             return db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == id).ToDictionary(z => z.Id, z => z.PhotoFile);
         }
 
-        public static string UpdateGraveCoordinates(ParafisDBTestoweEntities db, int graveId, string[][] points, byte locLength)
+        public static string UpdateGraveCoordinates(CmentarioDBEntities db, int graveId, string[][] points, byte locLength)
         {
             var result = string.Empty;
 
@@ -540,7 +540,7 @@ namespace CemeteryWeb
             return result;
         }
 
-        private static int? CheckIfGraveExists(ParafisDBTestoweEntities db, GraveAddModel model)
+        private static int? CheckIfGraveExists(CmentarioDBEntities db, GraveAddModel model)
         {
             var g = db.CemeteryGrave.Where(x => x.FkCemetery == model.FkCemetery
                                     && ((model.LocLength >= 3 && model.AttributeTwo != string.Empty) ? x.LocationAttributeTwo == model.AttributeTwo : true)
@@ -554,7 +554,7 @@ namespace CemeteryWeb
             return (g != null) ? g.Id : -1;
         }
 
-        private static string AddGraveDB(ParafisDBTestoweEntities db, GraveAddModel model)
+        private static string AddGraveDB(CmentarioDBEntities db, GraveAddModel model)
         {
             string result = string.Empty;
 
@@ -585,7 +585,7 @@ namespace CemeteryWeb
             }
         }
 
-        private static string CheckIfPersonExists(ParafisDBTestoweEntities db, GraveAddModel model)
+        private static string CheckIfPersonExists(CmentarioDBEntities db, GraveAddModel model)
         {
             DateTime dtBirth = DateTime.Now;
             DateTime dtDeath = DateTime.Now;
@@ -620,7 +620,7 @@ namespace CemeteryWeb
             return (g != null) ? $"Osoba już istnieje. Nie można dodać osoby z tymi samymi danymi" : string.Empty;
         }
 
-        private static string AddPersonDB(ParafisDBTestoweEntities db, GraveAddModel model)
+        private static string AddPersonDB(CmentarioDBEntities db, GraveAddModel model)
         {
             string result = string.Empty;
             DateTime dt;
@@ -680,7 +680,7 @@ namespace CemeteryWeb
             }
         }
 
-        private static string AddGravePersonDB(ParafisDBTestoweEntities db, GraveAddModel model)
+        private static string AddGravePersonDB(CmentarioDBEntities db, GraveAddModel model)
         {
             string result = string.Empty;
             DateTime dt;
@@ -740,7 +740,7 @@ namespace CemeteryWeb
             }
         }
 
-        public static string AddGrave(ParafisDBTestoweEntities db, GraveAddModel model)
+        public static string AddGrave(CmentarioDBEntities db, GraveAddModel model)
         {
             string result = string.Empty;
 
@@ -785,7 +785,7 @@ namespace CemeteryWeb
             return result;
         }
 
-        public static string EditGrave(ParafisDBTestoweEntities db, GraveEditModel model)
+        public static string EditGrave(CmentarioDBEntities db, GraveEditModel model)
         {
             string result = string.Empty;
 
@@ -824,7 +824,7 @@ namespace CemeteryWeb
             return result;
         }
 
-        public static string DeleteGrave(ParafisDBTestoweEntities db, int idGrave)
+        public static string DeleteGrave(CmentarioDBEntities db, int idGrave)
         {
             try
             {
@@ -851,7 +851,7 @@ namespace CemeteryWeb
             }
         }
 
-        public static string UpdatePerson(ParafisDBTestoweEntities db, GraveEditModel model)
+        public static string UpdatePerson(CmentarioDBEntities db, GraveEditModel model)
         {
             string result = string.Empty;
 
@@ -913,7 +913,7 @@ namespace CemeteryWeb
             return result;
         }
 
-        private static string AddPhotoToGrave(ParafisDBTestoweEntities db, int graveId, string fileName)
+        private static string AddPhotoToGrave(CmentarioDBEntities db, int graveId, string fileName)
         {
             string result = string.Empty;
 
@@ -936,7 +936,7 @@ namespace CemeteryWeb
             }
         }
 
-        private static int CheckIfPhotoExist(ParafisDBTestoweEntities db, int graveId, string fileName)
+        private static int CheckIfPhotoExist(CmentarioDBEntities db, int graveId, string fileName)
         {
             return db.CemeteryGravePhoto.Where(x => x.FkCemeteryGrave == graveId && x.PhotoFile == fileName).Count();
         }
@@ -970,7 +970,7 @@ namespace CemeteryWeb
         }
 
         //TODO result as string and try-catch
-        public static void UpdateCemeteryGrave(ParafisDBTestoweEntities db, GraveEditModel model)
+        public static void UpdateCemeteryGrave(CmentarioDBEntities db, GraveEditModel model)
         {
             CemeteryGrave grave;
             CemeteryGravePerson gp;
@@ -1037,7 +1037,7 @@ namespace CemeteryWeb
                 db.SaveChanges();
         }
 
-        public static string DeletePhoto(ParafisDBTestoweEntities db, int photoId)
+        public static string DeletePhoto(CmentarioDBEntities db, int photoId)
         {
             string result = string.Empty;
             string fileName = string.Empty;
@@ -1063,6 +1063,21 @@ namespace CemeteryWeb
             {
                 return $"Wystąpił wyjątek podczas kasowania zdjęcia: {photoId}. {ex.Message}, {ex.InnerException.Message}";
             }
+        }
+
+        public static string GetUnassignedCordsList(CmentarioDBEntities db)
+        {
+            return string.Empty;
+        }
+
+        public static string GetNoCordsGraveList(CmentarioDBEntities db)
+        {
+            return string.Empty;
+        }
+
+        public static string GetLackingParamsGraveList(CmentarioDBEntities db)
+        {
+            return string.Empty;
         }
     }
 }
