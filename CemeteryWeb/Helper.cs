@@ -556,7 +556,18 @@ namespace CemeteryWeb
 			return (g != null) ? g.Id : -1;
 		}
 
-		private static string AddGraveDB(CmentarioDBEntities db, GraveAddModel model)
+        private static int? CheckIfGraveExists(CmentarioDBEntities db, int idCemetery, byte locLength, string locOne, string locTwo, string locThree, string locFour)
+        {
+            var g = db.CemeteryGrave.Where(x => x.FkCemetery == idCemetery
+                                    && ((locLength >= 3 && locTwo != string.Empty) ? x.LocationAttributeTwo == locTwo : true)
+                                    && ((locLength >= 2 && locThree != string.Empty) ? x.LocationAttributeThree == locThree : true)
+                                    && ((locLength >= 1 && locFour != string.Empty) ? x.LocationAttributeFour == locFour : true)
+                                    ).FirstOrDefault();
+
+            return (g != null) ? g.Id : -1;
+        }
+
+        private static string AddGraveDB(CmentarioDBEntities db, GraveAddModel model)
 		{
 			string result = string.Empty;
 
@@ -1067,9 +1078,24 @@ namespace CemeteryWeb
 			}
 		}
 
-		public static string GetUnassignedCordsList(CmentarioDBEntities db)
+		public static List<CordsModel> GetUnassignedCordsList(CmentarioDBEntities db)
 		{
-			return string.Empty;
+            var result = new List<CordsModel>();
+
+			var cords = db.VUnassignedCords.ToList();
+
+			foreach (var c in cords)
+				result.Add(new CordsModel(c));
+
+            foreach (var r in result)
+            {
+                var id = CheckIfGraveExists(db, 1, 3, r.LocationAttributeOne, r.LocationAttributeTwo, r.LocationAttributeThree, r.LocationAttributeFour);
+
+				r.FkGrave = id;
+				r.GraveExists = id == null;
+            }
+
+            return result;
 		}
 
 		public static List<GraveParamsModel> GetNoCordsGraveList(CmentarioDBEntities db)

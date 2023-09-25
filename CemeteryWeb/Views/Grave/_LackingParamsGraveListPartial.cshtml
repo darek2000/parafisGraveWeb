@@ -9,7 +9,7 @@
 {
 	<div class="row">
 		<div class="col-md-10">
-			<h3>Znaleziono zmarłych: <span style="color: red">@Model.Count()</span></h3>
+			<h3>Groby z niepełną lokalizacją: <span style="color: red">@Model.Count()</span></h3>
 		</div>
 	</div>
 	<div class="row">
@@ -80,7 +80,7 @@
 							<button onclick="editGrave('@item.Id');">Edytuj</button>
 						</td>
 						<td>
-							<a target="_blank" href="/Grave/Edit/@item.Id">Edycja</a>
+							<a target="_blank" href="/Grave/EditParams/@item.Id">Edycja</a>
 						</td>
 					</tr>
 					@*<tr>

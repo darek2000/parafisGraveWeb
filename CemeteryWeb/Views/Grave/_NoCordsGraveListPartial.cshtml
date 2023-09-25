@@ -1,1 +1,111 @@
-﻿
+﻿@model List<CemeteryWeb.Models.GraveParamsModel>
+
+<style>
+	#searchresult td {
+		padding: 20px;
+	}
+</style>
+@if (Model != null)
+{
+	<div class="row">
+		<div class="col-md-10">
+			<h3>Groby bez obrysów: <span style="color: red">@Model.Count()</span></h3>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<table id="searchresult">
+				<tr>
+					@*<td>Zdjęcie</td>*@
+					<td>Imię i nazwisko</td>
+					<td>Sektor</td>
+					<td>Rząd</td>
+					<td>Numer</td>
+					<td>Rezerw.</td>
+					<td>Weryfik.</td>
+					<td>Gr ID</td>
+					<td>Akcja</td>
+					<td>Link</td>
+				</tr>
+				@foreach (var item in Model)
+				{
+
+					<tr>
+						@*<td>
+								<a target="_blank" href='..\GravePhotos\@item.FileName'><img src="..\GravePhotos\@item.FileName" width="180" /></a>
+							</td>*@
+						<td>
+							@foreach (var p in item.Dead)
+							{
+								<h4><span>@p</span></h4>
+							}
+						</td>
+
+
+						<td><h4><span>@item.LocationAttributeTwo</span></h4></td>
+						<td>
+							<h4><span>@item.LocationAttributeThree</span></h4>
+						</td>
+						<td>
+							<h4><span>@item.LocationAttributeFour</span></h4>
+						</td>
+						<td>
+							<h4>
+								@if (item.IsReserved == true)
+								{
+									<span>Tak</span>
+								}
+								else
+								{
+									<span>Nie</span>
+								}
+							</h4>
+						</td>
+						<td>
+							<h4>
+								@if (item.IsForVerification == true)
+								{
+									<span>Tak</span>
+								}
+								else
+								{
+									<span>Nie</span>
+								}
+							</h4>
+						</td>
+						<td>
+							<h4><span>@item.Id</span></h4>
+						</td>
+						<td>
+							<button onclick="editGrave('@item.Id');">Edytuj</button>
+						</td>
+						<td>
+							<a target="_blank" href="/Grave/EditParams/@item.Id">Edycja</a>
+						</td>
+					</tr>
+					@*<tr>
+							<td colspan="14" style="margin: 0px; padding: 0px;">
+								<span><b>Zdjęcia: </b></span>
+								@foreach (var pic in item.PhotoList)
+								{
+									<span><a target="_blank" href="~/GravePhotos/@pic">@pic</a>&nbsp;</span>;
+								}
+							</td>
+						</tr>*@
+					<tr>
+						<td colspan="14" style="border-bottom: 1px solid black; margin: 0px; padding: 0px;">
+						</td>
+					</tr>
+				}
+			</table>
+		</div>
+	</div>
+}
+
+<script>
+	function editGrave(graveId) {
+
+		window.location.href = '@Url.Action("EditParams", "Grave")/' + graveId;
+	}
+</script>
+

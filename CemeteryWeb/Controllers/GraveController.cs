@@ -139,8 +139,7 @@ namespace CemeteryWeb.Controllers
 
             if (nameFilter == "unassignedcords")
             {
-                model = Helper.GetUnassignedCordsList(_dbContext);
-                return PartialView("_UnassignedCordsListPartial", model);
+                return PartialView("_UnassignedCordsListPartial", Helper.GetUnassignedCordsList(_dbContext));
             }
             else if (nameFilter == "nocords")
             {

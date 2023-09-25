@@ -1,0 +1,75 @@
+﻿@model List<CemeteryWeb.Models.CordsModel>
+
+<style>
+	#searchresult td {
+		padding: 20px;
+	}
+</style>
+@if (Model != null)
+{
+	<div class="row">
+		<div class="col-md-10">
+			<h3>Nieprzypisane obrysy: <span style="color: red">@Model.Count()</span></h3>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<table id="searchresult">
+				<tr>
+					<td>Sektor (rozpoznany)</td>
+					<td>Rząd (rozpoznany)</td>
+					<td>Numer (rozpoznany)</td>
+					<td>Grób istnieje</td>
+					<td>Coord ID</td>
+					<td>Coordinate</td>
+					<td>Edycja</td>
+					<td>Link</td>
+					<td>Utwórz</td>
+					<td>Skasuj</td>
+				</tr>
+				@foreach (var item in Model)
+				{
+
+					<tr>
+						<td><h4><span>@item.LocationAttributeTwo</span></h4></td>
+						<td><h4><span>@item.LocationAttributeThree</span></h4></td>
+						<td><h4><span>@item.LocationAttributeFour</span></h4></td>
+						@if (item.GraveExists == true)
+						{
+							<td><h4><span>TAK</span></h4></td>
+						}
+						else
+						{
+							<td><h4><span>NIE</span></h4></td>
+						}
+						<td><h4><span>@item.Id</span></h4></td>
+						<td><h4><span>@item.Cords.Substring(0, 20)</span></h4></td>
+						<td>
+							<button onclick="editGrave('@item.Id');">Edytuj</button>
+						</td>
+						<td>
+							<a target="_blank" href="/Grave/EditCords/@item.Id">Edycja</a>
+						</td>
+						<td>
+							<button onclick="editGrave('@item.Id');">Utwórz grób i przypisz obrys</button>
+						</td>
+						<td>
+							<button onclick="editGrave('@item.Id');">Skasuj</button>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="14" style="border-bottom: 1px solid black; margin: 0px; padding: 0px;">
+						</td>
+					</tr>
+				}
+			</table>
+		</div>
+	</div>
+}
+
+<script>
+	function editGrave(graveId) {
+
+		window.location.href = '@Url.Action("EditCords", "Grave")/' + graveId;
+	}
+</script>
