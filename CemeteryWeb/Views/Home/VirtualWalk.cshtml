@@ -1,0 +1,80 @@
+﻿@{
+	Layout = "";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cmentarz Parafii w Sieniawie Żarskiej - Wirtualny spacer</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
+	<style>
+		@Html.Encode("@-ms-viewport { width: device-width; }")
+	</style>
+	<link rel="stylesheet" href="~/Scripts/VirtualWalk/vendor/reset.min.css">
+	<link rel="stylesheet" href="~/Scripts/VirtualWalk/style.css">
+	<script>
+		var urlPrefix = "/Images/VirtualWalk/tiles";
+	</script>
+</head>
+<body class="multiple-scenes view-control-buttons">
+
+	<div id="pano"></div>
+
+	<div id="sceneList">
+		<ul class="scenes">
+
+		@{
+			Html.RenderPartial("_Scenes");
+		}
+
+		</ul>
+	</div>
+
+	<div id="titleBar">
+		<h1 class="sceneName"></h1>
+	</div>
+
+	<a href="javascript:void(0)" id="autorotateToggle">
+		<img class="icon off" src="~/Images/VirtualWalk/img/play.png">
+		<img class="icon on" src="~/Images/VirtualWalk/img/pause.png">
+	</a>
+
+	<a href="javascript:void(0)" id="fullscreenToggle">
+		<img class="icon off" src="~/Images/VirtualWalk/img/fullscreen.png">
+		<img class="icon on" src="~/Images/VirtualWalk/img/windowed.png">
+	</a>
+
+	<a href="javascript:void(0)" id="sceneListToggle">
+		<img class="icon off" src="~/Images/VirtualWalk/img/expand.png">
+		<img class="icon on" src="~/Images/VirtualWalk/img/collapse.png">
+	</a>
+
+	<a href="javascript:void(0)" id="viewUp" class="viewControlButton viewControlButton-1">
+		<img class="icon" src="~/Images/VirtualWalk/img/up.png">
+	</a>
+	<a href="javascript:void(0)" id="viewDown" class="viewControlButton viewControlButton-2">
+		<img class="icon" src="~/Images/VirtualWalk/img/down.png">
+	</a>
+	<a href="javascript:void(0)" id="viewLeft" class="viewControlButton viewControlButton-3">
+		<img class="icon" src="~/Images/VirtualWalk/img/left.png">
+	</a>
+	<a href="javascript:void(0)" id="viewRight" class="viewControlButton viewControlButton-4">
+		<img class="icon" src="~/Images/VirtualWalk/img/right.png">
+	</a>
+	<a href="javascript:void(0)" id="viewIn" class="viewControlButton viewControlButton-5">
+		<img class="icon" src="~/Images/VirtualWalk/img/plus.png">
+	</a>
+	<a href="javascript:void(0)" id="viewOut" class="viewControlButton viewControlButton-6">
+		<img class="icon" src="~/Images/VirtualWalk/img/minus.png">
+	</a>
+
+	<script src="~/Scripts/VirtualWalk/vendor/screenfull.min.js"></script>
+	<script src="~/Scripts/VirtualWalk/vendor/bowser.min.js"></script>
+	<script src="~/Scripts/VirtualWalk/vendor/marzipano.js"></script>
+
+	<script src="~/Scripts/VirtualWalk/data.js"></script>
+	<script src="~/Scripts/VirtualWalk/index.js"></script>
+
+</body>
+</html>

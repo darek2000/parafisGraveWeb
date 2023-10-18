@@ -31,9 +31,10 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("0.0.0.24")]
-[assembly: AssemblyFileVersion("0.0.0.24")]
+[assembly: AssemblyVersion("0.0.0.25")]
+[assembly: AssemblyFileVersion("0.0.0.25")]
 
+//0.0.0.25 Added virtual walk
 //0.0.0.24 Added editing orphan cords and graves without cords
 //0.0.0.23 Added editing lacking loc params
 //0.0.0.22 Updated db structure, added diagnostic features

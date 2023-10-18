@@ -30,5 +30,10 @@ namespace CemeteryWeb.Controllers
 
             return View();
         }
-    }
+
+		public ActionResult VirtualWalk()
+		{
+			return View();
+		}
+	}
 }
